@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     var houseList = [House]()
     
     var handleAuth: AuthStateDidChangeListenerHandle?
-    var currentUser:FirebaseAuth.User?
+    var currentUser: FirebaseAuth.User?
     let database = Firestore.firestore()
     
     override func viewWillAppear(_ animated: Bool) {
