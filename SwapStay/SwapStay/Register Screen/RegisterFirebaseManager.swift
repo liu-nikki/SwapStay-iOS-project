@@ -43,16 +43,6 @@ extension RegisterViewController{
                 let user = User(name: name, email: email.lowercased())
                 self.setNameOfTheUserInFirebaseAuth(user: user)
             }
-//            Auth.auth().createUser(withEmail: email, password: password, completion: {result, error in
-//                if error == nil{
-//                    //MARK: the user creation is successful...
-//                    let contact = Contact(name: name, email: email.lowercased())
-//                    self.setNameOfTheUserInFirebaseAuth(contact: contact)
-//                }else{
-//                    //MARK: there is a error creating the user...
-//                    print(error)
-//                }
-//            })
         }
     }
     

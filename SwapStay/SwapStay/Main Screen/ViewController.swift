@@ -46,7 +46,7 @@ class ViewController: UIViewController {
                 self.setupRightBarButton(isLoggedin: true)
                 
                 //MARK: Observe Firestore database to display the contacts list...
-                // all users are friends with other, add all users except the signed in user
+              
 
             }
         }
@@ -55,7 +55,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //MARK: hide Keyboard on tapping the screen...
+        //MARK: set up on registerButton tapped.
+        mainScreen.registerButton.addTarget(self, action: #selector(onRegisterButtonTapped), for: .touchUpInside)
+        
+        //
+        
+        //MARK: hide Keyboard on tapping the screen.
         hideKeyboardWhenTappedAround()
         
         
@@ -66,6 +71,12 @@ class ViewController: UIViewController {
 //       
 //        //MARK: removing the separator line...
 //        mainScreen.tableViewHouseInfo.separatorStyle = .none
+    }
+    
+    @objc func onRegisterButtonTapped(){
+        //MARK: presenting the RegisterViewController...
+        let registerViewController = RegisterViewController()
+        navigationController?.pushViewController(registerViewController, animated: true)
     }
     
     //MARK: hide keyboard logic.

@@ -11,6 +11,7 @@ import FirebaseFirestoreSwift
 // adopt the Codable protocol to enable encoding and decoding.
 struct User: Codable{
     @DocumentID var id: String?
+
     var name: String
     var email: String
     

@@ -213,7 +213,7 @@ class MainScreenView: UIView {
             loginButton.leadingAnchor.constraint(equalTo: contentWrapper.leadingAnchor, constant: 16),
             loginButton.trailingAnchor.constraint(equalTo: contentWrapper.trailingAnchor, constant: -16),
             
-            registerButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 64),
+            registerButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 56),
             registerButton.centerXAnchor.constraint(equalTo: contentWrapper.centerXAnchor),
             registerButton.leadingAnchor.constraint(equalTo: contentWrapper.leadingAnchor, constant: 120),
             registerButton.trailingAnchor.constraint(equalTo: contentWrapper.trailingAnchor, constant: -120),

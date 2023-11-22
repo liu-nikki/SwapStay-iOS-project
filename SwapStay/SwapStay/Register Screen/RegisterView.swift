@@ -8,6 +8,15 @@
 import UIKit
 
 class RegisterView: UIView {
+    var labelAppTitle: UILabel!
+    var buttonAddProfilePhoto: UIButton!
+    var textUserName: UITextField!
+    var textPhoneNumber: UITextField!
+    var textAddress: UITextField!
+    var textCity: UITextField!
+    var textState: UITextField!
+    var textZipCode: UITextField!
+    
     var textFieldName: UITextField!
     var textFieldEmail: UITextField!
     var textFieldPassword: UITextField!
@@ -17,6 +26,16 @@ class RegisterView: UIView {
     override init(frame: CGRect){
         super.init(frame: frame)
         self.backgroundColor = .white
+        
+        setuplabelAppTitle()
+        setupbuttonAddProfilePhoto()
+        setupTextUserName()
+        setupTextPhoneNumber()
+        setupTextAddress()
+        setupTextCity()
+        setupTextState()
+        setupTextZipCode()
+        
         setuptextFieldName()
         setuptextFieldEmail()
         setuptextFieldPassword()
@@ -24,6 +43,92 @@ class RegisterView: UIView {
         setupbuttonRegister()
         
         initConstraints()
+    }
+    
+    func setuplabelAppTitle(){
+        labelAppTitle = UILabel()
+        labelAppTitle.numberOfLines = 2
+        labelAppTitle.text = "Swap Stay"
+        labelAppTitle.font = UIFont(name: "Arial-BoldMT", size: 40)
+        labelAppTitle.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(labelAppTitle)
+    }
+    
+    func setupbuttonAddProfilePhoto() {
+        buttonAddProfilePhoto = UIButton(type: .system)
+        //et a background to it, which shows a camera icon instead of text. So, we set an empty title
+        buttonAddProfilePhoto.setTitle("", for: .normal)
+        //set an image of the system name, "camera.fill".
+        buttonAddProfilePhoto.setImage(UIImage(systemName: "camera.fill"), for: .normal)
+        //contents of this button can fill the whole width of the button
+        buttonAddProfilePhoto.contentHorizontalAlignment = .fill
+        //image of the button fill the height of the button
+        buttonAddProfilePhoto.contentVerticalAlignment = .fill
+        //set the frame of the image so that the image can be loaded with the content mode
+        buttonAddProfilePhoto.imageView?.contentMode = .scaleAspectFit
+        buttonAddProfilePhoto.showsMenuAsPrimaryAction = true
+        buttonAddProfilePhoto.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(buttonAddProfilePhoto)
+    }
+    
+    func setupTextUserName(){
+        textUserName = UITextField()
+        textUserName.placeholder = "User Name"
+        textUserName.keyboardType = .default
+        textUserName.borderStyle = .roundedRect
+        textUserName.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(textUserName)
+    }
+    
+    func setupTextPhoneNumber() {
+        textPhoneNumber = UITextField()
+        textPhoneNumber.placeholder = "Phone"
+        textPhoneNumber.borderStyle = .roundedRect
+        // set keypad type is phonePad
+        textPhoneNumber.keyboardType = .phonePad
+        textPhoneNumber.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(textPhoneNumber)
+        
+    }
+    
+    func setupTextAddress() {
+        textAddress = UITextField()
+        textAddress.placeholder = "Address"
+        textAddress.borderStyle = .roundedRect
+        textAddress.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(textAddress)
+        
+    }
+    
+    func setupTextCity() {
+        textCity = UITextField()
+        textCity.placeholder = "City"
+        textCity.borderStyle = .roundedRect
+        textCity.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(textCity)
+        
+    }
+    
+    func setupTextState() {
+        textState = UITextField()
+        textState.placeholder = "State"
+        textState.borderStyle = .roundedRect
+        textState.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(textState)
+        
+    }
+    
+    func setupTextZipCode() {
+        textZipCode = UITextField()
+        textZipCode.placeholder = "ZIP"
+        textZipCode.borderStyle = .roundedRect
+        // set keypad type is phonePad
+        textZipCode.keyboardType = .numberPad
+        // limit digit to 5
+        textZipCode.textContentType = .postalCode
+        textZipCode.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(textZipCode)
+        
     }
     
     func setuptextFieldName(){
@@ -76,7 +181,19 @@ class RegisterView: UIView {
     
     func initConstraints(){
         NSLayoutConstraint.activate([
-            textFieldName.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 32),
+            labelAppTitle.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 2),
+            labelAppTitle.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            
+            buttonAddProfilePhoto.topAnchor.constraint(equalTo: labelAppTitle.bottomAnchor, constant: 16),
+            buttonAddProfilePhoto.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            buttonAddProfilePhoto.widthAnchor.constraint(equalToConstant: 100),
+            buttonAddProfilePhoto.heightAnchor.constraint(equalToConstant: 100),
+            
+            textUserName.topAnchor.constraint(equalTo: buttonAddProfilePhoto.bottomAnchor, constant: 16),
+            textUserName.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            textUserName.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
+            
+            textFieldName.topAnchor.constraint(equalTo: textUserName.bottomAnchor, constant: 16),
             textFieldName.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
             textFieldName.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
             
@@ -92,7 +209,36 @@ class RegisterView: UIView {
             textFieldPasswordConfirm.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
             textFieldPasswordConfirm.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
             
-            buttonRegister.topAnchor.constraint(equalTo: textFieldPasswordConfirm.bottomAnchor, constant: 32),
+            textPhoneNumber.topAnchor.constraint(equalTo: textFieldPasswordConfirm.bottomAnchor, constant: 16),
+            textPhoneNumber.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            textPhoneNumber.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
+            
+            textAddress.topAnchor.constraint(equalTo: textPhoneNumber.bottomAnchor, constant: 16),
+            textAddress.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            textAddress.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
+            
+            textCity.topAnchor.constraint(equalTo: textAddress.bottomAnchor, constant: 16),
+            textCity.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            //textCity.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.2),
+            //textCity.trailingAnchor.constraint(equalTo: textState.trailingAnchor, constant: -150),
+            
+            textState.topAnchor.constraint(equalTo: textAddress.bottomAnchor, constant: 16),
+            textState.leadingAnchor.constraint(equalTo: textCity.trailingAnchor, constant: 16),
+            //textState.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.2),
+            //textState.trailingAnchor.constraint(equalTo: textState.leadingAnchor, constant: -100),
+
+            textZipCode.topAnchor.constraint(equalTo: textAddress.bottomAnchor, constant: 16),
+            textZipCode.leadingAnchor.constraint(equalTo: textState.trailingAnchor, constant: 16),
+            //textZipCode.leadingAnchor.constraint(equalTo: textState.trailingAnchor, constant: 50),
+            //textZipCode.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.2),
+            //textZipCode.trailingAnchor.constraint(equalTo: textZipCode.trailingAnchor, constant: -16),
+            textZipCode.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            
+            // Equal Widths for City, State, and Zip Code TextFields
+            textCity.widthAnchor.constraint(equalTo: textState.widthAnchor),
+            textState.widthAnchor.constraint(equalTo: textZipCode.widthAnchor),
+            
+            buttonRegister.topAnchor.constraint(equalTo: textAddress.bottomAnchor, constant: 64),
             buttonRegister.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
         ])
     }

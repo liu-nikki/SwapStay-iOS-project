@@ -9,6 +9,7 @@ import UIKit
 import FirebaseAuth
 
 extension ViewController{
+    
     func setupRightBarButton(isLoggedin: Bool){
         if isLoggedin{
             //MARK: user is logged in...
@@ -74,6 +75,9 @@ extension ViewController{
                 self.signInToFirebase(email: email, password: password)
             }
         })
+    
+        
+        
         
         //MARK: Register Action...
         let registerAction = UIAlertAction(title: "Register", style: .default, handler: {(_) in
