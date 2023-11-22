@@ -12,6 +12,14 @@ class MainScreenView: UIView {
     var labelText: UILabel!
     var tableViewHouseInfo: UITableView!
     
+    var appTitle: UILabel!
+    var appImageView: UIImageView!
+    var loginLabel: UILabel!
+    var loginEmailTextField: UITextField!
+    var loginPasswordTextField: UITextField!
+    var loginButton: UIButton!
+    var registerButton: UIButton!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
@@ -19,10 +27,102 @@ class MainScreenView: UIView {
         setupProfilePic()
         setupLabelText()
         setupTableViewHouseInfo()
+        
+        setupAppTitle()
+        setupAppImageView()
+        setupLoginLabel()
+        setupLoginEmailTextField()
+        setupLoginPasswordTextField()
+        setupLoginButton()
+        setupRegisterButton()
         initConstraints()
     }
     
     //MARK: initializing the UI elements...
+    
+    func setupAppTitle(){
+        appTitle = UILabel()
+        appTitle.numberOfLines = 2
+        appTitle.text = "Swap\n Stay"
+        appTitle.font = UIFont(name: "Arial-BoldMT", size: 40)
+        appTitle.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(appTitle)
+    }
+    
+    func setupAppImageView(){
+        appImageView = UIImageView()
+        appImageView.image = UIImage(named: "AppMS")
+        appImageView.contentMode = .scaleAspectFit
+        appImageView.clipsToBounds = true
+        appImageView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(appImageView)
+    }
+    
+    func setupLoginLabel(){
+        loginLabel = UILabel()
+        loginLabel.text = "Login"
+        loginLabel.font = .boldSystemFont(ofSize: 35)
+        loginLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(loginLabel)
+    }
+    
+    func setupLoginEmailTextField(){
+        loginEmailTextField = UITextField()
+        loginEmailTextField.placeholder = "Email"
+        loginEmailTextField.borderStyle = .roundedRect
+        loginEmailTextField.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(loginEmailTextField)
+    }
+    
+    func setupLoginPasswordTextField(){
+        loginPasswordTextField = UITextField()
+        loginPasswordTextField.placeholder = "Password"
+        loginPasswordTextField.borderStyle = .roundedRect
+        
+        // Create a UIImageView with a lock symbol
+        let lockImageView = UIImageView()
+        lockImageView.image = UIImage(systemName: "lock.fill") // Using a system icon for lock
+        lockImageView.tintColor = .black
+        lockImageView.contentMode = .scaleAspectFit
+        lockImageView.frame = CGRect(x: 0, y: 0, width: lockImageView.intrinsicContentSize.width + 10, height: lockImageView.intrinsicContentSize.height)
+        
+        // Add padding to the left of the image view
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: lockImageView.frame.width + 10, height: lockImageView.frame.height))
+        paddingView.addSubview(lockImageView)
+
+        // Set the lock image view as the left view of the text field
+        loginPasswordTextField.rightView = paddingView
+        loginPasswordTextField.rightViewMode = .always
+        
+        loginPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(loginPasswordTextField)
+    }
+    
+    func setupLoginButton(){
+        loginButton = UIButton()
+        loginButton.setTitle("Login  ➔", for: .normal)
+        //set the button font to 20
+        loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        loginButton.setTitleColor(.white, for: .normal)
+        loginButton.backgroundColor = .black
+        loginButton.layer.cornerRadius = 3
+        // set the button height to 20
+        loginButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(loginButton)
+    }
+    
+    func setupRegisterButton(){
+        registerButton = UIButton()
+        registerButton.setTitle("Register", for: .normal)
+        registerButton.setTitleColor(.white, for: .normal)
+        //set the button color to black
+        registerButton.backgroundColor = .black
+        registerButton.layer.cornerRadius = 5
+        registerButton.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(registerButton)
+    }
+    
     func setupProfilePic(){
         profilePic = UIImageView()
         profilePic.image = UIImage(systemName: "person.circle")?.withRenderingMode(.alwaysOriginal)
@@ -63,6 +163,34 @@ class MainScreenView: UIView {
             tableViewHouseInfo.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
             tableViewHouseInfo.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             tableViewHouseInfo.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            
+            appTitle.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 2),
+            appTitle.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            
+            appImageView.topAnchor.constraint(equalTo: appTitle.bottomAnchor, constant: 2),
+            appImageView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            appImageView.heightAnchor.constraint(equalToConstant: 350),
+            appImageView.widthAnchor.constraint(equalToConstant: 700),
+            
+            loginLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 400),
+            loginLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            
+            loginEmailTextField.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 24),
+            loginEmailTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            loginEmailTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            
+            loginPasswordTextField.topAnchor.constraint(equalTo: loginEmailTextField.bottomAnchor, constant: 16),
+            loginPasswordTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            loginPasswordTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            
+            loginButton.topAnchor.constraint(equalTo: loginPasswordTextField.bottomAnchor, constant: 16),
+            loginButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            loginButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            
+            registerButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 40),
+            registerButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 120),
+            registerButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -120),
+            
         ])
     }
     

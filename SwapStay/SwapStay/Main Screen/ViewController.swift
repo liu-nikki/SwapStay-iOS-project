@@ -30,8 +30,7 @@ class ViewController: UIViewController {
             if user == nil{
                 //MARK: not signed in.
                 self.currentUser = nil
-                self.mainScreen.labelText.text = "Please sign in to see the messages!"
-                
+                //self.mainScreen.labelText.text = "Please sign in to see the messages!"
                 //MARK: Reset tableView.
                 self.houseList.removeAll()
                 self.mainScreen.tableViewHouseInfo.reloadData()
@@ -56,7 +55,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Swap Stay"
+        //title = "Swap Stay"
         
 //        //MARK: patching table view delegate and data source...
 //        mainScreen.tableViewHouseInfo.delegate = self

@@ -88,6 +88,7 @@
 		1518E68B2B094653004A75D5 = {
 			isa = PBXGroup;
 			children = (
+				B85063E02B0D9CE30030343C /* Show Profile Screen */,
 				1518E6962B094653004A75D5 /* SwapStay */,
 				1518E6952B094653004A75D5 /* Products */,
 				1518E6DD2B098509004A75D5 /* Frameworks */,
@@ -175,6 +176,13 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B85063E02B0D9CE30030343C /* Show Profile Screen */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Show Profile Screen";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
