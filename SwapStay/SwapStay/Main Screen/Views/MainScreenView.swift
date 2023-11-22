@@ -8,6 +8,9 @@
 import UIKit
 
 class MainScreenView: UIView {
+    
+    var contentWrapper:UIScrollView!
+    var contentView: UIView!
     var profilePic: UIImageView!
     var labelText: UILabel!
     var tableViewHouseInfo: UITableView!
@@ -24,6 +27,7 @@ class MainScreenView: UIView {
         super.init(frame: frame)
         self.backgroundColor = .white
         
+        setupContentWrapper()
         setupProfilePic()
         setupLabelText()
         setupTableViewHouseInfo()
@@ -39,6 +43,16 @@ class MainScreenView: UIView {
     }
     
     //MARK: initializing the UI elements...
+
+    func setupContentWrapper(){
+        contentWrapper = UIScrollView()
+        contentWrapper.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(contentWrapper)
+        
+        contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentWrapper.addSubview(contentView)
+    }
     
     func setupAppTitle(){
         appTitle = UILabel()
@@ -46,7 +60,7 @@ class MainScreenView: UIView {
         appTitle.text = "Swap\n Stay"
         appTitle.font = UIFont(name: "Arial-BoldMT", size: 40)
         appTitle.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(appTitle)
+        contentWrapper.addSubview(appTitle)
     }
     
     func setupAppImageView(){
@@ -55,7 +69,7 @@ class MainScreenView: UIView {
         appImageView.contentMode = .scaleAspectFit
         appImageView.clipsToBounds = true
         appImageView.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(appImageView)
+        contentWrapper.addSubview(appImageView)
     }
     
     func setupLoginLabel(){
@@ -63,7 +77,7 @@ class MainScreenView: UIView {
         loginLabel.text = "Login"
         loginLabel.font = .boldSystemFont(ofSize: 35)
         loginLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(loginLabel)
+        contentWrapper.addSubview(loginLabel)
     }
     
     func setupLoginEmailTextField(){
@@ -71,7 +85,7 @@ class MainScreenView: UIView {
         loginEmailTextField.placeholder = "Email"
         loginEmailTextField.borderStyle = .roundedRect
         loginEmailTextField.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(loginEmailTextField)
+        contentWrapper.addSubview(loginEmailTextField)
     }
     
     func setupLoginPasswordTextField(){
@@ -95,7 +109,7 @@ class MainScreenView: UIView {
         loginPasswordTextField.rightViewMode = .always
         
         loginPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(loginPasswordTextField)
+        contentWrapper.addSubview(loginPasswordTextField)
     }
     
     func setupLoginButton(){
@@ -109,7 +123,7 @@ class MainScreenView: UIView {
         // set the button height to 20
         loginButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         loginButton.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(loginButton)
+        contentWrapper.addSubview(loginButton)
     }
     
     func setupRegisterButton(){
@@ -120,7 +134,7 @@ class MainScreenView: UIView {
         registerButton.backgroundColor = .black
         registerButton.layer.cornerRadius = 5
         registerButton.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(registerButton)
+        contentWrapper.addSubview(registerButton)
     }
     
     func setupProfilePic(){
@@ -130,67 +144,80 @@ class MainScreenView: UIView {
         profilePic.clipsToBounds = true
         profilePic.layer.masksToBounds = true
         profilePic.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(profilePic)
+        contentWrapper.addSubview(profilePic)
     }
     
     func setupLabelText(){
         labelText = UILabel()
         labelText.font = .boldSystemFont(ofSize: 14)
         labelText.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(labelText)
+        contentWrapper.addSubview(labelText)
     }
     
     func setupTableViewHouseInfo(){
         tableViewHouseInfo = UITableView()
         tableViewHouseInfo.register(HouseTableViewCell.self, forCellReuseIdentifier: Configs.tableViewHouseID)
         tableViewHouseInfo.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(tableViewHouseInfo)
+        contentWrapper.addSubview(tableViewHouseInfo)
     }
     
     //MARK: setting up constraints...
     func initConstraints(){
         NSLayoutConstraint.activate([
-            profilePic.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 8),
+            //MARK: contentWrapper constraints
+            contentWrapper.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            contentWrapper.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+            contentWrapper.widthAnchor.constraint(equalTo:self.safeAreaLayoutGuide.widthAnchor),
+            contentWrapper.heightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.heightAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: contentWrapper.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: contentWrapper.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: contentWrapper.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: contentWrapper.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: contentWrapper.widthAnchor),
+            
+            profilePic.topAnchor.constraint(equalTo: contentWrapper.topAnchor, constant: 8),
             profilePic.widthAnchor.constraint(equalToConstant: 32),
             profilePic.heightAnchor.constraint(equalToConstant: 32),
-            profilePic.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            profilePic.leadingAnchor.constraint(equalTo: contentWrapper.leadingAnchor, constant: 16),
             
-            labelText.topAnchor.constraint(equalTo: profilePic.topAnchor),
-            labelText.bottomAnchor.constraint(equalTo: profilePic.bottomAnchor),
-            labelText.leadingAnchor.constraint(equalTo: profilePic.trailingAnchor, constant: 8),
+//            labelText.topAnchor.constraint(equalTo: profilePic.topAnchor),
+//            labelText.bottomAnchor.constraint(equalTo: profilePic.bottomAnchor),
+//            labelText.leadingAnchor.constraint(equalTo: profilePic.trailingAnchor, constant: 8),
+//            
+//            tableViewHouseInfo.topAnchor.constraint(equalTo: profilePic.bottomAnchor, constant: 8),
+//            tableViewHouseInfo.bottomAnchor.constraint(equalTo: contentWrapper.bottomAnchor, constant: -8),
+//            tableViewHouseInfo.leadingAnchor.constraint(equalTo: contentWrapper.leadingAnchor, constant: 16),
+//            tableViewHouseInfo.trailingAnchor.constraint(equalTo: contentWrapper.trailingAnchor, constant: -16),
             
-            tableViewHouseInfo.topAnchor.constraint(equalTo: profilePic.bottomAnchor, constant: 8),
-            tableViewHouseInfo.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
-            tableViewHouseInfo.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            tableViewHouseInfo.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            appTitle.topAnchor.constraint(equalTo: contentWrapper.topAnchor, constant: 2),
+            appTitle.centerXAnchor.constraint(equalTo: contentWrapper.centerXAnchor),
             
-            appTitle.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 2),
-            appTitle.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            
-            appImageView.topAnchor.constraint(equalTo: appTitle.bottomAnchor, constant: 2),
-            appImageView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            appImageView.topAnchor.constraint(equalTo: appTitle.bottomAnchor, constant: 8),
+            appImageView.centerXAnchor.constraint(equalTo: contentWrapper.centerXAnchor),
             appImageView.heightAnchor.constraint(equalToConstant: 350),
             appImageView.widthAnchor.constraint(equalToConstant: 700),
             
-            loginLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 400),
-            loginLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            loginLabel.topAnchor.constraint(equalTo: contentWrapper.topAnchor, constant: 400),
+            loginLabel.leadingAnchor.constraint(equalTo: contentWrapper.leadingAnchor, constant: 16),
             
             loginEmailTextField.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 24),
-            loginEmailTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            loginEmailTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            loginEmailTextField.leadingAnchor.constraint(equalTo: contentWrapper.leadingAnchor, constant: 16),
+            loginEmailTextField.trailingAnchor.constraint(equalTo: contentWrapper.trailingAnchor, constant: -16),
             
             loginPasswordTextField.topAnchor.constraint(equalTo: loginEmailTextField.bottomAnchor, constant: 16),
-            loginPasswordTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            loginPasswordTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            loginPasswordTextField.leadingAnchor.constraint(equalTo: contentWrapper.leadingAnchor, constant: 16),
+            loginPasswordTextField.trailingAnchor.constraint(equalTo: contentWrapper.trailingAnchor, constant: -16),
             
             loginButton.topAnchor.constraint(equalTo: loginPasswordTextField.bottomAnchor, constant: 16),
-            loginButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            loginButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            loginButton.leadingAnchor.constraint(equalTo: contentWrapper.leadingAnchor, constant: 16),
+            loginButton.trailingAnchor.constraint(equalTo: contentWrapper.trailingAnchor, constant: -16),
             
-            registerButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 40),
-            registerButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 120),
-            registerButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -120),
-            
+            registerButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 64),
+            registerButton.centerXAnchor.constraint(equalTo: contentWrapper.centerXAnchor),
+            registerButton.leadingAnchor.constraint(equalTo: contentWrapper.leadingAnchor, constant: 120),
+            registerButton.trailingAnchor.constraint(equalTo: contentWrapper.trailingAnchor, constant: -120),
+            registerButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
     }
     

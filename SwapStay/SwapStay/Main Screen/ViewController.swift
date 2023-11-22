@@ -55,7 +55,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //title = "Swap Stay"
+        //MARK: hide Keyboard on tapping the screen...
+        hideKeyboardWhenTappedAround()
+        
+        
         
 //        //MARK: patching table view delegate and data source...
 //        mainScreen.tableViewHouseInfo.delegate = self
@@ -63,6 +66,16 @@ class ViewController: UIViewController {
 //       
 //        //MARK: removing the separator line...
 //        mainScreen.tableViewHouseInfo.separatorStyle = .none
+    }
+    
+    //MARK: hide keyboard logic.
+    func hideKeyboardWhenTappedAround() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+        view.addGestureRecognizer(tapRecognizer)
+    }
+    
+    @objc func hideKeyboardOnTap(){
+        view.endEditing(true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
