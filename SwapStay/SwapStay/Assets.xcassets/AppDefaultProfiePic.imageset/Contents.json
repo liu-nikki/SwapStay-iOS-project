@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "AppMS.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "AppDefaultProfiePic.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

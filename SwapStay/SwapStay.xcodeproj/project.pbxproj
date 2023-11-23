@@ -37,6 +37,12 @@
 		1518E6DC2B097F1A004A75D5 /* ProgressSpinnerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1518E6DB2B097F1A004A75D5 /* ProgressSpinnerDelegate.swift */; };
 		1518E6DF2B098509004A75D5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1518E6DE2B098509004A75D5 /* FirebaseFirestore */; };
 		1518E6E12B0AADA6004A75D5 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1518E6E02B0AADA6004A75D5 /* FirebaseFirestoreSwift */; };
+		B85063E32B0E93DB0030343C /* ShowProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85063E22B0E93DB0030343C /* ShowProfileView.swift */; };
+		B85063E52B0E93F30030343C /* ShowProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85063E42B0E93F30030343C /* ShowProfileViewController.swift */; };
+		B85063E72B0EC4AA0030343C /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85063E62B0EC4AA0030343C /* EditProfileViewController.swift */; };
+		B85063E92B0EC4C10030343C /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85063E82B0EC4C10030343C /* EditProfileView.swift */; };
+		B85063EC2B0ED8650030343C /* HouseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85063EB2B0ED8650030343C /* HouseListView.swift */; };
+		B85063EE2B0ED87A0030343C /* HouseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85063ED2B0ED87A0030343C /* HouseListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +68,12 @@
 		1518E6D62B097EB3004A75D5 /* RegisterProgressIndicatiorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProgressIndicatiorManager.swift; sourceTree = "<group>"; };
 		1518E6D92B097EFB004A75D5 /* ProgressSpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSpinnerViewController.swift; sourceTree = "<group>"; };
 		1518E6DB2B097F1A004A75D5 /* ProgressSpinnerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSpinnerDelegate.swift; sourceTree = "<group>"; };
+		B85063E22B0E93DB0030343C /* ShowProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowProfileView.swift; sourceTree = "<group>"; };
+		B85063E42B0E93F30030343C /* ShowProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowProfileViewController.swift; sourceTree = "<group>"; };
+		B85063E62B0EC4AA0030343C /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		B85063E82B0EC4C10030343C /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		B85063EB2B0ED8650030343C /* HouseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseListView.swift; sourceTree = "<group>"; };
+		B85063ED2B0ED87A0030343C /* HouseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +100,6 @@
 		1518E68B2B094653004A75D5 = {
 			isa = PBXGroup;
 			children = (
-				B85063E02B0D9CE30030343C /* Show Profile Screen */,
 				1518E6962B094653004A75D5 /* SwapStay */,
 				1518E6952B094653004A75D5 /* Products */,
 				1518E6DD2B098509004A75D5 /* Frameworks */,
@@ -106,6 +117,9 @@
 		1518E6962B094653004A75D5 /* SwapStay */ = {
 			isa = PBXGroup;
 			children = (
+				B85063EA2B0ED8430030343C /* House List Screen */,
+				B85063E12B0E93A90030343C /* Edit Profile Screen */,
+				B85063E02B0D9CE30030343C /* Show Profile Screen */,
 				1518E6C42B097087004A75D5 /* Configs.swift */,
 				1518E6C62B09718D004A75D5 /* Data Models */,
 				1518E6CF2B097DE1004A75D5 /* Register Screen */,
@@ -181,8 +195,28 @@
 		B85063E02B0D9CE30030343C /* Show Profile Screen */ = {
 			isa = PBXGroup;
 			children = (
+				B85063E22B0E93DB0030343C /* ShowProfileView.swift */,
+				B85063E42B0E93F30030343C /* ShowProfileViewController.swift */,
 			);
 			path = "Show Profile Screen";
+			sourceTree = "<group>";
+		};
+		B85063E12B0E93A90030343C /* Edit Profile Screen */ = {
+			isa = PBXGroup;
+			children = (
+				B85063E62B0EC4AA0030343C /* EditProfileViewController.swift */,
+				B85063E82B0EC4C10030343C /* EditProfileView.swift */,
+			);
+			path = "Edit Profile Screen";
+			sourceTree = "<group>";
+		};
+		B85063EA2B0ED8430030343C /* House List Screen */ = {
+			isa = PBXGroup;
+			children = (
+				B85063EB2B0ED8650030343C /* HouseListView.swift */,
+				B85063ED2B0ED87A0030343C /* HouseListViewController.swift */,
+			);
+			path = "House List Screen";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,12 +313,18 @@
 				1518E6CA2B0974C8004A75D5 /* UserTableViewManager.swift in Sources */,
 				1518E6982B094653004A75D5 /* AppDelegate.swift in Sources */,
 				1518E6CC2B09753E004A75D5 /* House.swift in Sources */,
+				B85063E72B0EC4AA0030343C /* EditProfileViewController.swift in Sources */,
 				1518E6DC2B097F1A004A75D5 /* ProgressSpinnerDelegate.swift in Sources */,
 				1518E69A2B094653004A75D5 /* SceneDelegate.swift in Sources */,
+				B85063EC2B0ED8650030343C /* HouseListView.swift in Sources */,
+				B85063E92B0EC4C10030343C /* EditProfileView.swift in Sources */,
 				1518E6DA2B097EFB004A75D5 /* ProgressSpinnerViewController.swift in Sources */,
+				B85063EE2B0ED87A0030343C /* HouseListViewController.swift in Sources */,
 				1518E6D52B097E6D004A75D5 /* RegisterFirebaseManager.swift in Sources */,
 				1518E6CE2B097C62004A75D5 /* RightBarButtonManager.swift in Sources */,
 				1518E6C12B096A4B004A75D5 /* MainScreenView.swift in Sources */,
+				B85063E52B0E93F30030343C /* ShowProfileViewController.swift in Sources */,
+				B85063E32B0E93DB0030343C /* ShowProfileView.swift in Sources */,
 				1518E6D72B097EB3004A75D5 /* RegisterProgressIndicatiorManager.swift in Sources */,
 				1518E6C52B097087004A75D5 /* Configs.swift in Sources */,
 				1518E6C82B097215004A75D5 /* User.swift in Sources */,

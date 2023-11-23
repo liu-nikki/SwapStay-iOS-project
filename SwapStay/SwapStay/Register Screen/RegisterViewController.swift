@@ -26,7 +26,8 @@ class RegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         registerView.buttonRegister.addTarget(self, action: #selector(onRegisterTapped), for: .touchUpInside)
-        
+        // Change the Back button color to black
+        self.navigationController?.navigationBar.tintColor = .black
         //title = "Register"
         //MARK: adding menu to buttonTakePhoto.
         registerView.buttonAddProfilePhoto.menu = getMenuImagePicker()

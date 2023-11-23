@@ -11,7 +11,7 @@ class MainScreenView: UIView {
     
     var contentWrapper:UIScrollView!
     var contentView: UIView!
-    var profilePic: UIImageView!
+    var profilePic: UIButton!
     var labelText: UILabel!
     var tableViewHouseInfo: UITableView!
     
@@ -28,9 +28,9 @@ class MainScreenView: UIView {
         self.backgroundColor = .white
         
         setupContentWrapper()
-        setupProfilePic()
-        setupLabelText()
-        setupTableViewHouseInfo()
+//        setupProfilePic()
+//        setupLabelText()
+//        setupTableViewHouseInfo()
         
         setupAppTitle()
         setupAppImageView()
@@ -83,6 +83,10 @@ class MainScreenView: UIView {
     func setupLoginEmailTextField(){
         loginEmailTextField = UITextField()
         loginEmailTextField.placeholder = "Email"
+        //set placeholder color to black
+        loginEmailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        //no auto capitalization
+        loginEmailTextField.autocapitalizationType = .none
         loginEmailTextField.borderStyle = .roundedRect
         loginEmailTextField.translatesAutoresizingMaskIntoConstraints = false
         contentWrapper.addSubview(loginEmailTextField)
@@ -91,6 +95,10 @@ class MainScreenView: UIView {
     func setupLoginPasswordTextField(){
         loginPasswordTextField = UITextField()
         loginPasswordTextField.placeholder = "Password"
+        //set placeholder color to black
+        loginPasswordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        loginPasswordTextField.autocapitalizationType = .none
+        loginPasswordTextField.isSecureTextEntry = true
         loginPasswordTextField.borderStyle = .roundedRect
         
         // Create a UIImageView with a lock symbol
@@ -138,13 +146,17 @@ class MainScreenView: UIView {
     }
     
     func setupProfilePic(){
-        profilePic = UIImageView()
-        profilePic.image = UIImage(systemName: "person.circle")?.withRenderingMode(.alwaysOriginal)
-        profilePic.contentMode = .scaleToFill
-        profilePic.clipsToBounds = true
-        profilePic.layer.masksToBounds = true
+        profilePic = UIButton()
+        profilePic.setTitle("", for: .normal)
+        profilePic.setImage(UIImage(named: "AppDefaultProfiePic"), for: .normal)
+        profilePic.contentHorizontalAlignment = .fill
+        //image of the button fill the height of the button
+        profilePic.contentVerticalAlignment = .fill
+        //set the frame of the image so that the image can be loaded with the content mode
+        profilePic.imageView?.contentMode = .scaleAspectFit
+        profilePic.showsMenuAsPrimaryAction = true
         profilePic.translatesAutoresizingMaskIntoConstraints = false
-        contentWrapper.addSubview(profilePic)
+        self.addSubview(profilePic)
     }
     
     func setupLabelText(){
@@ -176,15 +188,15 @@ class MainScreenView: UIView {
             contentView.bottomAnchor.constraint(equalTo: contentWrapper.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: contentWrapper.widthAnchor),
             
-            profilePic.topAnchor.constraint(equalTo: contentWrapper.topAnchor, constant: 8),
-            profilePic.widthAnchor.constraint(equalToConstant: 32),
-            profilePic.heightAnchor.constraint(equalToConstant: 32),
-            profilePic.leadingAnchor.constraint(equalTo: contentWrapper.leadingAnchor, constant: 16),
+//            profilePic.topAnchor.constraint(equalTo: contentWrapper.topAnchor, constant: 8),
+//            profilePic.widthAnchor.constraint(equalToConstant: 32),
+//            profilePic.heightAnchor.constraint(equalToConstant: 32),
+//            profilePic.leadingAnchor.constraint(equalTo: contentWrapper.leadingAnchor, constant: 16),
             
-//            labelText.topAnchor.constraint(equalTo: profilePic.topAnchor),
+//            labelText.topAnchor.constraint(equalTo: contentWrapper.topAnchor, constant: 8),
 //            labelText.bottomAnchor.constraint(equalTo: profilePic.bottomAnchor),
 //            labelText.leadingAnchor.constraint(equalTo: profilePic.trailingAnchor, constant: 8),
-//            
+            
 //            tableViewHouseInfo.topAnchor.constraint(equalTo: profilePic.bottomAnchor, constant: 8),
 //            tableViewHouseInfo.bottomAnchor.constraint(equalTo: contentWrapper.bottomAnchor, constant: -8),
 //            tableViewHouseInfo.leadingAnchor.constraint(equalTo: contentWrapper.leadingAnchor, constant: 16),

@@ -33,21 +33,27 @@ class ViewController: UIViewController {
                 //self.mainScreen.labelText.text = "Please sign in to see the messages!"
                 //MARK: Reset tableView.
                 self.houseList.removeAll()
-                self.mainScreen.tableViewHouseInfo.reloadData()
+//                self.mainScreen.tableViewHouseInfo.reloadData()
                 
                 //MARK: Sign in bar button...
-                self.setupRightBarButton(isLoggedin: false)
+//                self.setupRightBarButton(isLoggedin: false)
             }else{
                 //MARK: the user is signed in.
                 self.currentUser = user
-                self.mainScreen.labelText.text = "Welcome \(user?.displayName ?? "Anonymous")!"
+//                self.mainScreen.labelText.text = "Welcome \(user?.displayName ?? "Anonymous")!"
+                self.mainScreen.loginEmailTextField.text = ""
+                self.mainScreen.loginPasswordTextField.text = ""
                 
                 //MARK: Logout bar button...
-                self.setupRightBarButton(isLoggedin: true)
+//                self.setupRightBarButton(isLoggedin: true)
                 
-                //MARK: Observe Firestore database to display the contacts list...
-              
-
+                //MARK: Observe Firestore database to display the contacts list...ß
+                
+                //MARK: jump to houseList
+                // print currentUser
+                let houstListViewController = HouseListViewController()
+                houstListViewController.currentUser = self.currentUser
+                self.navigationController?.pushViewController(houstListViewController, animated: true)
             }
         }
     }
@@ -55,23 +61,31 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        loginEmailTextField = UITextField()
+//        loginPasswordTextField = UITextField()
+//
+//        // Add text fields to the view
+//        view.addSubview(loginEmailTextField)
+//        view.addSubview(loginPasswordTextField)
+        
         //MARK: set up on registerButton tapped.
         mainScreen.registerButton.addTarget(self, action: #selector(onRegisterButtonTapped), for: .touchUpInside)
+        mainScreen.loginButton.addTarget(self, action: #selector(onLogInButtonTapped), for: .touchUpInside)
         
-        //
         
         //MARK: hide Keyboard on tapping the screen.
         hideKeyboardWhenTappedAround()
         
         
-        
 //        //MARK: patching table view delegate and data source...
 //        mainScreen.tableViewHouseInfo.delegate = self
 //        mainScreen.tableViewHouseInfo.dataSource = self
-//       
+//
 //        //MARK: removing the separator line...
 //        mainScreen.tableViewHouseInfo.separatorStyle = .none
     }
+    
+    
     
     @objc func onRegisterButtonTapped(){
         //MARK: presenting the RegisterViewController...
@@ -87,6 +101,29 @@ class ViewController: UIViewController {
     
     @objc func hideKeyboardOnTap(){
         view.endEditing(true)
+    }
+    
+    @objc func onLogInButtonTapped(){
+        guard let email = mainScreen.loginEmailTextField.text, !email.isEmpty,
+              let password = mainScreen.loginPasswordTextField.text, !password.isEmpty else{
+            // Set up alert for empty fields...
+            print("Please enter email and password!")
+            return
+        }
+        signInToFirebase(email: email, password: password)
+    }
+    
+    func signInToFirebase(email: String, password: String){
+        //MARK: can you display progress indicator here?
+        //MARK: authenticating the user...
+        Auth.auth().signIn(withEmail: email, password: password, completion: {(result, error) in
+            if error == nil{
+                //MARK: user authenticated...
+                //MARK: can you hide the progress indicator here?
+            }else{
+                //MARK: alert that no user found or password wrong...
+            }
+        })
     }
     
     override func viewWillDisappear(_ animated: Bool) {
