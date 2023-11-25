@@ -15,6 +15,7 @@ class ShowProfileView: UIView {
     var labelUsername: UILabel!
     //var labelPassword: UILabel!
     var labelPhone: UILabel!
+    var labelAddress: UILabel!
     var buttonEdit: UIButton!
     var buttonLogOut: UIButton!
     
@@ -31,6 +32,7 @@ class ShowProfileView: UIView {
         setupLabelUsername()
         //setupLabelPassword()
         setupLabelPhone()
+        setupLabelAddress()
         setupButtonEdit()
         setupButtonLogOut()
         
@@ -84,6 +86,16 @@ class ShowProfileView: UIView {
         self.addSubview(labelPhone)
     }
     
+    func setupLabelAddress(){
+        labelAddress = UILabel()
+        labelAddress.text = "Address"
+        labelAddress.font = UIFont.systemFont(ofSize: 20)
+        labelAddress.translatesAutoresizingMaskIntoConstraints = false
+        labelAddress.numberOfLines = 0
+        labelAddress.lineBreakMode = .byWordWrapping
+        self.addSubview(labelAddress)
+    }
+    
     func setupButtonEdit(){
         buttonEdit = UIButton()
         buttonEdit.setTitle("Edit", for: .normal)
@@ -133,7 +145,10 @@ class ShowProfileView: UIView {
             labelPhone.topAnchor.constraint(equalTo: labelUsername.bottomAnchor, constant: 20),
             labelPhone.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             
-            buttonEdit.topAnchor.constraint(equalTo: labelPhone.bottomAnchor, constant: 56),
+            labelAddress.topAnchor.constraint(equalTo: labelPhone.bottomAnchor, constant: 20),
+            labelAddress.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            
+            buttonEdit.topAnchor.constraint(equalTo: labelAddress.bottomAnchor, constant: 56),
             buttonEdit.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             buttonEdit.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120),
             buttonEdit.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -120),

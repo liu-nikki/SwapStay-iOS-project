@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     var houseList = [House]()
     
     var handleAuth: AuthStateDidChangeListenerHandle?
-    var currentUser: FirebaseAuth.User?
+    var currentUser: User?
     let database = Firestore.firestore()
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,20 +39,13 @@ class ViewController: UIViewController {
 //                self.setupRightBarButton(isLoggedin: false)
             }else{
                 //MARK: the user is signed in.
-                self.currentUser = user
 //                self.mainScreen.labelText.text = "Welcome \(user?.displayName ?? "Anonymous")!"
                 self.mainScreen.loginEmailTextField.text = ""
                 self.mainScreen.loginPasswordTextField.text = ""
                 
                 //MARK: Logout bar button...
 //                self.setupRightBarButton(isLoggedin: true)
-                
-                //MARK: Observe Firestore database to display the contacts list...ß
-                
-                //MARK: jump to houseList
-                // print currentUser
                 let houstListViewController = HouseListViewController()
-                houstListViewController.currentUser = self.currentUser
                 self.navigationController?.pushViewController(houstListViewController, animated: true)
             }
         }
@@ -60,6 +53,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
 //        loginEmailTextField = UITextField()
 //        loginPasswordTextField = UITextField()

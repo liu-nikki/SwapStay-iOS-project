@@ -17,18 +17,35 @@ class ShowProfileViewController: UIViewController {
     }
     
 //    var receivedUser: User?
-    var currentUser: FirebaseAuth.User?
+    var currentUser: User?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        FirestoreUtility.fetchUser(from: (Auth.auth().currentUser?.email)!) { result in
+            switch result {
+            case .success(let user):
+                // Handle the successful retrieval of the user
+                self.currentUser = user
+                self.showProfileView.labelUsername.text = "Email: \(self.currentUser?.email ?? "")"
+                self.showProfileView.labelName.text = "Name: \(self.currentUser?.name ?? "")"
+        //        showProfileView.labelPassword.text = currentUser.map({ _ in "********" })
+                self.showProfileView.labelPhone.text = "Phone: \(self.currentUser?.phone ?? "")"
+                self.showProfileView.labelAddress.text = "Address: \n\(self.currentUser?.address?.formattedAddress() ?? "")"
+                
+                if let profileImageURL = URL(string: (self.currentUser?.profileImageURL)!) {
+                    FirestoreUtility.loadImageToImage(from: profileImageURL, into: self.showProfileView.imageProfile)
+                }
+            case .failure(let error):
+                // Handle any errors
+                print(error)
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        showProfileView.labelUsername.text = "Email: \(currentUser?.email ?? "")"
-        showProfileView.labelName.text = "Name: \(currentUser?.displayName ?? "")"
-//        showProfileView.labelPassword.text = currentUser.map({ _ in "********" })
-        showProfileView.labelPhone.text = "Phone: \(currentUser?.phoneNumber ?? "")"
-        if let profileImageURL = currentUser?.photoURL{
-            showProfileView.imageProfile.image = UIImage(named: profileImageURL.absoluteString)
-        }
+        
 //        showProfileView.imageProfile.image = UIImage(named: receivedUser?.profileImageURL ?? "")
         
         //Hiding on-screen Keyboard when tapping outside.

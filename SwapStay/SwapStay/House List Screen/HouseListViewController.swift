@@ -11,10 +11,28 @@ import FirebaseAuth
 class HouseListViewController: UIViewController {
     let houseListView = HouseListView()
     
-    var currentUser: FirebaseAuth.User?
+    var currentUser: User?
     
     override func loadView() {
         view = houseListView
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        FirestoreUtility.fetchUser(from: (Auth.auth().currentUser?.email)!) { result in
+            switch result {
+            case .success(let user):
+                // Handle the successful retrieval of the user
+                self.currentUser = user
+                self.houseListView.labelWelcome.text = "Welcome \(user.name)!"
+                if let profileImageURL = URL(string: (self.currentUser?.profileImageURL)!) {
+                    FirestoreUtility.loadImageToButton(from: profileImageURL, into: self.houseListView.profilePic)
+                }
+            case .failure(let error):
+                // Handle any errors
+                print(error)
+            }
+        }
     }
 
     override func viewDidLoad() {
@@ -32,11 +50,6 @@ class HouseListViewController: UIViewController {
         //MARK: hide Keyboard on tapping the screen.
         hideKeyboardWhenTappedAround()
         
-        houseListView.labelWelcome.text = "Welcome \(currentUser?.displayName ?? "Anonymous")!"
-        if let profileImageURL = currentUser?.photoURL{
-            houseListView.profilePic.setImage(UIImage(named: profileImageURL.absoluteString), for: .normal)
-        }
-        
         //MARK: set up on profilePicButton tapped.
         houseListView.profilePic.addTarget(self, action: #selector(onProfilePicButtonTapped), for: .touchUpInside)
     }
@@ -44,7 +57,6 @@ class HouseListViewController: UIViewController {
     @objc func onProfilePicButtonTapped(){
         //MARK: presenting the RegisterViewController...
         let showProfileViewController = ShowProfileViewController()
-        showProfileViewController.currentUser = currentUser
         navigationController?.pushViewController(showProfileViewController, animated: true)
     }
     

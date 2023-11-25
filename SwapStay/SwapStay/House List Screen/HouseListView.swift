@@ -39,7 +39,7 @@ class HouseListView: UIView {
     func setupProfilePic(){
         profilePic = UIButton()
         profilePic.setTitle("", for: .normal)
-        profilePic.setImage(UIImage(named: "AppDefaultProfiePic"), for: .normal)
+        //profilePic.setImage(UIImage(named: "AppDefaultProfiePic"), for: .normal)
         profilePic.contentHorizontalAlignment = .fill
         //image of the button fill the height of the button
         profilePic.contentVerticalAlignment = .fill
