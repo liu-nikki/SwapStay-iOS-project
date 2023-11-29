@@ -39,7 +39,7 @@ class HouseListView: UIView {
     func setupProfilePic(){
         profilePic = UIButton()
         profilePic.setTitle("", for: .normal)
-        //profilePic.setImage(UIImage(named: "AppDefaultProfiePic"), for: .normal)
+        profilePic.setImage(UIImage(named: "AppDefaultProfiePic"), for: .normal)
         profilePic.contentHorizontalAlignment = .fill
         //image of the button fill the height of the button
         profilePic.contentVerticalAlignment = .fill
@@ -53,7 +53,7 @@ class HouseListView: UIView {
     func setupLabelWelcome(){
         labelWelcome = UILabel()
         labelWelcome.text = "Welcome User!"
-        labelWelcome.font = UIFont(name: "Arial-BoldMT", size: 20)
+        labelWelcome.font = UIFont(name: "Arial-BoldMT", size: 15)
         labelWelcome.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(labelWelcome)
     }
@@ -69,7 +69,7 @@ class HouseListView: UIView {
             profilePic.heightAnchor.constraint(equalToConstant: 56),
             profilePic.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             
-            labelWelcome.topAnchor.constraint(equalTo: appTitle.bottomAnchor, constant: 16),
+            labelWelcome.topAnchor.constraint(equalTo: appTitle.bottomAnchor, constant: 32),
             labelWelcome.leadingAnchor.constraint(equalTo: profilePic.trailingAnchor, constant: 16)
         ])
     }

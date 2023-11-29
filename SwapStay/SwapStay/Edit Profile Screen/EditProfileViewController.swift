@@ -56,6 +56,9 @@ class EditProfileViewController: UIViewController {
         editProfileView.buttonSave.addTarget(self, action: #selector(onSaveButtonTapped), for: .touchUpInside)
         editProfileView.buttonEditProfilePhoto.menu = getMenuImagePicker()
         
+        // Change the Back button color to black
+        self.navigationController?.navigationBar.tintColor = .black
+        
         //MARK: hide Keyboard on tapping the screen.
         hideKeyboardWhenTappedAround()
     

@@ -11,7 +11,7 @@ class RegisterView: UIView {
     
     var labelAppTitle: UILabel!
     var buttonAddProfilePhoto: UIButton!
-    var labelAddProfilePhoto: UILabel!
+//    var labelAddProfilePhoto: UILabel!
     var textUserName: UITextField!
     var textPhoneNumber: UITextField!
 //    var textAddress: UITextField!
@@ -30,7 +30,7 @@ class RegisterView: UIView {
         
         setuplabelAppTitle()
         setupbuttonAddProfilePhoto()
-        setuplabelAddProfilePhoto()
+//        setuplabelAddProfilePhoto()
         setupTextUserName()
         setupTextPhoneNumber()
 //        setupTextAddress()
@@ -75,15 +75,15 @@ class RegisterView: UIView {
         self.addSubview(buttonAddProfilePhoto)
     }
     
-    func setuplabelAddProfilePhoto() {
-        labelAddProfilePhoto = UILabel()
-        labelAddProfilePhoto.text = "Add Profile Photo"
-        //set text color to black
-        labelAddProfilePhoto.textColor = .black
-        labelAddProfilePhoto.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(labelAddProfilePhoto)
-    }
-    
+//    func setuplabelAddProfilePhoto() {
+//        labelAddProfilePhoto = UILabel()
+//        labelAddProfilePhoto.text = "Add Profile Photo"
+//        //set text color to black
+//        labelAddProfilePhoto.textColor = .black
+//        labelAddProfilePhoto.translatesAutoresizingMaskIntoConstraints = false
+//        self.addSubview(labelAddProfilePhoto)
+//    }
+//    
     func setupTextUserName(){
         textUserName = UITextField()
         textUserName.placeholder = "Username"
@@ -218,9 +218,9 @@ class RegisterView: UIView {
             buttonAddProfilePhoto.widthAnchor.constraint(equalToConstant: 150),
             buttonAddProfilePhoto.heightAnchor.constraint(equalToConstant: 150),
             
-            labelAddProfilePhoto.topAnchor.constraint(equalTo: buttonAddProfilePhoto.bottomAnchor, constant: 8),
-            labelAddProfilePhoto.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            
+//            labelAddProfilePhoto.topAnchor.constraint(equalTo: buttonAddProfilePhoto.bottomAnchor, constant: 8),
+//            labelAddProfilePhoto.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+//            
             
             textUserName.topAnchor.constraint(equalTo: buttonAddProfilePhoto.bottomAnchor, constant: 64),
             textUserName.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
