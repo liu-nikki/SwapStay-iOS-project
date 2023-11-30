@@ -105,29 +105,51 @@ class ViewController: UIViewController {
             print("Please enter email and password!")
             return
         }
-        signInToFirebase(email: email, password: password)
+        
+        signIn(email: email, password: password) { success, message in
+            if success {
+                print(message) // User signed in successfully
+                // Proceed with the app flow
+            } else {
+                self.showAlert(title: "Sign In Error", message: message)
+                // Handle the sign-in failure
+            }
+        }
+
     }
     
-    func signInToFirebase(email: String, password: String){
-        //MARK: can you display progress indicator here?
-        //MARK: authenticating the user...
-        Auth.auth().signIn(withEmail: email, password: password, completion: {(result, error) in
-            if error == nil{
-                //MARK: user authenticated...
-                //MARK: can you hide the progress indicator here?
-            }else{
-                //MARK: alert that no user found or password wrong...
-            }
-        })
-    }
+
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         Auth.auth().removeStateDidChangeListener(handleAuth!)
     }
+
+    func signIn(email: String, password: String, completion: @escaping (Bool, String) -> Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                // Simplified error message
+                completion(false, "Sign-in failed. Please check your credentials and try again.")
+            } else if authResult?.user != nil {
+                completion(true, "User signed in successfully")
+            } else {
+                completion(false, "Sign-in failed. Please try again later.")
+            }
+        }
+    }
     
-    func signIn(email: String, password: String){
-        Auth.auth().signIn(withEmail: email, password: password)
+//    func signIn(email: String, password: String){
+//        // sign in with error handle
+//        Auth.auth()
+//
+//
+//        Auth.auth().signIn(withEmail: email, password: password)
+//    }
+    
+    func showAlert(title: String = "Error", message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 
 }

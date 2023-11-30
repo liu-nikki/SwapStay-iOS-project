@@ -115,6 +115,9 @@ class EditProfileViewController: UIViewController {
             name = nameText
             phoneNum = phoneNumText
             address = Address(line1: line1Text, line2: line2Text, city: cityText, state: stateText, zip: zipText)
+             
+            let db = Firestore.firestore()
+            let userRef = db.collection("users").document(self.currentUser?.email ?? "")
             
             let imageData: Data?
             if let image = self.pickedImage {
@@ -137,8 +140,6 @@ class EditProfileViewController: UIViewController {
                                 // You now have the URL of the uploaded image
                                 // You can store this URL in Firebase Database if needed
                                 //MARK: update the user info in the Firebase.
-                                let db = Firestore.firestore()
-                                let userRef = db.collection("users").document(self.currentUser?.email ?? "")
                                 userRef.updateData([
                                     "name": name ?? "",
                                     "phoneNum": phoneNum ?? "",
@@ -154,6 +155,20 @@ class EditProfileViewController: UIViewController {
                                 }
                             }
                         }
+                    }
+                }
+            } else {
+                userRef.updateData([
+                    "name": name ?? "",
+                    "phoneNum": phoneNum ?? "",
+                    "profileImageURL": self.currentUser?.profileImageURL ?? "",
+                    "address": address?.toDictionary() ?? [:]
+                ]) { err in
+                    if let err = err {
+                        print("Error updating document: \(err)")
+                    } else {
+                        print("Document successfully updated")
+                        self.navigationController?.popViewController(animated: true)
                     }
                 }
             }

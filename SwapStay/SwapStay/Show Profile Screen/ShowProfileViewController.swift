@@ -54,6 +54,7 @@ class ShowProfileViewController: UIViewController {
         
         //MARK: set up on saveButton tapped.
         showProfileView.buttonEdit.addTarget(self, action: #selector(onEditButtonTapped), for: .touchUpInside)
+        showProfileView.buttonEditPassword.addTarget(self, action: #selector(onEditPasswordButtonTapped), for: .touchUpInside)
         showProfileView.buttonLogOut.addTarget(self, action: #selector(onLogOutButtonTapped), for: .touchUpInside)
         
         //MARK: hide Keyboard on tapping the screen.
@@ -66,6 +67,96 @@ class ShowProfileViewController: UIViewController {
         let editProfileViewController = EditProfileViewController()
         editProfileViewController.currentUser = currentUser
         navigationController?.pushViewController(editProfileViewController, animated: true)
+    }
+    
+    @objc func onEditPasswordButtonTapped(){
+        //MARK: set up UIAlert to change the password in firestore
+        let editPasswordAlert = UIAlertController(
+            title: "Change Password",
+            message: "Enter your current and new password",
+            preferredStyle: .alert)
+        
+        //MARK: setting up email textField in the alert...
+        editPasswordAlert.addTextField{ textField in
+            textField.placeholder = "Enter current password"
+            textField.contentMode = .center
+            textField.isSecureTextEntry = true
+        }
+        
+        //MARK: setting up password textField in the alert.
+        editPasswordAlert.addTextField{ textField in
+            textField.placeholder = "Enter new password"
+            textField.contentMode = .center
+            textField.isSecureTextEntry = true
+        }
+        
+        //MARK: confirm new password textField in the alert.
+        editPasswordAlert.addTextField{ textField in
+            textField.placeholder = "Confirm new password"
+            textField.contentMode = .center
+            textField.isSecureTextEntry = true
+        }
+        
+        //MARK: Cancel Action.
+//        let signInAction = UIAlertAction(title: "Cancel", style: .default, handler: {(_) in
+//            if let email = editPasswordAlert.textFields![0].text,
+//               let password = editPasswordAlert.textFields![1].text{
+//                //MARK: sign-in logic for Firebase...
+//                self.signInToFirebase(email: email, password: password)
+//            }
+//        })
+        
+        //MARK: Register Action...
+        let changePasswordAction = UIAlertAction(title: "Confirm", style: .default, handler: {(_) in
+            //MARK: logic to open the register screen...
+            if let currentPassword = editPasswordAlert.textFields![0].text,
+               let newPassword = editPasswordAlert.textFields![1].text,
+               let confirmNewPassword = editPasswordAlert.textFields![2].text {
+                if (newPassword != confirmNewPassword) {
+                    self.showAlert(title: "Error", message: "New password and confirm password do not match!")
+                } else {
+                    let user = Auth.auth().currentUser
+                    var credential: AuthCredential
+
+                    // Prompt the user to re-enter their email and password
+                    let email = self.currentUser?.email  // User's email
+                    let password = currentPassword  // User's current password
+
+                    credential = EmailAuthProvider.credential(withEmail: email!, password: password)
+                    user?.reauthenticate(with: credential) { result, error in
+                        if error != nil {
+                            // An error happened.
+                            self.showAlert(title: "Error", message: "Please check your current password!")
+                        } else {
+                            // User re-authenticated. Now, update the password.
+                            user?.updatePassword(to: newPassword) { error in
+                                // Handle password update
+                                self.showAlert(title: "Success", message: "Password updated successfully!")
+                            }
+                        }
+                    }
+                }
+            }
+                
+                
+        })
+        
+        //MARK: action buttons...
+        editPasswordAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        editPasswordAlert.addAction(changePasswordAction)
+        
+        self.present(editPasswordAlert, animated: true, completion: {() in
+            //MARK: hide the alerton tap outside...
+            editPasswordAlert.view.superview?.isUserInteractionEnabled = true
+            editPasswordAlert.view.superview?.addGestureRecognizer(
+                UITapGestureRecognizer(target: self, action: #selector(self.onTapOutsideAlert))
+            )
+        })
+        
+    }
+    
+    @objc func onTapOutsideAlert(){
+        self.dismiss(animated: true)
     }
     
     @objc func onLogOutButtonTapped() {
@@ -92,6 +183,12 @@ class ShowProfileViewController: UIViewController {
     
     @objc func hideKeyboardOnTap(){
         view.endEditing(true)
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
 }

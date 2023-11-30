@@ -37,7 +37,7 @@ class RegisterView: UIView {
 //        setupTextCity()
 //        setupTextState()
 //        setupTextZipCode()
-       
+        
         setuptextFieldName()
         setuptextFieldEmail()
         setuptextFieldPassword()
@@ -58,7 +58,7 @@ class RegisterView: UIView {
     
     func setupbuttonAddProfilePhoto() {
         buttonAddProfilePhoto = UIButton()
-        //et a background to it, which shows a camera icon instead of text. So, we set an empty title
+        //set a background to it, which shows a camera icon instead of text. So, we set an empty title
         buttonAddProfilePhoto.setTitle("", for: .normal)
         //set an image of the system name, "camera.fill".
         //buttonAddProfilePhoto.setImage(UIImage(systemName: "camera.fill"), for: .normal)

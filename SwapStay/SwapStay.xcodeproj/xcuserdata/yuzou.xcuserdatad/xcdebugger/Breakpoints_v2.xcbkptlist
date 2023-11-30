@@ -39,32 +39,64 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "06ADF604-60BA-4F34-ACEE-1FACC0C16C69"
+            uuid = "2AD70D25-C1CB-4153-BD4F-26B0599B1EA4"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwapStay/Edit Profile Screen/EditProfileViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
             landmarkName = "onSaveButtonTapped()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2AD70D25-C1CB-4153-BD4F-26B0599B1EA4 - cdcb7958998558da"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwapStay.EditProfileViewController.onSaveButtonTapped() -&gt; ()"
+                  moduleName = "SwapStay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yuzou/Documents/GitHub/SwapStay-iOS-project/SwapStay/SwapStay/Edit%20Profile%20Screen/EditProfileViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "125"
+                  endingLineNumber = "125"
+                  offsetFromSymbolStart = "4216">
+               </Location>
+               <Location
+                  uuid = "2AD70D25-C1CB-4153-BD4F-26B0599B1EA4 - cdcb7958998558a4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwapStay.EditProfileViewController.onSaveButtonTapped() -&gt; ()"
+                  moduleName = "SwapStay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yuzou/Documents/GitHub/SwapStay-iOS-project/SwapStay/SwapStay/Edit%20Profile%20Screen/EditProfileViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "123"
+                  endingLineNumber = "123"
+                  offsetFromSymbolStart = "4228">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FCC42439-C498-4A4E-89D5-DEBC2CADE8B6"
+            uuid = "53E5F503-0B97-4008-AC98-E42423BBF5CE"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwapStay/Edit Profile Screen/EditProfileViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
-            landmarkName = "picker(_:didFinishPicking:)"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "onSaveButtonTapped()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

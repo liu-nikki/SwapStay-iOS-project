@@ -17,6 +17,7 @@ class ShowProfileView: UIView {
     var labelPhone: UILabel!
     var labelAddress: UILabel!
     var buttonEdit: UIButton!
+    var buttonEditPassword: UIButton!
     var buttonLogOut: UIButton!
     
     //MARK: view initializer
@@ -34,6 +35,7 @@ class ShowProfileView: UIView {
         setupLabelPhone()
         setupLabelAddress()
         setupButtonEdit()
+        setupButtonEditPassword()
         setupButtonLogOut()
         
         initConstraints()
@@ -110,6 +112,19 @@ class ShowProfileView: UIView {
         self.addSubview(buttonEdit)
     }
     
+    func setupButtonEditPassword(){
+        buttonEditPassword = UIButton()
+        buttonEditPassword.setTitle("Edit Password", for: .normal)
+        buttonEditPassword.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        buttonEditPassword.setTitleColor(.white, for: .normal)
+        buttonEditPassword.backgroundColor = .black
+        buttonEditPassword.layer.cornerRadius = 3
+        // set the button height to 20
+        buttonEditPassword.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        buttonEditPassword.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(buttonEditPassword)
+    }
+    
     func setupButtonLogOut() {
         buttonLogOut = UIButton()
         buttonLogOut.setTitle("Log Out", for: .normal)
@@ -148,12 +163,17 @@ class ShowProfileView: UIView {
             labelAddress.topAnchor.constraint(equalTo: labelPhone.bottomAnchor, constant: 20),
             labelAddress.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             
-            buttonEdit.topAnchor.constraint(equalTo: labelAddress.bottomAnchor, constant: 56),
+            buttonEdit.topAnchor.constraint(equalTo: labelAddress.bottomAnchor, constant: 32),
             buttonEdit.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             buttonEdit.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120),
             buttonEdit.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -120),
             
-            buttonLogOut.topAnchor.constraint(equalTo: buttonEdit.bottomAnchor, constant: 16),
+            buttonEditPassword.topAnchor.constraint(equalTo: buttonEdit.bottomAnchor, constant: 16),
+            buttonEditPassword.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            buttonEditPassword.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120),
+            buttonEditPassword.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -120),
+            
+            buttonLogOut.topAnchor.constraint(equalTo: buttonEditPassword.bottomAnchor, constant: 16),
             buttonLogOut.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             buttonLogOut.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120),
             buttonLogOut.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -120),
