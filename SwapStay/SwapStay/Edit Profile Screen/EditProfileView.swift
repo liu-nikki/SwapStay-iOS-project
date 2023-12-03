@@ -36,9 +36,7 @@ class EditProfileView: UIView {
         setupTextFieldState()
         setupTextFieldZip()
         
-        
         setupButtonSave()
-        
         
         initConstraints()
     }
@@ -80,38 +78,6 @@ class EditProfileView: UIView {
         textFieldName.borderStyle = .roundedRect
         self.addSubview(textFieldName)
     }
-    
-    // generate corresponding functions
-    
-    
-    
-    
-//    func setupTextFieldUserName()
-//    {
-//        textUserName = UITextField()
-//        textUserName.translatesAutoresizingMaskIntoConstraints = false
-//        textUserName.placeholder = "Username"
-//        textUserName.borderStyle = .roundedRect
-//        self.addSubview(textUserName)
-//    }
-    
-//    func setupTextFieldPassword()
-//    {
-//        textFieldPassword = UITextField()
-//        textFieldPassword.translatesAutoresizingMaskIntoConstraints = false
-//        textFieldPassword.placeholder = "Password"
-//        textFieldPassword.borderStyle = .roundedRect
-//        self.addSubview(textFieldPassword)
-//    }
-//    
-//    func setupTextFieldPasswordConfirm()
-//    {
-//        textFieldPasswordConfirm = UITextField()
-//        textFieldPasswordConfirm.translatesAutoresizingMaskIntoConstraints = false
-//        textFieldPasswordConfirm.placeholder = "Confirm Password"
-//        textFieldPasswordConfirm.borderStyle = .roundedRect
-//        self.addSubview(textFieldPasswordConfirm)
-//    }
     
     func setupTextFieldLine1() {
         textFieldLine1 = UITextField()
@@ -185,22 +151,10 @@ class EditProfileView: UIView {
             labelEditProfilePhoto.topAnchor.constraint(equalTo: self.buttonEditProfilePhoto.bottomAnchor, constant: 16),
             labelEditProfilePhoto.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
             
-//            textUserName.topAnchor.constraint(equalTo: labelEditProfilePhoto.bottomAnchor, constant: 64),
-//            textUserName.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-//            textUserName.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
-            
             textFieldName.topAnchor.constraint(equalTo: labelEditProfilePhoto.bottomAnchor, constant: 16),
             textFieldName.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
             textFieldName.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
         
-//            textFieldPassword.topAnchor.constraint(equalTo: textFieldName.bottomAnchor, constant: 16),
-//            textFieldPassword.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-//            textFieldPassword.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
-//            
-//            textFieldPasswordConfirm.topAnchor.constraint(equalTo: textFieldPassword.bottomAnchor, constant: 16),
-//            textFieldPasswordConfirm.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-//            textFieldPasswordConfirm.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
-            
             textPhoneNumber.topAnchor.constraint(equalTo: textFieldName.bottomAnchor, constant: 16),
             textPhoneNumber.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
             textPhoneNumber.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),

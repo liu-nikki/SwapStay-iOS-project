@@ -14,12 +14,14 @@ struct House: Codable{
     var state: String
     var zipcode: Int
     var time: TimeInterval
+    var email: String
     
-    init(address: String, city: String, state: String, zipcode: Int, time: TimeInterval) {
+    init(address: String, city: String, state: String, zipcode: Int, time: TimeInterval, email: String) {
         self.address  = address
         self.city = city
         self.state = state
         self.zipcode = zipcode
         self.time = time
+        self.email = email
     }
 }

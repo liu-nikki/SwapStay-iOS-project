@@ -16,6 +16,7 @@ class RegisterViewController: UIViewController {
     
     let childProgressView = ProgressSpinnerViewController()
     
+    
     let db = Firestore.firestore()
     
     var pickedImage: UIImage?
@@ -23,59 +24,61 @@ class RegisterViewController: UIViewController {
     override func loadView() {
         view = registerView
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        registerView.buttonTakePhoto.menu = getMenuImagePicker()
+        
         registerView.buttonRegister.addTarget(self, action: #selector(onRegisterTapped), for: .touchUpInside)
-        // Change the Back button color to black
+
         self.navigationController?.navigationBar.tintColor = .black
-        //title = "Register"
-        //MARK: adding menu to buttonTakePhoto.
-        //registerView.buttonAddProfilePhoto.menu = getMenuImagePicker()
         
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
         tapRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapRecognizer)
     }
-//    
-//    //MARK: menu for buttonTakePhoto setup
-//    func getMenuImagePicker() -> UIMenu{
-//        var menuItems = [
-//            UIAction(title: "Camera",handler: {(_) in
-//                self.pickUsingCamera()
-//            }),
-//            UIAction(title: "Gallery",handler: {(_) in
-//                self.pickPhotoFromGallery()
-//            })
-//        ]
-//        
-//        return UIMenu(title: "Select source", children: menuItems)
-//    }
-//    
-//    //MARK: take Photo using Camera
-//    func pickUsingCamera() {
-//        let cameraController = UIImagePickerController()
-//        cameraController.sourceType = .camera
-//        cameraController.allowsEditing = true
-//        cameraController.delegate = self
-//        present(cameraController, animated: true)
-//    }
-//    
-//    //MARK: pick Photo using Gallery.
-//    func pickPhotoFromGallery() {
-//        var configuration = PHPickerConfiguration()
-//        configuration.filter = PHPickerFilter.any(of: [.images])
-//        configuration.selectionLimit = 1
-//        
-//        let photoPicker = PHPickerViewController(configuration: configuration)
-//        
-//        photoPicker.delegate = self
-//        present(photoPicker, animated: true, completion: nil)
-//    }
     
     //MARK: Hide Keyboard...
     @objc func hideKeyboardOnTap(){
         //MARK: removing the keyboard from screen...
         view.endEditing(true)
+    }
+    
+    //MARK: menu for buttonTakePhoto setup...
+    func getMenuImagePicker() -> UIMenu{
+        let menuItems = [
+            UIAction(title: "Camera",handler: {(_) in
+                self.pickUsingCamera()
+            }),
+            UIAction(title: "Gallery",handler: {(_) in
+                self.pickPhotoFromGallery()
+            })
+        ]
+        
+        return UIMenu(title: "Select source", children: menuItems)
+    }
+    
+    //MARK: take Photo using Camera...
+    func pickUsingCamera(){
+        let cameraController = UIImagePickerController()
+        cameraController.sourceType = .camera
+        cameraController.allowsEditing = true
+        cameraController.delegate = self
+        present(cameraController, animated: true)
+    }
+    
+    //MARK: pick Photo using Gallery...
+    func pickPhotoFromGallery(){
+        //MARK: Photo from Gallery...
+        var configuration = PHPickerConfiguration()
+        configuration.filter = PHPickerFilter.any(of: [.images])
+        configuration.selectionLimit = 1
+        
+        let photoPicker = PHPickerViewController(configuration: configuration)
+        
+        photoPicker.delegate = self
+        present(photoPicker, animated: true, completion: nil)
     }
     
     @objc func onRegisterTapped(){

@@ -29,6 +29,7 @@ extension RegisterViewController{
             Auth.auth().createUser(withEmail: email, password: password) { result, error in
                 if let error = error as NSError? {
                     self.hideActivityIndicator()
+                    
                     if error.code == AuthErrorCode.emailAlreadyInUse.rawValue {
                         // Email already in use, show an alert to the user
                         self.showAlertWithMessage("This email is already in use. Please use a different email.")
@@ -47,11 +48,11 @@ extension RegisterViewController{
     }
     
     // Helper function to show an alert with a specific message
-        func showAlertWithMessage(_ message: String) {
-            let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true)
-        }
+    func showAlertWithMessage(_ message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
     
     //MARK: We set the name of the user after we create the account...
     func setNameOfTheUserInFirebaseAuth(user: User){
@@ -72,7 +73,7 @@ extension RegisterViewController{
     func saveUserToFirestore(user: User) {
         
         // get a reference to the email document
-        let emailDocument = db.collection("users").document(user.email)
+        let emailDocument = Storage.collection("users").document(user.email)
         let userData: [String: String] = ["name": user.name]
 
         do {

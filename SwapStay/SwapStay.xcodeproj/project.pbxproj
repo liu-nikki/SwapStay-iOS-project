@@ -173,12 +173,12 @@
 		1518E6962B094653004A75D5 /* SwapStay */ = {
 			isa = PBXGroup;
 			children = (
+				1518E6C62B09718D004A75D5 /* Data Models */,
+				1518E6C42B097087004A75D5 /* Configs.swift */,
 				B85063EF2B116DFB0030343C /* FirestoreUtility.swift */,
 				B85063EA2B0ED8430030343C /* House List Screen */,
 				B85063E12B0E93A90030343C /* Edit Profile Screen */,
 				B85063E02B0D9CE30030343C /* Show Profile Screen */,
-				1518E6C42B097087004A75D5 /* Configs.swift */,
-				1518E6C62B09718D004A75D5 /* Data Models */,
 				1518E6CF2B097DE1004A75D5 /* Register Screen */,
 				1518E6D82B097ECE004A75D5 /* Process Indicator */,
 				1518E6BE2B0969F7004A75D5 /* Main Screen */,
@@ -261,8 +261,8 @@
 		B85063E12B0E93A90030343C /* Edit Profile Screen */ = {
 			isa = PBXGroup;
 			children = (
-				B85063E62B0EC4AA0030343C /* EditProfileViewController.swift */,
 				B85063E82B0EC4C10030343C /* EditProfileView.swift */,
+				B85063E62B0EC4AA0030343C /* EditProfileViewController.swift */,
 			);
 			path = "Edit Profile Screen";
 			sourceTree = "<group>";

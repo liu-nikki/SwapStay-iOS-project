@@ -28,9 +28,6 @@ class MainScreenView: UIView {
         self.backgroundColor = .white
         
         setupContentWrapper()
-//        setupProfilePic()
-//        setupLabelText()
-//        setupTableViewHouseInfo()
         
         setupAppTitle()
         setupAppImageView()
@@ -187,21 +184,7 @@ class MainScreenView: UIView {
             contentView.trailingAnchor.constraint(equalTo: contentWrapper.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: contentWrapper.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: contentWrapper.widthAnchor),
-            
-//            profilePic.topAnchor.constraint(equalTo: contentWrapper.topAnchor, constant: 8),
-//            profilePic.widthAnchor.constraint(equalToConstant: 32),
-//            profilePic.heightAnchor.constraint(equalToConstant: 32),
-//            profilePic.leadingAnchor.constraint(equalTo: contentWrapper.leadingAnchor, constant: 16),
-            
-//            labelText.topAnchor.constraint(equalTo: contentWrapper.topAnchor, constant: 8),
-//            labelText.bottomAnchor.constraint(equalTo: profilePic.bottomAnchor),
-//            labelText.leadingAnchor.constraint(equalTo: profilePic.trailingAnchor, constant: 8),
-            
-//            tableViewHouseInfo.topAnchor.constraint(equalTo: profilePic.bottomAnchor, constant: 8),
-//            tableViewHouseInfo.bottomAnchor.constraint(equalTo: contentWrapper.bottomAnchor, constant: -8),
-//            tableViewHouseInfo.leadingAnchor.constraint(equalTo: contentWrapper.leadingAnchor, constant: 16),
-//            tableViewHouseInfo.trailingAnchor.constraint(equalTo: contentWrapper.trailingAnchor, constant: -16),
-            
+
             appTitle.topAnchor.constraint(equalTo: contentWrapper.topAnchor, constant: 2),
             appTitle.centerXAnchor.constraint(equalTo: contentWrapper.centerXAnchor),
             

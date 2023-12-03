@@ -51,7 +51,7 @@ struct Address: Codable, Equatable{
             addressString += "\n\(line2)"
         }
         
-        addressString += "\n\(city), \(state) \(zip)"
+        addressString += "\n\(city) \(state) \(zip)"
         return addressString
     }
     

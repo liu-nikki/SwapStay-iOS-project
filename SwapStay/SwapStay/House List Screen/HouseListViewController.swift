@@ -9,9 +9,12 @@ import UIKit
 import FirebaseAuth
 
 class HouseListViewController: UIViewController {
-    let houseListView = HouseListView()
     
-    var currentUser: User?
+    let houseListView = HouseListView()
+    var receiver: House!
+    
+    var currentUser: FirebaseAuth.User?
+
     
     override func loadView() {
         view = houseListView
@@ -19,20 +22,21 @@ class HouseListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        FirestoreUtility.fetchUser(from: (Auth.auth().currentUser?.email)!) { result in
-            switch result {
-            case .success(let user):
-                // Handle the successful retrieval of the user
-                self.currentUser = user
-                self.houseListView.labelWelcome.text = "Welcome \(user.name)!"
-                if let profileImageURL = URL(string: (self.currentUser?.profileImageURL)!) {
-                    FirestoreUtility.loadImageToButton(from: profileImageURL, into: self.houseListView.profilePic)
-                }
-            case .failure(let error):
-                // Handle any errors
-                print(error)
-            }
-        }
+        
+//        FirestoreUtility.fetchUser(from: (Auth.auth().currentUser?.email)!) { result in
+//            switch result {
+//            case .success(let user):
+//                // Handle the successful retrieval of the user
+////                self.currentUser = user
+//                self.houseListView.labelWelcome.text = "Welcome \(user.name)!"
+//                if let profileImageURL = URL(string: (self.currentUser?.profileImageURL)!) {
+//                    FirestoreUtility.loadImageToButton(from: profileImageURL, into: self.houseListView.profilePic)
+//                }
+//            case .failure(let error):
+//                // Handle any errors
+//                print(error)
+//            }
+//        }
     }
 
     override func viewDidLoad() {
