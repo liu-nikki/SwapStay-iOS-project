@@ -28,7 +28,7 @@ class RegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        registerView.buttonTakePhoto.menu = getMenuImagePicker()
+        registerView.buttonAddProfilePhoto.menu = getMenuImagePicker()
         
         registerView.buttonRegister.addTarget(self, action: #selector(onRegisterTapped), for: .touchUpInside)
 

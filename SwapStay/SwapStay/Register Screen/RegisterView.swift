@@ -11,6 +11,7 @@ class RegisterView: UIView {
     
     var labelAppTitle: UILabel!
     var buttonAddProfilePhoto: UIButton!
+    var labelPhoto:    UILabel!
     var textUserName: UITextField!
     var textPhoneNumber: UITextField!
     var textFieldName: UITextField!
@@ -25,6 +26,7 @@ class RegisterView: UIView {
         
         setuplabelAppTitle()
         setupbuttonAddProfilePhoto()
+        setupLablePhoto()
         setupTextUserName()
         setupTextPhoneNumber()
         
@@ -63,6 +65,15 @@ class RegisterView: UIView {
         buttonAddProfilePhoto.showsMenuAsPrimaryAction = true
         buttonAddProfilePhoto.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(buttonAddProfilePhoto)
+    }
+    
+    func setupLablePhoto(){
+        labelPhoto = UILabel()
+        labelPhoto.text = "Photo"
+        labelPhoto.font = UIFont.boldSystemFont(ofSize: 24)
+        labelPhoto.textColor = .gray
+        labelPhoto.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(labelPhoto)
     }
      
     func setupTextUserName(){
@@ -159,9 +170,10 @@ class RegisterView: UIView {
             buttonAddProfilePhoto.widthAnchor.constraint(equalToConstant: 150),
             buttonAddProfilePhoto.heightAnchor.constraint(equalToConstant: 150),
             
-            
+            labelPhoto.topAnchor.constraint(equalTo: buttonAddProfilePhoto.bottomAnchor, constant: 0),
+            labelPhoto.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
                
-            textUserName.topAnchor.constraint(equalTo: buttonAddProfilePhoto.bottomAnchor, constant: 64),
+            textUserName.topAnchor.constraint(equalTo: labelPhoto.bottomAnchor, constant: 64),
             textUserName.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
             textUserName.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
             

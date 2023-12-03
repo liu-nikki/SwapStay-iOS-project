@@ -73,7 +73,7 @@ extension RegisterViewController{
     func saveUserToFirestore(user: User) {
         
         // get a reference to the email document
-        let emailDocument = Storage.collection("users").document(user.email)
+        let emailDocument = db.collection("users").document(user.email)
         let userData: [String: String] = ["name": user.name]
 
         do {
