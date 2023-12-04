@@ -5,9 +5,10 @@
 //  Created by 李凱鈞 on 12/3/23.
 //
 
+// MARK: Temp view for chats
 import UIKit
 
-class ChatView: UIView {
+class ChatsView: UIView {
     var boxView: UIView!
     var buttonSend: UIButton!
     var labelReceived: UILabel!

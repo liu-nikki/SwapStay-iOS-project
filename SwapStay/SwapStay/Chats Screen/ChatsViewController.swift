@@ -5,15 +5,15 @@
 //  Created by 李凱鈞 on 12/3/23.
 //
 
+// MARK: Temp view controller for chats
 import UIKit
 
-class ChatViewController: UIViewController {
-    let redView = ChatView()
-    
+class ChatsViewController: UIViewController {
+    let cahtsView          = ChatsView()
     let notificationCenter = NotificationCenter.default
     
     override func loadView() {
-        view = redView
+        view = cahtsView
     }
     
     override func viewDidLoad() {
