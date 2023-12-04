@@ -7,6 +7,8 @@
 
 import UIKit
 
+// MARK: Temporarily comment out
+
 //extension ViewController: UITableViewDelegate, UITableViewDataSource{
 //    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return houseList.count
