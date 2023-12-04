@@ -8,7 +8,6 @@
 import UIKit
 
 class StartViewController: UIViewController {
-    
     let startScreen = StartView()
     override func loadView() {
         view = startScreen
