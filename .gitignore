@@ -1,0 +1,20 @@
+# Xcode
+.DS_Store
+*/.DS_Store
+*/xcuserdata/
+*/xcuserdata/*
+*/xcdebugger/
+
+# Build output
+build/
+DerivedData/
+
+# Ignore user-specific Xcode settings
+SwapStay/SwapStay.xcodeproj/project.pbxproj
+SwapStay/SwapStay.xcodeproj/project.xcworkspace/xcuserdata/kenny.xcuserdatad/UserInterfaceState.xcuserstate
+
+# Ignore compiled Swift files
+*.swiftc
+*.swiftdoc
+*.swiftmodule
+

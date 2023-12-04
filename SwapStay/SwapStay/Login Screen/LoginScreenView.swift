@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainScreenView: UIView {
+class LoginScreenView: UIView {
     
     var contentWrapper:UIScrollView!
     var contentView: UIView!
