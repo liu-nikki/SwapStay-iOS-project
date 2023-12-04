@@ -99,8 +99,8 @@ extension RegisterViewController{
                     print("User and contacts data successfully written!")
                     //MARK: hide the progress indicator...
                     self.hideActivityIndicator()
-                    // go back to the main screen
-                    self.navigationController?.popViewController(animated: true)
+                    // notify the screen to update and will redirect to Login Screen
+                    self.notificationCenter.post(name: .registerSuccessfully, object: "")
                 }
             })
         } catch {
