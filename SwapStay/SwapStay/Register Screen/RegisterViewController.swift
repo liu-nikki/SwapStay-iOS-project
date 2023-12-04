@@ -11,13 +11,12 @@ import FirebaseAuth
 import FirebaseFirestore
 
 class RegisterViewController: UIViewController {
-
-    let registerView = RegisterView()
     
-    let childProgressView = ProgressSpinnerViewController()
-    
-    
-    let db = Firestore.firestore()
+    // used to notify login screen to remove register screen once the user register successfully
+    let notificationCenter = NotificationCenter.default
+    let registerView       = RegisterView()
+    let childProgressView  = ProgressSpinnerViewController()
+    let db                 = Firestore.firestore()
     
     var pickedImage: UIImage?
    
@@ -88,7 +87,6 @@ class RegisterViewController: UIViewController {
             if pickedImage == nil {
                 pickedImage = UIImage(systemName: "person.fill")
             }
-            
             // Passwords match, proceed with registration logic
             registerNewAccount()
         } else {
