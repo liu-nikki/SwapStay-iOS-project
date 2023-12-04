@@ -145,8 +145,8 @@ class ShowProfileView: UIView {
         NSLayoutConstraint.activate([
             imageProfile.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
             imageProfile.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            imageProfile.widthAnchor.constraint(equalToConstant: 200),
-            imageProfile.heightAnchor.constraint(equalToConstant: 200),
+            imageProfile.widthAnchor.constraint(equalToConstant: 100), // was 200
+            imageProfile.heightAnchor.constraint(equalToConstant: 100),// was 200
             
             labelProfile.topAnchor.constraint(equalTo: imageProfile.bottomAnchor, constant: 20),
             labelProfile.centerXAnchor.constraint(equalTo: self.centerXAnchor),
