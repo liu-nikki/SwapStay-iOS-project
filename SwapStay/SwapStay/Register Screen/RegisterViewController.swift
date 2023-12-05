@@ -9,14 +9,17 @@ import UIKit
 import PhotosUI
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseStorage
 
 class RegisterViewController: UIViewController {
     
-    // used to notify login screen to remove register screen once the user register successfully
+    // Used to notify login screen to remove register screen once the user register successfully
     let notificationCenter = NotificationCenter.default
     let registerView       = RegisterView()
     let childProgressView  = ProgressSpinnerViewController()
     let db                 = Firestore.firestore()
+    // Get a reference to the storage service using the default Firebase App
+    let storage            = Storage.storage()
     
     var pickedImage: UIImage?
    
