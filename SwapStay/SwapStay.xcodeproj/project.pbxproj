@@ -22,7 +22,7 @@
 		1518E6B92B0968DC004A75D5 /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 1518E6B82B0968DC004A75D5 /* FirebaseAppDistribution-Beta */; };
 		1518E6BB2B0968DC004A75D5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1518E6BA2B0968DC004A75D5 /* FirebaseAuth */; };
 		1518E6BD2B0968DC004A75D5 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 1518E6BC2B0968DC004A75D5 /* FirebaseAuthCombine-Community */; };
-		1518E6C12B096A4B004A75D5 /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1518E6C02B096A4B004A75D5 /* MainScreenView.swift */; };
+		1518E6C12B096A4B004A75D5 /* LoginScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1518E6C02B096A4B004A75D5 /* LoginScreenView.swift */; };
 		1518E6C32B097027004A75D5 /* HouseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1518E6C22B097027004A75D5 /* HouseTableViewCell.swift */; };
 		1518E6C52B097087004A75D5 /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1518E6C42B097087004A75D5 /* Configs.swift */; };
 		1518E6C82B097215004A75D5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1518E6C72B097215004A75D5 /* User.swift */; };
@@ -71,6 +71,12 @@
 		B85064222B1181BC0030343C /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B85064212B1181BC0030343C /* FirebaseRemoteConfigSwift */; };
 		B85064242B1181BC0030343C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B85064232B1181BC0030343C /* FirebaseStorage */; };
 		B85064262B1181BC0030343C /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = B85064252B1181BC0030343C /* FirebaseStorageCombine-Community */; };
+		B9DE24172B1D44FA00BCC28A /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DE24162B1D44FA00BCC28A /* NotificationNames.swift */; };
+		B9DE24192B1D463C00BCC28A /* ChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DE24182B1D463C00BCC28A /* ChatsView.swift */; };
+		B9DE241B2B1D468600BCC28A /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DE241A2B1D468600BCC28A /* ChatsViewController.swift */; };
+		B9DE241E2B1D4B6800BCC28A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DE241D2B1D4B6800BCC28A /* LoginViewController.swift */; };
+		B9DE24222B1D62A900BCC28A /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DE24212B1D62A900BCC28A /* StartView.swift */; };
+		B9DE24242B1D62B800BCC28A /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DE24232B1D62B800BCC28A /* StartViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,7 +89,7 @@
 		1518E6A32B094654004A75D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1518E6A52B094654004A75D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1518E6AB2B09670C004A75D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		1518E6C02B096A4B004A75D5 /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
+		1518E6C02B096A4B004A75D5 /* LoginScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenView.swift; sourceTree = "<group>"; };
 		1518E6C22B097027004A75D5 /* HouseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseTableViewCell.swift; sourceTree = "<group>"; };
 		1518E6C42B097087004A75D5 /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
 		1518E6C72B097215004A75D5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -103,6 +109,12 @@
 		B85063EB2B0ED8650030343C /* HouseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseListView.swift; sourceTree = "<group>"; };
 		B85063ED2B0ED87A0030343C /* HouseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseListViewController.swift; sourceTree = "<group>"; };
 		B85063EF2B116DFB0030343C /* FirestoreUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreUtility.swift; sourceTree = "<group>"; };
+		B9DE24162B1D44FA00BCC28A /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
+		B9DE24182B1D463C00BCC28A /* ChatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsView.swift; sourceTree = "<group>"; };
+		B9DE241A2B1D468600BCC28A /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
+		B9DE241D2B1D4B6800BCC28A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		B9DE24212B1D62A900BCC28A /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		B9DE24232B1D62B800BCC28A /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,15 +185,19 @@
 		1518E6962B094653004A75D5 /* SwapStay */ = {
 			isa = PBXGroup;
 			children = (
-				1518E6C62B09718D004A75D5 /* Data Models */,
+				B9DE24162B1D44FA00BCC28A /* NotificationNames.swift */,
 				1518E6C42B097087004A75D5 /* Configs.swift */,
 				B85063EF2B116DFB0030343C /* FirestoreUtility.swift */,
-				B85063EA2B0ED8430030343C /* House List Screen */,
+				1518E6C62B09718D004A75D5 /* Data Models */,
+				1518E6D82B097ECE004A75D5 /* Process Indicator */,
 				B85063E12B0E93A90030343C /* Edit Profile Screen */,
+				B85063EA2B0ED8430030343C /* House List Screen */,
+				B9DE241C2B1D468C00BCC28A /* Chats Screen */,
 				B85063E02B0D9CE30030343C /* Show Profile Screen */,
 				1518E6CF2B097DE1004A75D5 /* Register Screen */,
-				1518E6D82B097ECE004A75D5 /* Process Indicator */,
+				B9DE24262B1D9C1B00BCC28A /* Login Screen */,
 				1518E6BE2B0969F7004A75D5 /* Main Screen */,
+				B9DE24252B1D9B6300BCC28A /* Start Screen */,
 				1518E6972B094653004A75D5 /* AppDelegate.swift */,
 				1518E6992B094653004A75D5 /* SceneDelegate.swift */,
 				1518E69D2B094653004A75D5 /* Main.storyboard */,
@@ -196,8 +212,8 @@
 		1518E6BE2B0969F7004A75D5 /* Main Screen */ = {
 			isa = PBXGroup;
 			children = (
-				1518E6BF2B096A0D004A75D5 /* Views */,
 				1518E69B2B094653004A75D5 /* ViewController.swift */,
+				1518E6BF2B096A0D004A75D5 /* Views */,
 				1518E6CD2B097C62004A75D5 /* RightBarButtonManager.swift */,
 				1518E6C92B0974C8004A75D5 /* UserTableViewManager.swift */,
 			);
@@ -207,7 +223,6 @@
 		1518E6BF2B096A0D004A75D5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1518E6C02B096A4B004A75D5 /* MainScreenView.swift */,
 				1518E6C22B097027004A75D5 /* HouseTableViewCell.swift */,
 			);
 			path = Views;
@@ -274,6 +289,33 @@
 				B85063ED2B0ED87A0030343C /* HouseListViewController.swift */,
 			);
 			path = "House List Screen";
+			sourceTree = "<group>";
+		};
+		B9DE241C2B1D468C00BCC28A /* Chats Screen */ = {
+			isa = PBXGroup;
+			children = (
+				B9DE24182B1D463C00BCC28A /* ChatsView.swift */,
+				B9DE241A2B1D468600BCC28A /* ChatsViewController.swift */,
+			);
+			path = "Chats Screen";
+			sourceTree = "<group>";
+		};
+		B9DE24252B1D9B6300BCC28A /* Start Screen */ = {
+			isa = PBXGroup;
+			children = (
+				B9DE24212B1D62A900BCC28A /* StartView.swift */,
+				B9DE24232B1D62B800BCC28A /* StartViewController.swift */,
+			);
+			path = "Start Screen";
+			sourceTree = "<group>";
+		};
+		B9DE24262B1D9C1B00BCC28A /* Login Screen */ = {
+			isa = PBXGroup;
+			children = (
+				1518E6C02B096A4B004A75D5 /* LoginScreenView.swift */,
+				B9DE241D2B1D4B6800BCC28A /* LoginViewController.swift */,
+			);
+			path = "Login Screen";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -390,6 +432,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9DE241E2B1D4B6800BCC28A /* LoginViewController.swift in Sources */,
+				B9DE24242B1D62B800BCC28A /* StartViewController.swift in Sources */,
 				1518E6D12B097E12004A75D5 /* RegisterView.swift in Sources */,
 				1518E6C32B097027004A75D5 /* HouseTableViewCell.swift in Sources */,
 				1518E69C2B094653004A75D5 /* ViewController.swift in Sources */,
@@ -403,13 +447,17 @@
 				B85063EC2B0ED8650030343C /* HouseListView.swift in Sources */,
 				B85063E92B0EC4C10030343C /* EditProfileView.swift in Sources */,
 				1518E6DA2B097EFB004A75D5 /* ProgressSpinnerViewController.swift in Sources */,
+				B9DE24172B1D44FA00BCC28A /* NotificationNames.swift in Sources */,
 				B85063F02B116DFB0030343C /* FirestoreUtility.swift in Sources */,
 				B85063EE2B0ED87A0030343C /* HouseListViewController.swift in Sources */,
 				1518E6D52B097E6D004A75D5 /* RegisterFirebaseManager.swift in Sources */,
+				B9DE24192B1D463C00BCC28A /* ChatsView.swift in Sources */,
 				1518E6CE2B097C62004A75D5 /* RightBarButtonManager.swift in Sources */,
-				1518E6C12B096A4B004A75D5 /* MainScreenView.swift in Sources */,
+				1518E6C12B096A4B004A75D5 /* LoginScreenView.swift in Sources */,
 				B85063E52B0E93F30030343C /* ShowProfileViewController.swift in Sources */,
 				B85063E32B0E93DB0030343C /* ShowProfileView.swift in Sources */,
+				B9DE241B2B1D468600BCC28A /* ChatsViewController.swift in Sources */,
+				B9DE24222B1D62A900BCC28A /* StartView.swift in Sources */,
 				1518E6D72B097EB3004A75D5 /* RegisterProgressIndicatiorManager.swift in Sources */,
 				1518E6C52B097087004A75D5 /* Configs.swift in Sources */,
 				1518E6C82B097215004A75D5 /* User.swift in Sources */,
