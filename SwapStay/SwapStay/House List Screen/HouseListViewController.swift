@@ -22,33 +22,18 @@ class HouseListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        // Load user infomation, including name and profile photo
+        loadUserInfo()
         
-//        FirestoreUtility.fetchUser(from: (Auth.auth().currentUser?.email)!) { result in
-//            switch result {
-//            case .success(let user):
-//                // Handle the successful retrieval of the user
-////                self.currentUser = user
-//                self.houseListView.labelWelcome.text = "Welcome \(user.name)!"
-//                if let profileImageURL = URL(string: (self.currentUser?.profileImageURL)!) {
-//                    FirestoreUtility.loadImageToButton(from: profileImageURL, into: self.houseListView.profilePic)
-//                }
-//            case .failure(let error):
-//                // Handle any errors
-//                print(error)
-//            }
-//        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
         
         // Disable back navigation
         self.navigationItem.setHidesBackButton(true, animated: true);
         
-        // set background color to white
+        // Set background color to white
         view.backgroundColor = .white
         
         //MARK: hide Keyboard on tapping the screen.
@@ -56,6 +41,8 @@ class HouseListViewController: UIViewController {
         
         //MARK: set up on profilePicButton tapped.
         houseListView.profilePic.addTarget(self, action: #selector(onProfilePicButtonTapped), for: .touchUpInside)
+        
+        houseListView.buttonPost.addTarget(self, action: #selector(onPostButtonTapped), for: .touchUpInside)
     }
     
     @objc func onProfilePicButtonTapped(){
@@ -70,9 +57,13 @@ class HouseListViewController: UIViewController {
         view.addGestureRecognizer(tapRecognizer)
     }
     
+    @objc func onPostButtonTapped(){
+        //MARK: presenting the RegisterViewController...
+        let postViewController = PostViewController()
+        navigationController?.pushViewController(postViewController, animated: true)
+    }
+    
     @objc func hideKeyboardOnTap(){
         view.endEditing(true)
     }
-    
-                                        
 }

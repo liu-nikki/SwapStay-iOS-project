@@ -13,6 +13,7 @@ class HouseListView: UIView {
     var appTitle: UILabel!
     var profilePic: UIButton!
     var labelWelcome: UILabel!
+    var buttonPost: UIButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,6 +22,7 @@ class HouseListView: UIView {
         setupAppTitle()
         setupProfilePic()
         setupLabelWelcome()
+        setupButtonTmpPost()
         
         initConstraints()
         
@@ -58,10 +60,23 @@ class HouseListView: UIView {
         self.addSubview(labelWelcome)
     }
     
+    func setupButtonTmpPost(){
+        buttonPost = UIButton(type: .system)
+        buttonPost.titleLabel?.font = .boldSystemFont(ofSize: 16)
+        buttonPost.setTitle("Post", for: .normal)
+        buttonPost.translatesAutoresizingMaskIntoConstraints = false
+    
+        buttonPost.setTitleColor(.white, for: .normal)
+        buttonPost.backgroundColor = .systemTeal
+        buttonPost.layer.cornerRadius = 5
+        buttonPost.layer.masksToBounds = true
+        self.addSubview(buttonPost)
+    }
+    
     //MARK: setting up constraints...
     func initConstraints(){
         NSLayoutConstraint.activate([
-            appTitle.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            appTitle.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: -64),
             appTitle.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             
             profilePic.topAnchor.constraint(equalTo: appTitle.bottomAnchor, constant: 16),
@@ -70,7 +85,10 @@ class HouseListView: UIView {
             profilePic.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             
             labelWelcome.topAnchor.constraint(equalTo: appTitle.bottomAnchor, constant: 32),
-            labelWelcome.leadingAnchor.constraint(equalTo: profilePic.trailingAnchor, constant: 16)
+            labelWelcome.leadingAnchor.constraint(equalTo: profilePic.trailingAnchor, constant: 16),
+            
+            buttonPost.topAnchor.constraint(equalTo: labelWelcome.bottomAnchor, constant: 16),
+            buttonPost.centerXAnchor.constraint(equalTo: self.centerXAnchor),
         ])
     }
 

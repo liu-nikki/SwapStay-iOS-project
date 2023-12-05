@@ -24,9 +24,10 @@ extension RegisterViewController{
                 self.showAlert()
                 return
             }
-            
+            // Make sure email is lowercase
+            let emailLC = email.lowercased()
             //Validations....
-            Auth.auth().createUser(withEmail: email, password: password) { result, error in
+            Auth.auth().createUser(withEmail: emailLC, password: password) { result, error in
                 if let error = error as NSError? {
                     self.hideActivityIndicator()
                     
@@ -39,10 +40,9 @@ extension RegisterViewController{
                     }
                     return
                 }
-                
-                // User creation is successful...
-                let user = User(name: name, email: email.lowercased())
-                self.setNameOfTheUserInFirebaseAuth(user: user)
+                // Once there is no error, which means User creation is successful...
+                let user = User(name: name, email: emailLC)
+                self.uploadProfilePhotoToStorage(user: user)
             }
         }
     }
@@ -55,15 +55,16 @@ extension RegisterViewController{
     }
     
     //MARK: We set the name of the user after we create the account...
-    func setNameOfTheUserInFirebaseAuth(user: User){
+    func setNameOfTheUserInFirebaseAuth(user: User, photoURL: URL?){
         let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+        // Set user name and photo URL
         changeRequest?.displayName = user.name
+        changeRequest?.photoURL    = photoURL
         changeRequest?.commitChanges(completion: {(error) in
             if error == nil{
-                //MARK: the profile update is successful...
                 self.saveUserToFirestore(user: user)
             }else{
-                //MARK: there was an error updating the profile...
+                // There was an error updating the profile...
                 print("Error occured: \(String(describing: error))")
             }
         })
@@ -72,12 +73,12 @@ extension RegisterViewController{
     //MARK: Logic to add a contact to Firestore...
     func saveUserToFirestore(user: User) {
         
-        // get a reference to the email document
+        // Get a reference to the email document
         let emailDocument = db.collection("users").document(user.email)
         let userData: [String: String] = ["name": user.name]
 
         do {
-            // add user name as a field to the user email, which is the docuemnt ID
+            // Add user name as a field to the user email, which is the docuemnt ID
             try emailDocument.setData(from: userData, completion: { (error) in
                 if let error = error {
                     print("Error setting user data: \(error.localizedDescription)")
@@ -91,7 +92,7 @@ extension RegisterViewController{
     
         let dummyData: [String: String] = ["email": "This is dummy"]
         do {
-            // create a collection "chat" with dummy data
+            // Create a collection "chat" with dummy data
             try emailDocument.collection("chats").document("Dummy ID").setData(from: dummyData, completion: {(error) in
                 if let error = error {
                     print("Error setting contacts data: \(error.localizedDescription)")
@@ -99,7 +100,7 @@ extension RegisterViewController{
                     print("User and contacts data successfully written!")
                     //MARK: hide the progress indicator...
                     self.hideActivityIndicator()
-                    // notify the screen to update and will redirect to Login Screen
+                    // Notify the screen to update and will redirect to Login Screen
                     self.notificationCenter.post(name: .registerSuccessfully, object: "")
                 }
             })
@@ -108,5 +109,35 @@ extension RegisterViewController{
         }
     }
     
+    func uploadProfilePhotoToStorage(user: User){
+        var profilePhotoURL:URL?
+        
+        //MARK: Upload the profile photo if there is any...
+        if let image = pickedImage{
+            if let jpegData = image.jpegData(compressionQuality: 80){
+                // Create a storage reference from our storage service
+                let storageRef = storage.reference()
+                // Create a child reference imagesRef now points to "images"
+                // Instead of using UUID, use email address as the id of user icon
+                let imageRef = storageRef.child("temp_user_icons/\(user.email).jpg") // TODO: rename it
+                // Upload the file to the path "user_icons/\(email).jpg"
+                let uploadTask = imageRef.putData(jpegData, completion: {(metadata, error) in
+                    if error == nil{
+                        // If there is no error, donwload the url
+                        imageRef.downloadURL(completion: {(url, error) in
+                            // If there is no erro, assign the url to profilePhotoURL
+                            if error == nil{
+                                profilePhotoURL = url
+                                self.setNameOfTheUserInFirebaseAuth(user: user, photoURL: profilePhotoURL)
+                            }
+                        })
+                    }
+                })
+            }
+        }else{
+            self.setNameOfTheUserInFirebaseAuth(user: user, photoURL: profilePhotoURL)
+        }
+        
+    }
 }
 
