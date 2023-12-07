@@ -9,8 +9,6 @@ import UIKit
 
 class EditProfileView: UIView {
     
-    //var contentWrapper:UIScrollView!
-    //var contentView: UIView!
     var buttonEditProfilePhoto: UIButton!
     var labelEditProfilePhoto: UILabel!
     var textFieldName: UITextField!
@@ -35,7 +33,7 @@ class EditProfileView: UIView {
         setupTextFieldCity()
         setupTextFieldState()
         setupTextFieldZip()
-        
+
         setupButtonSave()
         
         initConstraints()
@@ -44,7 +42,6 @@ class EditProfileView: UIView {
     func setupButtonEditProfilePhoto()
     {
         buttonEditProfilePhoto = UIButton()
-        //et a background to it, which shows a camera icon instead of text. So, we set an empty title
         buttonEditProfilePhoto.setTitle("", for: .normal)
         //set an image of the system name, "camera.fill".
         //buttonAddProfilePhoto.setImage(UIImage(systemName: "camera.fill"), for: .normal)

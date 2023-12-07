@@ -15,7 +15,7 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
     let database           = Firestore.firestore()
     
     var handleAuth:        AuthStateDidChangeListenerHandle?
-    var currentUser:       FirebaseAuth.User?
+    var currentUser:       User?
     var tarBarControllers: [UINavigationController]?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,17 +34,17 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
         
         // handler for authentication
         handleAuth = Auth.auth().addStateDidChangeListener{ auth, user in
-            // check the user state
-            if user == nil{
-                // pop up Login Screen
+            // if user is signed in
+            if let user = user {
+                self.viewControllers = self.generateNavControllers()
+                self.addLineAboveTab()
+                if let email = Auth.auth().currentUser?.email {
+                    self.fetchUserDetails(email: email)
+                        }
+            } else {
                 let loginViewController = LoginViewController()
                 loginViewController.modalPresentationStyle = .fullScreen
                 self.present(loginViewController, animated: false, completion: nil)
-            }else{
-                // set the navigation conttorllers
-                self.viewControllers = self.generateNavControllers()
-                // add a line above each tab
-                self.addLineAboveTab()
             }
         }
     }
@@ -99,10 +99,42 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         Auth.auth().removeStateDidChangeListener(handleAuth!)
     }
+    
+    func fetchUserDetails(email: String) {
+        FirestoreUtility.fetchUser(from: email) { result in
+            switch result {
+            case .success(let user):
+                UserManager.shared.currentUser = user
+                // Notify other parts of the app that the user info is updated, if needed.
+//                    NotificationCenter.default.post(name: .currentUserUpdated, object: nil)
+                self.printCurrentUserDetails()
+            case .failure(let error):
+                print("Error fetching user: \(error)")
+                // Handle error appropriately
+            }
+        }
+    }
+    
+    //can be deleted later, checking currentuser detail
+    func printCurrentUserDetails() {
+        if let user = UserManager.shared.currentUser {
+            print("THE CURRENT USER IS SIGNED IN")
+            print("User ID: \(user.id ?? "No ID")")
+            print("Name: \(user.name)")
+            print("Email: \(user.email)")
+            print("Profile Image URL: \(user.profileImageURL ?? "No URL")")
+            print("Phone: \(user.phone ?? "No Phone")")
+            print("Address: \(user.address?.formattedAddress() ?? "No Address")")
+        } else {
+            print("No current user data available")
+        }
+    }
+
 }

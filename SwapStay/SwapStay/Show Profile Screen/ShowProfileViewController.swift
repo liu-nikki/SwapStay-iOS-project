@@ -15,39 +15,23 @@ class ShowProfileViewController: UIViewController {
     override func loadView() {
         view = showProfileView
     }
-    
-//    var receivedUser: User?
-    var currentUser: User?
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        FirestoreUtility.fetchUser(from: (Auth.auth().currentUser?.email)!) { result in
-            switch result {
-            case .success(let user):
-                // Handle the successful retrieval of the user
-                self.currentUser = user
-                self.showProfileView.labelUsername.text = "Email: \(self.currentUser?.email ?? "")"
-                self.showProfileView.labelName.text = "Name: \(self.currentUser?.name ?? "")"
-        //        showProfileView.labelPassword.text = currentUser.map({ _ in "********" })
-                self.showProfileView.labelPhone.text = "Phone: \(self.currentUser?.phone ?? "")"
-                self.showProfileView.labelAddress.text = "Address: \n\(self.currentUser?.address?.formattedAddress() ?? "")"
-                
-                if let profileImageURL = URL(string: (self.currentUser?.profileImageURL)!) {
-                    FirestoreUtility.loadImageToImage(from: profileImageURL, into: self.showProfileView.imageProfile)
-                }
-            case .failure(let error):
-                // Handle any errors
-                print(error)
+        
+        // Fetch the current user data from UserManager and update UI
+        if let user = UserManager.shared.currentUser {
+            updateUIWithUserDetails(user)
+            if let profileImageURLString = user.profileImageURL,
+               let url = URL(string: profileImageURLString) {
+                loadImage(from: url)
             }
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
-//        showProfileView.imageProfile.image = UIImage(named: receivedUser?.profileImageURL ?? "")
-        
+ 
         //Hiding on-screen Keyboard when tapping outside.
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
@@ -60,12 +44,53 @@ class ShowProfileViewController: UIViewController {
         //MARK: hide Keyboard on tapping the screen.
         hideKeyboardWhenTappedAround()
         
+        NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(userProfileUpdated),
+                name: .userProfileUpdated,
+                object: nil
+            )
+        
+        printCurrentUserDetails()
+    }
+    
+    @objc func userProfileUpdated() {
+        if let user = UserManager.shared.currentUser {
+            updateUIWithUserDetails(user)
+            if let profileImageURLString = user.profileImageURL,
+               let url = URL(string: profileImageURLString) {
+                loadImage(from: url)
+            }
+        }
+    }
+    
+    // Function to update the UI with user details
+    func updateUIWithUserDetails(_ user: User) {
+        showProfileView.labelUsername.text = "Email: \(user.email)"
+        showProfileView.labelName.text = "Name: \(user.name)"
+        showProfileView.labelPhone.text = "Phone: \(user.phone ?? "Not available")"
+        showProfileView.labelAddress.text = "Address: \n\(user.address?.formattedAddress() ?? "Not available")"
+    }
+    
+    // Function to load image from URL
+    func loadImage(from url: URL) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                print("Error downloading image: \(error?.localizedDescription ?? "unknown error")")
+                return
+            }
+            DispatchQueue.main.async { // Ensure UI updates are on main thread
+                if let image = UIImage(data: data) {
+                    self.showProfileView.imageProfile.image = image
+                }
+            }
+        }.resume()
     }
     
     @objc func onEditButtonTapped(){
         //MARK: presenting the RegisterViewController...
         let editProfileViewController = EditProfileViewController()
-        editProfileViewController.currentUser = currentUser
+//        editProfileViewController.UserManager.shared.currentUser = UserManager.shared.currentUser
         navigationController?.pushViewController(editProfileViewController, animated: true)
     }
     
@@ -97,49 +122,45 @@ class ShowProfileViewController: UIViewController {
             textField.isSecureTextEntry = true
         }
         
-        //MARK: Cancel Action.
-//        let signInAction = UIAlertAction(title: "Cancel", style: .default, handler: {(_) in
-//            if let email = editPasswordAlert.textFields![0].text,
-//               let password = editPasswordAlert.textFields![1].text{
-//                //MARK: sign-in logic for Firebase...
-//                self.signInToFirebase(email: email, password: password)
-//            }
-//        })
-        
         //MARK: Register Action...
-        let changePasswordAction = UIAlertAction(title: "Confirm", style: .default, handler: {(_) in
-            //MARK: logic to open the register screen...
-            if let currentPassword = editPasswordAlert.textFields![0].text,
-               let newPassword = editPasswordAlert.textFields![1].text,
-               let confirmNewPassword = editPasswordAlert.textFields![2].text {
-                if (newPassword != confirmNewPassword) {
+        let changePasswordAction = UIAlertAction(title: "Confirm", style: .default, handler: { _ in
+            if let currentPassword = editPasswordAlert.textFields?[0].text,
+               let newPassword = editPasswordAlert.textFields?[1].text,
+               let confirmNewPassword = editPasswordAlert.textFields?[2].text {
+                
+                if newPassword != confirmNewPassword {
                     self.showAlert(title: "Error", message: "New password and confirm password do not match!")
-                } else {
-                    let user = Auth.auth().currentUser
-                    var credential: AuthCredential
+                    return
+                }
+                
+                guard let user = Auth.auth().currentUser,
+                      let email = UserManager.shared.currentUser?.email else {
+                    print("Error: Current user or email not found.")
+                    return
+                }
 
-                    // Prompt the user to re-enter their email and password
-                    let email = self.currentUser?.email  // User's email
-                    let password = currentPassword  // User's current password
+                // Using EmailAuthProvider to create the credential
+                let credential: AuthCredential = EmailAuthProvider.credential(withEmail: email, password: currentPassword)
 
-                    credential = EmailAuthProvider.credential(withEmail: email!, password: password)
-                    user?.reauthenticate(with: credential) { result, error in
-                        if error != nil {
-                            // An error happened.
-                            self.showAlert(title: "Error", message: "Please check your current password!")
-                        } else {
-                            // User re-authenticated. Now, update the password.
-                            user?.updatePassword(to: newPassword) { error in
-                                // Handle password update
+                user.reauthenticate(with: credential) { _, error in
+                    if let error = error {
+                        // An error happened during re-authentication.
+                        self.showAlert(title: "Error", message: "Re-authentication failed: \(error.localizedDescription)")
+                    } else {
+                        // User re-authenticated. Now, update the password.
+                        user.updatePassword(to: newPassword) { error in
+                            if let error = error {
+                                self.showAlert(title: "Error", message: "Password update failed: \(error.localizedDescription)")
+                            } else {
+                                // Handle password update success
                                 self.showAlert(title: "Success", message: "Password updated successfully!")
                             }
                         }
                     }
                 }
             }
-                
-                
         })
+
         
         //MARK: action buttons...
         editPasswordAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -153,10 +174,6 @@ class ShowProfileViewController: UIViewController {
             )
         })
         
-    }
-    
-    @objc func onTapOutsideAlert(){
-        self.dismiss(animated: true)
     }
     
     @objc func onLogOutButtonTapped() {
@@ -175,6 +192,10 @@ class ShowProfileViewController: UIViewController {
         self.present(logoutAlert, animated: true)
     }
     
+    @objc func onTapOutsideAlert(){
+        self.dismiss(animated: true)
+    }
+    
     //MARK: hide keyboard logic.
     func hideKeyboardWhenTappedAround() {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
@@ -190,5 +211,30 @@ class ShowProfileViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
+    
+    func printCurrentUserDetails() {
+            if let user = UserManager.shared.currentUser {
+                print("User Details:")
+                print("Name: \(user.name)")
+                print("Email: \(user.email)")
+                if let profileImageURL = user.profileImageURL {
+                    print("Profile Image URL: \(profileImageURL)")
+                } else {
+                    print("Profile Image URL: Not available")
+                }
+                if let phone = user.phone {
+                    print("Phone: \(phone)")
+                } else {
+                    print("Phone: Not available")
+                }
+                if let address = user.address {
+                    print("Address: \(address.formattedAddress())")
+                } else {
+                    print("Address: Not available")
+                }
+            } else {
+                print("currentUser is nil")
+            }
+        }
     
 }

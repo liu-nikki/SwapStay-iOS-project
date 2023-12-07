@@ -37,6 +37,9 @@
 		1518E6DC2B097F1A004A75D5 /* ProgressSpinnerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1518E6DB2B097F1A004A75D5 /* ProgressSpinnerDelegate.swift */; };
 		1518E6DF2B098509004A75D5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1518E6DE2B098509004A75D5 /* FirebaseFirestore */; };
 		1518E6E12B0AADA6004A75D5 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1518E6E02B0AADA6004A75D5 /* FirebaseFirestoreSwift */; };
+		7594F4A12B1FFC6300C26BF6 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7594F4A02B1FFC6300C26BF6 /* PostViewController.swift */; };
+		7594F4A32B1FFC7000C26BF6 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7594F4A22B1FFC7000C26BF6 /* PostView.swift */; };
+		7594F4AD2B21297A00C26BF6 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7594F4AC2B21297A00C26BF6 /* UserManager.swift */; };
 		B85063E32B0E93DB0030343C /* ShowProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85063E22B0E93DB0030343C /* ShowProfileView.swift */; };
 		B85063E52B0E93F30030343C /* ShowProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85063E42B0E93F30030343C /* ShowProfileViewController.swift */; };
 		B85063E72B0EC4AA0030343C /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85063E62B0EC4AA0030343C /* EditProfileViewController.swift */; };
@@ -102,6 +105,9 @@
 		1518E6D62B097EB3004A75D5 /* RegisterProgressIndicatiorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProgressIndicatiorManager.swift; sourceTree = "<group>"; };
 		1518E6D92B097EFB004A75D5 /* ProgressSpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSpinnerViewController.swift; sourceTree = "<group>"; };
 		1518E6DB2B097F1A004A75D5 /* ProgressSpinnerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSpinnerDelegate.swift; sourceTree = "<group>"; };
+		7594F4A02B1FFC6300C26BF6 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		7594F4A22B1FFC7000C26BF6 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		7594F4AC2B21297A00C26BF6 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		B85063E22B0E93DB0030343C /* ShowProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowProfileView.swift; sourceTree = "<group>"; };
 		B85063E42B0E93F30030343C /* ShowProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowProfileViewController.swift; sourceTree = "<group>"; };
 		B85063E62B0EC4AA0030343C /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -188,11 +194,13 @@
 				B9DE24162B1D44FA00BCC28A /* NotificationNames.swift */,
 				1518E6C42B097087004A75D5 /* Configs.swift */,
 				B85063EF2B116DFB0030343C /* FirestoreUtility.swift */,
+				7594F4AC2B21297A00C26BF6 /* UserManager.swift */,
 				1518E6C62B09718D004A75D5 /* Data Models */,
 				1518E6D82B097ECE004A75D5 /* Process Indicator */,
-				B85063E12B0E93A90030343C /* Edit Profile Screen */,
+				7594F4A52B1FFC8000C26BF6 /* Post Screen */,
 				B85063EA2B0ED8430030343C /* House List Screen */,
 				B9DE241C2B1D468C00BCC28A /* Chats Screen */,
+				B85063E12B0E93A90030343C /* Edit Profile Screen */,
 				B85063E02B0D9CE30030343C /* Show Profile Screen */,
 				1518E6CF2B097DE1004A75D5 /* Register Screen */,
 				B9DE24262B1D9C1B00BCC28A /* Login Screen */,
@@ -262,6 +270,15 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7594F4A52B1FFC8000C26BF6 /* Post Screen */ = {
+			isa = PBXGroup;
+			children = (
+				7594F4A22B1FFC7000C26BF6 /* PostView.swift */,
+				7594F4A02B1FFC6300C26BF6 /* PostViewController.swift */,
+			);
+			path = "Post Screen";
 			sourceTree = "<group>";
 		};
 		B85063E02B0D9CE30030343C /* Show Profile Screen */ = {
@@ -438,6 +455,7 @@
 				1518E6C32B097027004A75D5 /* HouseTableViewCell.swift in Sources */,
 				1518E69C2B094653004A75D5 /* ViewController.swift in Sources */,
 				1518E6D32B097E30004A75D5 /* RegisterViewController.swift in Sources */,
+				7594F4AD2B21297A00C26BF6 /* UserManager.swift in Sources */,
 				1518E6CA2B0974C8004A75D5 /* UserTableViewManager.swift in Sources */,
 				1518E6982B094653004A75D5 /* AppDelegate.swift in Sources */,
 				1518E6CC2B09753E004A75D5 /* House.swift in Sources */,
@@ -448,6 +466,7 @@
 				B85063E92B0EC4C10030343C /* EditProfileView.swift in Sources */,
 				1518E6DA2B097EFB004A75D5 /* ProgressSpinnerViewController.swift in Sources */,
 				B9DE24172B1D44FA00BCC28A /* NotificationNames.swift in Sources */,
+				7594F4A32B1FFC7000C26BF6 /* PostView.swift in Sources */,
 				B85063F02B116DFB0030343C /* FirestoreUtility.swift in Sources */,
 				B85063EE2B0ED87A0030343C /* HouseListViewController.swift in Sources */,
 				1518E6D52B097E6D004A75D5 /* RegisterFirebaseManager.swift in Sources */,
@@ -456,6 +475,7 @@
 				1518E6C12B096A4B004A75D5 /* LoginScreenView.swift in Sources */,
 				B85063E52B0E93F30030343C /* ShowProfileViewController.swift in Sources */,
 				B85063E32B0E93DB0030343C /* ShowProfileView.swift in Sources */,
+				7594F4A12B1FFC6300C26BF6 /* PostViewController.swift in Sources */,
 				B9DE241B2B1D468600BCC28A /* ChatsViewController.swift in Sources */,
 				B9DE24222B1D62A900BCC28A /* StartView.swift in Sources */,
 				1518E6D72B097EB3004A75D5 /* RegisterProgressIndicatiorManager.swift in Sources */,

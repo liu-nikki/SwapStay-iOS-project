@@ -9,7 +9,6 @@ import UIKit
 
 class HouseListView: UIView {
     
-    
     var appTitle: UILabel!
     var profilePic: UIButton!
     var labelWelcome: UILabel!
@@ -29,7 +28,6 @@ class HouseListView: UIView {
     }
     
     //MARK: initializing the UI element
-    
     func setupAppTitle(){
         appTitle = UILabel()
         appTitle.text = "Swap Stay"
@@ -62,15 +60,23 @@ class HouseListView: UIView {
     
     func setupButtonTmpPost(){
         buttonPost = UIButton(type: .system)
-        buttonPost.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        buttonPost.setTitle("Post", for: .normal)
-        buttonPost.translatesAutoresizingMaskIntoConstraints = false
-    
-        buttonPost.setTitleColor(.white, for: .normal)
-        buttonPost.backgroundColor = .systemTeal
-        buttonPost.layer.cornerRadius = 5
-        buttonPost.layer.masksToBounds = true
-        self.addSubview(buttonPost)
+            buttonPost.titleLabel?.font = .boldSystemFont(ofSize: 16)
+            buttonPost.setTitle("Post", for: .normal)
+            buttonPost.translatesAutoresizingMaskIntoConstraints = false
+
+            buttonPost.setTitleColor(.white, for: .normal)
+            buttonPost.backgroundColor = .systemTeal
+            buttonPost.layer.masksToBounds = true
+            self.addSubview(buttonPost)
+
+            // Add constraints for width and height
+            NSLayoutConstraint.activate([
+                buttonPost.widthAnchor.constraint(equalToConstant: 50), // Width of 50 points
+                buttonPost.heightAnchor.constraint(equalToConstant: 50), // Height of 50 points, same as width
+            ])
+
+            // Set corner radius to half of the height
+            buttonPost.layer.cornerRadius = 25 
     }
     
     //MARK: setting up constraints...
@@ -87,8 +93,10 @@ class HouseListView: UIView {
             labelWelcome.topAnchor.constraint(equalTo: appTitle.bottomAnchor, constant: 32),
             labelWelcome.leadingAnchor.constraint(equalTo: profilePic.trailingAnchor, constant: 16),
             
-            buttonPost.topAnchor.constraint(equalTo: labelWelcome.bottomAnchor, constant: 16),
-            buttonPost.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            buttonPost.widthAnchor.constraint(equalToConstant: 48),
+            buttonPost.heightAnchor.constraint(equalToConstant: 48),
+            buttonPost.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            buttonPost.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
         ])
     }
 

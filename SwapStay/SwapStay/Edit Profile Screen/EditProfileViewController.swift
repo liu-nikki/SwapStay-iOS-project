@@ -15,49 +15,64 @@ class EditProfileViewController: UIViewController {
     
     let editProfileView = EditProfileView()
     
+    var pickedImage: UIImage?
+    
+    
     override func loadView() {
         view = editProfileView
     }
     
-    var currentUser: User?
-    
-    var pickedImage: UIImage?
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        FirestoreUtility.fetchUser(from: (Auth.auth().currentUser?.email)!) { result in
-            switch result {
-            case .success(let user):
-                // Handle the successful retrieval of the user
-                self.currentUser = user
-                self.editProfileView.textFieldName.text = self.currentUser?.name ?? ""
-                self.editProfileView.textPhoneNumber.text = self.currentUser?.phone ?? ""
-                if let profileImageURL = URL(string: (self.currentUser?.profileImageURL)!) {
-                    FirestoreUtility.loadImageToButton(from: profileImageURL, into: self.editProfileView.buttonEditProfilePhoto)
-                }
-                self.editProfileView.textFieldLine1.text = self.currentUser?.address?.line1 ?? ""
-                self.editProfileView.textFieldLine2.text = self.currentUser?.address?.line2 ?? ""
-                self.editProfileView.textFieldCity.text = self.currentUser?.address?.city ?? ""
-                self.editProfileView.textFieldState.text = self.currentUser?.address?.state ?? ""
-                self.editProfileView.textFieldZip.text = self.currentUser?.address?.zip ?? ""
-            case .failure(let error):
-                // Handle any errors
-                print(error)
+
+        // Populate the fields with current user data from UserManager
+        if let user = UserManager.shared.currentUser {
+            editProfileView.textFieldName.text = user.name
+            editProfileView.textPhoneNumber.text = user.phone
+            editProfileView.textFieldLine1.text = user.address?.line1
+            editProfileView.textFieldLine2.text = user.address?.line2
+            editProfileView.textFieldCity.text = user.address?.city
+            editProfileView.textFieldState.text = user.address?.state
+            editProfileView.textFieldZip.text = user.address?.zip
+
+            if let profileImageURLString = user.profileImageURL,
+               let url = URL(string: profileImageURLString) {
+                loadProfileImage(from: url)
             }
+        }
+        
+    }
+    
+    func loadProfileImage(from url: URL) {
+        let key = url.absoluteString
+
+        if let cachedImage = UserManager.shared.getCachedImage(forKey: key) {
+            self.editProfileView.buttonEditProfilePhoto.setImage(cachedImage, for: .normal)
+        } else {
+            URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+                guard let data = data, error == nil else {
+                    print("Error downloading image: \(error?.localizedDescription ?? "unknown error")")
+                    return
+                }
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        UserManager.shared.cacheImage(image, forKey: key)
+                        self?.editProfileView.buttonEditProfilePhoto.setImage(image, for: .normal)
+                    }
+                }
+            }.resume()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        // Change the Back button color to black
+        self.navigationController?.navigationBar.tintColor = .black
+        
         //MARK: set up on saveButton tapped.
         editProfileView.buttonSave.addTarget(self, action: #selector(onSaveButtonTapped), for: .touchUpInside)
         editProfileView.buttonEditProfilePhoto.menu = getMenuImagePicker()
-        
-        // Change the Back button color to black
-        self.navigationController?.navigationBar.tintColor = .black
         
         //MARK: hide Keyboard on tapping the screen.
         hideKeyboardWhenTappedAround()
@@ -99,81 +114,117 @@ class EditProfileViewController: UIViewController {
         present(photoPicker, animated: true, completion: nil)
     }
     
-    @objc func onSaveButtonTapped(){
-        //MARK: presenting the RegisterViewController...
-        var name: String?
-        var phoneNum: String?
-        var address: Address?
-                
-        if let nameText = editProfileView.textFieldName.text,
-            let phoneNumText = editProfileView.textPhoneNumber.text,
-           let line1Text = editProfileView.textFieldLine1.text,
-           let line2Text = editProfileView.textFieldLine2.text,
-           let cityText = editProfileView.textFieldCity.text,
-           let stateText = editProfileView.textFieldState.text,
-           let zipText = editProfileView.textFieldZip.text{
-            name = nameText
-            phoneNum = phoneNumText
-            address = Address(line1: line1Text, line2: line2Text, city: cityText, state: stateText, zip: zipText)
-             
-            let db = Firestore.firestore()
-            let userRef = db.collection("users").document(self.currentUser?.email ?? "")
-            
-            let imageData: Data?
-            if let image = self.pickedImage {
-                imageData = image.jpegData(compressionQuality: 0.75) // Adjust compression quality as needed
-                if let imageData = imageData {
-                    // Set a reference to where the image should be stored in Firebase Storage
-                    let storageRef = Storage.storage().reference().child("user_icons/\(FirestoreUtility.emailToFileName(email: self.currentUser!.email)).jpg")
+    @objc func onSaveButtonTapped() {
+        guard let currentUserEmail = UserManager.shared.currentUser?.email else { return }
 
-                    // Upload the image data
-                    storageRef.putData(imageData, metadata: nil) { metadata, error in
-                        guard metadata != nil else {
-                            // Handle the error
-                            print(error?.localizedDescription ?? "Unknown error")
-                            return
-                        }
+        // Prepare user data
+        let name = editProfileView.textFieldName.text ?? ""
+        let phoneNum = editProfileView.textPhoneNumber.text ?? ""
+        let address = Address(
+            line1: editProfileView.textFieldLine1.text ?? "",
+            line2: editProfileView.textFieldLine2.text,
+            city: editProfileView.textFieldCity.text ?? "",
+            state: editProfileView.textFieldState.text ?? "",
+            zip: editProfileView.textFieldZip.text ?? ""
+        )
 
-                        // Retrieve the download URL
-                        storageRef.downloadURL { url, error in
-                            if let downloadURL = url {
-                                // You now have the URL of the uploaded image
-                                // You can store this URL in Firebase Database if needed
-                                //MARK: update the user info in the Firebase.
-                                userRef.updateData([
-                                    "name": name ?? "",
-                                    "phoneNum": phoneNum ?? "",
-                                    "profileImageURL": downloadURL.absoluteString,
-                                    "address": address?.toDictionary() ?? [:]
-                                ]) { err in
-                                    if let err = err {
-                                        print("Error updating document: \(err)")
-                                    } else {
-                                        print("Document successfully updated")
-                                        self.navigationController?.popViewController(animated: true)
-                                    }
-                                }
-                            }
-                        }
-                    }
+        // Handle image upload if a new image is picked
+        if let image = pickedImage {
+            uploadImageAndUpdateUserData(image: image, email: currentUserEmail, name: name, phoneNum: phoneNum, address: address)
+        } else {
+            updateUserFirestoreData(email: currentUserEmail, name: name, phoneNum: phoneNum, profileImageURL: nil, address: address)
+        }
+        
+        // Notify other parts of the app about the update
+        NotificationCenter.default.post(name: .userProfileUpdated, object: nil)
+
+    }
+
+    // MARK: If profile image was updated
+    func uploadImageAndUpdateUserData(image: UIImage, email: String, name: String, phoneNum: String, address: Address) {
+        guard let imageData = image.jpegData(compressionQuality: 0.75) else {
+                print("Could not get JPEG representation of UIImage")
+                return
+            }
+
+            // Set a reference to where the image should be stored in Firebase Storage
+            let storageRef = Storage.storage().reference().child("user_icons/\(FirestoreUtility.emailToFileName(email: email)).jpg")
+
+            // Upload the image data
+            storageRef.putData(imageData, metadata: nil) { metadata, error in
+                guard metadata != nil else {
+                    // Handle the error
+                    print("Error uploading image: \(error?.localizedDescription ?? "Unknown error")")
+                    return
                 }
+
+                // Retrieve the download URL
+                storageRef.downloadURL { [weak self] url, error in
+                    guard let self = self, let downloadURL = url else {
+                        print("Error getting download URL: \(error?.localizedDescription ?? "Unknown error")")
+                        return
+                    }
+
+                    // You now have the URL of the uploaded image
+                    // Update the user info in Firebase Firestore with this new image URL
+                    self.updateUserFirestoreData(
+                        email: email,
+                        name: name,
+                        phoneNum: phoneNum,
+                        profileImageURL: downloadURL.absoluteString,
+                        address: address
+                    )
+                }
+            }
+        // Notify other parts of the app about the update
+        NotificationCenter.default.post(name: .userProfileUpdated, object: nil)
+    }
+
+    // MARK: update field other than profile image
+    func updateUserFirestoreData(email: String, name: String, phoneNum: String, profileImageURL: String?, address: Address) {
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(email)
+        
+        // Prepare the data to update
+        var updateData: [String: Any] = [
+            "name": name,
+            "phoneNum": phoneNum,
+            "address": address.toDictionary()
+        ]
+
+        // Include the profile image URL if it's available
+        if let profileImageURL = profileImageURL {
+            updateData["profileImageURL"] = profileImageURL
+        }
+
+        // Update data in Firestore
+        userRef.updateData(updateData) { [weak self] error in
+            if let error = error {
+                print("Error updating document: \(error)")
             } else {
-                userRef.updateData([
-                    "name": name ?? "",
-                    "phoneNum": phoneNum ?? "",
-                    "profileImageURL": self.currentUser?.profileImageURL ?? "",
-                    "address": address?.toDictionary() ?? [:]
-                ]) { err in
-                    if let err = err {
-                        print("Error updating document: \(err)")
-                    } else {
-                        print("Document successfully updated")
-                        self.navigationController?.popViewController(animated: true)
-                    }
+                print("Document successfully updated")
+                
+                // Create a new User object with updated information
+                var updatedUser = UserManager.shared.currentUser
+                updatedUser?.name = name
+                updatedUser?.phone = phoneNum
+                updatedUser?.address = address
+                if let profileImageURL = profileImageURL {
+                    updatedUser?.profileImageURL = profileImageURL
                 }
+                
+                // Update the currentUser in UserManager
+                UserManager.shared.currentUser = updatedUser
+                
+                // Post notification to inform other parts of the app about the update
+                NotificationCenter.default.post(name: .userProfileUpdated, object: nil)
+
+                // Pop the current view controller (optional, based on your app's flow)
+                self?.navigationController?.popViewController(animated: true)
             }
         }
     }
+
     
     //MARK: hide keyboard logic.
     func hideKeyboardWhenTappedAround() {

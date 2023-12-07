@@ -13,7 +13,6 @@ class ShowProfileView: UIView {
     var labelProfile: UILabel!
     var labelName: UILabel!
     var labelUsername: UILabel!
-    //var labelPassword: UILabel!
     var labelPhone: UILabel!
     var labelAddress: UILabel!
     var buttonEdit: UIButton!
@@ -31,7 +30,6 @@ class ShowProfileView: UIView {
         setupLabelProfile()
         setupLabelName()
         setupLabelUsername()
-        //setupLabelPassword()
         setupLabelPhone()
         setupLabelAddress()
         setupButtonEdit()
@@ -101,12 +99,10 @@ class ShowProfileView: UIView {
     func setupButtonEdit(){
         buttonEdit = UIButton()
         buttonEdit.setTitle("Edit", for: .normal)
-        //set the button font to 20
         buttonEdit.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         buttonEdit.setTitleColor(.white, for: .normal)
         buttonEdit.backgroundColor = .black
         buttonEdit.layer.cornerRadius = 3
-        // set the button height to 20
         buttonEdit.heightAnchor.constraint(equalToConstant: 50).isActive = true
         buttonEdit.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(buttonEdit)
@@ -119,7 +115,6 @@ class ShowProfileView: UIView {
         buttonEditPassword.setTitleColor(.white, for: .normal)
         buttonEditPassword.backgroundColor = .black
         buttonEditPassword.layer.cornerRadius = 3
-        // set the button height to 20
         buttonEditPassword.heightAnchor.constraint(equalToConstant: 50).isActive = true
         buttonEditPassword.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(buttonEditPassword)
@@ -128,12 +123,10 @@ class ShowProfileView: UIView {
     func setupButtonLogOut() {
         buttonLogOut = UIButton()
         buttonLogOut.setTitle("Log Out", for: .normal)
-        //set the button font to 20
         buttonLogOut.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         buttonLogOut.setTitleColor(.white, for: .normal)
         buttonLogOut.backgroundColor = .black
         buttonLogOut.layer.cornerRadius = 3
-        // set the button height to 20
         buttonLogOut.heightAnchor.constraint(equalToConstant: 50).isActive = true
         buttonLogOut.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(buttonLogOut)
@@ -145,8 +138,8 @@ class ShowProfileView: UIView {
         NSLayoutConstraint.activate([
             imageProfile.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
             imageProfile.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            imageProfile.widthAnchor.constraint(equalToConstant: 100), // was 200
-            imageProfile.heightAnchor.constraint(equalToConstant: 100),// was 200
+            imageProfile.widthAnchor.constraint(equalToConstant: 100),
+            imageProfile.heightAnchor.constraint(equalToConstant: 100),
             
             labelProfile.topAnchor.constraint(equalTo: imageProfile.bottomAnchor, constant: 20),
             labelProfile.centerXAnchor.constraint(equalTo: self.centerXAnchor),
@@ -177,7 +170,6 @@ class ShowProfileView: UIView {
             buttonLogOut.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             buttonLogOut.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120),
             buttonLogOut.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -120),
-//            buttonEdit.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
         ])
     }
     

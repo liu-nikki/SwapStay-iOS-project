@@ -13,7 +13,7 @@ class HouseListViewController: UIViewController {
     let houseListView = HouseListView()
     var receiver: House!
     
-    var currentUser: FirebaseAuth.User?
+//    var currentUser: FirebaseAuth.User?
 
     
     override func loadView() {
@@ -23,8 +23,7 @@ class HouseListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Load user infomation, including name and profile photo
-        loadUserInfo()
-        
+        loadUserInfo() 
     }
 
     override func viewDidLoad() {
@@ -44,6 +43,35 @@ class HouseListViewController: UIViewController {
         
         houseListView.buttonPost.addTarget(self, action: #selector(onPostButtonTapped), for: .touchUpInside)
     }
+    
+    func loadUserInfo() {
+        if let user = UserManager.shared.currentUser {
+            // Update the welcome label with the user's name
+            houseListView.labelWelcome.text = "Welcome \(user.name)!"
+
+            // Update the profile picture
+            if let profileImageURLString = user.profileImageURL,
+               let url = URL(string: profileImageURLString) {
+                URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+                    guard let data = data, error == nil else {
+                        print("Error downloading image: \(error?.localizedDescription ?? "unknown error")")
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        self?.houseListView.profilePic.setImage(UIImage(data: data), for: .normal)
+                    }
+                }.resume()
+            } else {
+                // Set default image if no profile URL
+                houseListView.profilePic.setImage(UIImage(named: "AppDefaultProfiePic"), for: .normal)
+            }
+        } else {
+            // Reset to default values if no user is logged in
+            houseListView.labelWelcome.text = "Welcome User!"
+            houseListView.profilePic.setImage(UIImage(named: "AppDefaultProfiePic"), for: .normal)
+        }
+    }
+
     
     @objc func onProfilePicButtonTapped(){
         //MARK: presenting the RegisterViewController...
