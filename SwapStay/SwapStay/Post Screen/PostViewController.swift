@@ -9,10 +9,13 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import PhotosUI
 
 class PostViewController: UIViewController {
     
     let addPostScreen = PostView()
+    
+    var pickedImage: UIImage?
     
     let db = Firestore.firestore()
     
@@ -26,7 +29,44 @@ class PostViewController: UIViewController {
         super.viewDidLoad()
         printCurrentUserDetails()
         
+        addPostScreen.buttonTakePhoto.menu = getMenuImagePicker()
+        
         addPostScreen.postButton.addTarget(self, action: #selector(createPost), for: .touchUpInside)
+    }
+    
+    //MARK: menu for buttonTakePhoto setup...
+    func getMenuImagePicker() -> UIMenu{
+        var menuItems = [
+            UIAction(title: "Camera",handler: {(_) in
+                self.pickUsingCamera()
+            }),
+            UIAction(title: "Gallery",handler: {(_) in
+                self.pickPhotoFromGallery()
+            })
+        ]
+        
+        return UIMenu(title: "Select source", children: menuItems)
+    }
+    
+    //MARK: take Photo using Camera
+    func pickUsingCamera() {
+        let cameraController = UIImagePickerController()
+        cameraController.sourceType = .camera
+        cameraController.allowsEditing = true
+        cameraController.delegate = self
+        present(cameraController, animated: true)
+    }
+    
+    //MARK: pick Photo using Gallery.
+    func pickPhotoFromGallery() {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = PHPickerFilter.any(of: [.images])
+        configuration.selectionLimit = 1
+        
+        let photoPicker = PHPickerViewController(configuration: configuration)
+        
+        photoPicker.delegate = self
+        present(photoPicker, animated: true, completion: nil)
     }
     
     // MARK: create a post
@@ -134,3 +174,49 @@ class PostViewController: UIViewController {
         }
 
 }
+
+
+//MARK: adopting the required protocols for PHPicker
+extension PostViewController:PHPickerViewControllerDelegate{
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        dismiss(animated: true)
+        
+        print(results)
+        
+        let itemprovider = results.map(\.itemProvider)
+        
+        for item in itemprovider{
+            if item.canLoadObject(ofClass: UIImage.self){
+                item.loadObject(ofClass: UIImage.self, completionHandler: { (image, error) in
+                    DispatchQueue.main.async{
+                        if let uwImage = image as? UIImage{
+                            self.addPostScreen.buttonTakePhoto.setImage(
+                                uwImage.withRenderingMode(.alwaysOriginal),
+                                for: .normal
+                            )
+                            self.pickedImage = uwImage
+                        }
+                    }
+                })
+            }
+        }
+    }
+}
+
+//MARK: adopting required protocols for UIImagePicker...
+extension PostViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
+        
+        if let image = info[.editedImage] as? UIImage{
+            self.addPostScreen.buttonTakePhoto.setImage(
+                image.withRenderingMode(.alwaysOriginal),
+                for: .normal
+            )
+            self.pickedImage = image
+        }else{
+            // Do your thing for No image loaded...
+        }
+    }
+}
+

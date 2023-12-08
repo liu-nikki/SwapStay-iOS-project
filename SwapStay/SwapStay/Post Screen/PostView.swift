@@ -11,7 +11,7 @@ class PostView: UIView {
 
     // UI Components
     let titleLabel = UILabel()
-    let cameraButton = UIButton()
+    var buttonTakePhoto = UIButton()
     let uploadLabel = UILabel()
     let addressTextField = UITextField()
     let cityTextField = UITextField()
@@ -31,7 +31,7 @@ class PostView: UIView {
         backgroundColor = .white
 
         setupTitleLabel()
-        setupCameraButton()
+        setupbuttonTakePhoto()
         setupUploadLabel()
         setupAddressTextField()
         setupCityTextField()
@@ -56,12 +56,25 @@ class PostView: UIView {
         addSubview(titleLabel)
     }
 
-    func setupCameraButton() {
-        let symbolConfig = UIImage.SymbolConfiguration(pointSize: 150, weight: .regular, scale: .large) // Adjust point size as needed
-        cameraButton.setImage(UIImage(systemName: "camera.fill", withConfiguration: symbolConfig), for: .normal)
-        
-        cameraButton.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(cameraButton)
+//    func setupCameraButton() {
+//        let symbolConfig = UIImage.SymbolConfiguration(pointSize: 150, weight: .regular, scale: .large) // Adjust point size as needed
+//        cameraButton.setImage(UIImage(systemName: "camera.fill", withConfiguration: symbolConfig), for: .normal)
+//
+//        cameraButton.translatesAutoresizingMaskIntoConstraints = false
+//        addSubview(cameraButton)
+//    }
+    
+    func setupbuttonTakePhoto(){
+        buttonTakePhoto = UIButton(type: .system)
+        buttonTakePhoto.setTitle("", for: .normal)
+        buttonTakePhoto.setImage(UIImage(systemName: "camera.fill")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        //buttonTakePhoto.setImage(UIImage(systemName: "camera.fill")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        buttonTakePhoto.contentHorizontalAlignment = .fill
+        buttonTakePhoto.contentVerticalAlignment = .fill
+        buttonTakePhoto.imageView?.contentMode = .scaleAspectFit
+        buttonTakePhoto.showsMenuAsPrimaryAction = true
+        buttonTakePhoto.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(buttonTakePhoto)
     }
 
     func setupUploadLabel() {
@@ -165,14 +178,14 @@ class PostView: UIView {
             titleLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
 
             // Camera Button Constraints
-            cameraButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            cameraButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            cameraButton.widthAnchor.constraint(equalToConstant: 100), // Adjust as needed
-            cameraButton.heightAnchor.constraint(equalToConstant: 100), // Adjust as needed
+            buttonTakePhoto.centerXAnchor.constraint(equalTo: centerXAnchor),
+            buttonTakePhoto.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            buttonTakePhoto.widthAnchor.constraint(equalToConstant: 100), // Adjust as needed
+            buttonTakePhoto.heightAnchor.constraint(equalToConstant: 100), // Adjust as needed
 
             // Upload Label Constraints
             uploadLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            uploadLabel.topAnchor.constraint(equalTo: cameraButton.bottomAnchor, constant: 10),
+            uploadLabel.topAnchor.constraint(equalTo: buttonTakePhoto.bottomAnchor, constant: 10),
 
             // Address TextField Constraints
             addressTextField.centerXAnchor.constraint(equalTo: centerXAnchor),
