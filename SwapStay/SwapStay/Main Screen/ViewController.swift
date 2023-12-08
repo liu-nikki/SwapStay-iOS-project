@@ -36,11 +36,11 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
         handleAuth = Auth.auth().addStateDidChangeListener{ auth, user in
             // if user is signed in
             if let user = user {
-                self.viewControllers = self.generateNavControllers()
                 self.addLineAboveTab()
                 if let email = Auth.auth().currentUser?.email {
                     self.fetchUserDetails(email: email)
                         }
+                self.viewControllers = self.generateNavControllers()
             } else {
                 let loginViewController = LoginViewController()
                 loginViewController.modalPresentationStyle = .fullScreen
@@ -100,6 +100,13 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Observe when the app becomes active, detects for currently signed in user
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(appDidBecomeActive),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -107,13 +114,20 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
         Auth.auth().removeStateDidChangeListener(handleAuth!)
     }
     
+    @objc func appDidBecomeActive() {
+        // Fetch user details when the app becomes active
+        if let email = Auth.auth().currentUser?.email {
+            fetchUserDetails(email: email)
+        }
+    }
+    
     func fetchUserDetails(email: String) {
         FirestoreUtility.fetchUser(from: email) { result in
             switch result {
             case .success(let user):
                 UserManager.shared.currentUser = user
-                // Notify other parts of the app that the user info is updated, if needed.
-//                    NotificationCenter.default.post(name: .currentUserUpdated, object: nil)
+                // Notify other parts of the app that the user info is updated
+                NotificationCenter.default.post(name: .userProfileUpdated, object: nil)
                 self.printCurrentUserDetails()
             case .failure(let error):
                 print("Error fetching user: \(error)")
@@ -121,6 +135,8 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
             }
         }
     }
+    
+    
     
     //can be deleted later, checking currentuser detail
     func printCurrentUserDetails() {

@@ -22,10 +22,7 @@ class ShowProfileViewController: UIViewController {
         // Fetch the current user data from UserManager and update UI
         if let user = UserManager.shared.currentUser {
             updateUIWithUserDetails(user)
-            if let profileImageURLString = user.profileImageURL,
-               let url = URL(string: profileImageURLString) {
-                loadImage(from: url)
-            }
+            loadProfileImage(user: user)
         }
     }
 
@@ -55,14 +52,11 @@ class ShowProfileViewController: UIViewController {
     }
     
     @objc func userProfileUpdated() {
-        if let user = UserManager.shared.currentUser {
-            updateUIWithUserDetails(user)
-            if let profileImageURLString = user.profileImageURL,
-               let url = URL(string: profileImageURLString) {
-                loadImage(from: url)
+            if let user = UserManager.shared.currentUser {
+                updateUIWithUserDetails(user)
+                loadProfileImage(user: user)
             }
         }
-    }
     
     // Function to update the UI with user details
     func updateUIWithUserDetails(_ user: User) {
@@ -73,18 +67,27 @@ class ShowProfileViewController: UIViewController {
     }
     
     // Function to load image from URL
-    func loadImage(from url: URL) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else {
-                print("Error downloading image: \(error?.localizedDescription ?? "unknown error")")
-                return
+    func loadProfileImage(user: User) {
+        if let profileImageURLString = user.profileImageURL, let url = URL(string: profileImageURLString) {
+            let key = url.absoluteString
+
+            if let cachedImage = UserManager.shared.getCachedImage(forKey: key) {
+                self.showProfileView.imageProfile.image = cachedImage
+            } else {
+                URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+                    guard let data = data, error == nil else {
+                        print("Error downloading image: \(error?.localizedDescription ?? "unknown error")")
+                        return
+                    }
+                    if let image = UIImage(data: data) {
+                        DispatchQueue.main.async {
+                            UserManager.shared.cacheImage(image, forKey: key)
+                            self?.showProfileView.imageProfile.image = image
+                        }
+                    }
+                }.resume()
             }
-            DispatchQueue.main.async { // Ensure UI updates are on main thread
-                if let image = UIImage(data: data) {
-                    self.showProfileView.imageProfile.image = image
-                }
-            }
-        }.resume()
+        }
     }
     
     @objc func onEditButtonTapped(){
@@ -190,6 +193,7 @@ class ShowProfileViewController: UIViewController {
         logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
         self.present(logoutAlert, animated: true)
+//        UserManager.shared.currentUser = nil
     }
     
     @objc func onTapOutsideAlert(){

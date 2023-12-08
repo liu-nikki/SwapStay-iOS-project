@@ -23,7 +23,7 @@ class HouseListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Load user infomation, including name and profile photo
-        loadUserInfo() 
+        loadUserInfo()
     }
 
     override func viewDidLoad() {
@@ -42,9 +42,17 @@ class HouseListViewController: UIViewController {
         houseListView.profilePic.addTarget(self, action: #selector(onProfilePicButtonTapped), for: .touchUpInside)
         
         houseListView.buttonPost.addTarget(self, action: #selector(onPostButtonTapped), for: .touchUpInside)
+        
+        // Listen to user profile updates
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(loadUserInfo),
+            name: .userProfileUpdated,
+            object: nil
+        )
     }
     
-    func loadUserInfo() {
+    @objc func loadUserInfo() {
         if let user = UserManager.shared.currentUser {
             // Update the welcome label with the user's name
             houseListView.labelWelcome.text = "Welcome \(user.name)!"
@@ -52,15 +60,26 @@ class HouseListViewController: UIViewController {
             // Update the profile picture
             if let profileImageURLString = user.profileImageURL,
                let url = URL(string: profileImageURLString) {
-                URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-                    guard let data = data, error == nil else {
-                        print("Error downloading image: \(error?.localizedDescription ?? "unknown error")")
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        self?.houseListView.profilePic.setImage(UIImage(data: data), for: .normal)
-                    }
-                }.resume()
+                let key = url.absoluteString
+
+                // Check for cached image
+                if let cachedImage = UserManager.shared.getCachedImage(forKey: key) {
+                    houseListView.profilePic.setImage(cachedImage, for: .normal)
+                } else {
+                    // If no cached image, download and cache
+                    URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+                        guard let data = data, error == nil else {
+                            print("Error downloading image: \(error?.localizedDescription ?? "unknown error")")
+                            return
+                        }
+                        if let image = UIImage(data: data) {
+                            DispatchQueue.main.async {
+                                UserManager.shared.cacheImage(image, forKey: key)
+                                self?.houseListView.profilePic.setImage(image, for: .normal)
+                            }
+                        }
+                    }.resume()
+                }
             } else {
                 // Set default image if no profile URL
                 houseListView.profilePic.setImage(UIImage(named: "AppDefaultProfiePic"), for: .normal)
@@ -71,7 +90,6 @@ class HouseListViewController: UIViewController {
             houseListView.profilePic.setImage(UIImage(named: "AppDefaultProfiePic"), for: .normal)
         }
     }
-
     
     @objc func onProfilePicButtonTapped(){
         //MARK: presenting the RegisterViewController...
