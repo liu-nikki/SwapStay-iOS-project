@@ -10,6 +10,7 @@ import UIKit
 class HouseDetailsViewController: UIViewController {
     
     let houseDetailScreen = HouseDetailsView()
+    
     override func loadView() {
         view = houseDetailScreen
     }
@@ -18,12 +19,9 @@ class HouseDetailsViewController: UIViewController {
 
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        
-//    }
-//    
-    func fetchPostInfo(){
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
     }
+
 }

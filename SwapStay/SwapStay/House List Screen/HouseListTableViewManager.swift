@@ -15,23 +15,11 @@ extension HouseListViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Configs.tableViewHouseID, for: indexPath) as! HouseListTableViewCell
+        let post = houseList[indexPath.row]
 
-//        let house = houseList[indexPath.row]
-//        cell.imageHouse.image    = UIImage(data: house.houseImg)
-//        cell.labelLocation.text  = house.address
-//
-//        if let dateFrom = house.dateFrom, let dateTo = house.dateTo{
-//
-//            cell.labelDateRange.text = "\(dateFrom) - \(dateTo)"
-//        }else{
-//            cell.labelDateRange.text = "Date range is not avaliable!"
-//        }
-        
-        
-        // Test part
-        cell.imageHouse.image    = UIImage(systemName: "house")
-        cell.labelLocation.text  = "USA, Los Angeles"
-        cell.labelDateRange.text = "Date: 12/12/2023 - 12/31/2023"
+        cell.labelLocation.text = "\(post.city), \(post.state)"
+        cell.labelDateRange.text = "Date: \(post.startDate) - \(post.endDate)"
+      
         
         return cell
     }
@@ -39,10 +27,10 @@ extension HouseListViewController: UITableViewDelegate, UITableViewDataSource{
     // when the user click the row
     // not working right now
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        let selectedPost = houseList[indexPath.row]
         print("Select is working!!!")
 
-//        let houseDetailsVC = HouseDetailsViewController()
-//        navigationController?.pushViewController(houseDetailsVC, animated: true)
+        let houseDetailsVC = HouseDetailsViewController()
+        navigationController?.pushViewController(houseDetailsVC, animated: true)
     }
 }

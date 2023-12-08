@@ -8,12 +8,14 @@
 import UIKit
 import FirebaseAuth
 import FirebaseStorage
+import FirebaseFirestore
 
 class HouseListViewController: UIViewController {
     
     let houseListScreen = HouseListView()
 //    var currentUser: FirebaseAuth.User?
     // Get a reference to the storage service using the default Firebase App
+    let db              = Firestore.firestore()
     let storage         = Storage.storage()
     var houseList       =  [House]()
     
@@ -25,6 +27,9 @@ class HouseListViewController: UIViewController {
         super.viewWillAppear(animated)
         // Load user infomation, including name and profile photo
         loadUserInfo()
+        
+        //fetch all posts from the datastore
+        fetchPosts()
     }
 
     override func viewDidLoad() {
@@ -57,6 +62,8 @@ class HouseListViewController: UIViewController {
         houseListScreen.tableViewHouses.delegate       = self
         houseListScreen.tableViewHouses.dataSource     = self
         houseListScreen.tableViewHouses.separatorStyle = .none
+        
+  
 
         // when the house post is clicked 
 //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showPostDetails))
@@ -121,6 +128,36 @@ class HouseListViewController: UIViewController {
         let postViewController = PostViewController()
         navigationController?.pushViewController(postViewController, animated: true)
     }
+    
+    func fetchPosts() {
+        db.collection("posts").getDocuments { [weak self] (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                self?.houseList.removeAll()
+                for document in querySnapshot!.documents {
+                    do {
+                        let post = try document.data(as: House.self)
+                        self?.houseList.append(post)
+                    } catch {
+                        print("Error decoding post: \(error)")
+                    }
+                }
+                DispatchQueue.main.async {
+                    self?.printFetchedPosts()
+                    self?.houseListScreen.tableViewHouses.reloadData()
+                }
+            }
+        }
+    }
+
+    // MARK: - Testing function to print fetched posts
+        func printFetchedPosts() {
+            for post in houseList {
+                print("Fetched post: \(post)")
+            }
+            print("Total posts fetched: \(houseList.count)")
+        }
     
 
     //MARK: hide keyboard logic.

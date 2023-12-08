@@ -16,7 +16,6 @@ class HouseListView: UIView {
     var buttonPost: UIButton!
     
     var tableViewHouses: UITableView!
-    var buttonPost2:  UIButton! // temp
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,7 +24,6 @@ class HouseListView: UIView {
         setupAppTitle()
         setupProfilePic()
         setupLabelWelcome()
-        setupButtonTmp2Post() // temp
         setupTableViewHouses()
         setupButtonTmpPost()
         
@@ -86,18 +84,6 @@ class HouseListView: UIView {
             buttonPost.layer.cornerRadius = 25 
     }
     
-    func setupButtonTmp2Post(){
-        buttonPost2 = UIButton(type: .system)
-        buttonPost2.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        buttonPost2.setTitle("Add House", for: .normal)
-        buttonPost2.translatesAutoresizingMaskIntoConstraints = false
-    
-        buttonPost2.setTitleColor(.white, for: .normal)
-        buttonPost2.backgroundColor = .systemTeal
-        buttonPost2.layer.cornerRadius = 5
-        buttonPost2.layer.masksToBounds = true
-        self.addSubview(buttonPost2)
-    }
     
     func setupTableViewHouses(){
         tableViewHouses = UITableView()
@@ -124,11 +110,8 @@ class HouseListView: UIView {
             buttonPost.heightAnchor.constraint(equalToConstant: 48),
             buttonPost.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             buttonPost.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            
-            buttonPost2.topAnchor.constraint(equalTo: labelWelcome.bottomAnchor, constant: 16),
-            buttonPost2.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            
-            tableViewHouses.topAnchor.constraint(equalTo: buttonPost2.bottomAnchor, constant: 16),
+
+            tableViewHouses.topAnchor.constraint(equalTo: labelWelcome.bottomAnchor, constant: 16),
             tableViewHouses.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: 0),
             tableViewHouses.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             tableViewHouses.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -8),

@@ -33,13 +33,17 @@ class PostViewController: UIViewController {
     @objc func createPost() {
         guard let user = UserManager.shared.currentUser else { return }
         
-        let postId = db.collection("posts").document().documentID // Generate unique post ID
+        let postId = db.collection("posts").document().documentID
         let ownerName = user.name
         let profilePhotoURL = user.profileImageURL ?? ""
         let ownerEmail = user.email
         let startDate = addPostScreen.dateFromButton.text ?? ""
         let endDate = addPostScreen.dateToButton.text ?? ""
         let description = addPostScreen.descriptionTextView.text ?? ""
+        let address = addPostScreen.addressTextField.text ?? ""
+        let city = addPostScreen.cityTextField.text ?? ""
+        let state = addPostScreen.stateTextField.text ?? ""
+        let zip = addPostScreen.zipTextField.text ?? ""
 
         // Create post dictionary
         let postDict: [String: Any] = [
@@ -49,7 +53,11 @@ class PostViewController: UIViewController {
             "ownerEmail": ownerEmail,
             "startDate": startDate,
             "endDate": endDate,
-            "description": description
+            "description": description,
+            "address": address,
+            "city": city,
+            "state": state,
+            "zip": zip
         ]
 
         // Save post in user's personal post collection

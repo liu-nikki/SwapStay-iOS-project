@@ -13,25 +13,28 @@ import UIKit
 struct House: Codable{
     @DocumentID var id: String?
 
-    var houseImg:   Data
+    var profilePhotoURL:   String
     var ownerName:  String
     var ownerEmail: String
-    var post:       String
     var address:    String
-//    var city: String
-//    var state: String
-//    var zipcode: Int
+    var city: String
+    var state: String
+    var zip: String
+    var startDate:   String
+    var endDate:     String
+    var description: String
     
-    var dateFrom:   Date?
-    var dateTo:     Date?
-    
-    init(houseImg: Data, ownerName: String, ownerEmail: String, post: String, address: String, dateFrom: Date?, dateTo: Date?) {
-        self.houseImg   = houseImg
+    init(profilePhotoURL: String, ownerName: String, ownerEmail: String, address: String, city: String, state: String, zip: String, startDate: String, endDate: String, description: String) {
+        self.profilePhotoURL   = profilePhotoURL
         self.ownerName  = ownerName
         self.ownerEmail = ownerEmail
-        self.post       = post
         self.address    = address
-        self.dateFrom   = dateFrom
-        self.dateTo     = dateTo
+        self.city       = city
+        self.state      = state
+        self.zip        = zip
+        self.startDate   = startDate
+        self.endDate     = endDate
+        self.description = description
     }
 }
+
