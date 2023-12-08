@@ -7,17 +7,18 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseStorage
 
 class HouseListViewController: UIViewController {
     
-    let houseListView = HouseListView()
-    var receiver: House!
-    
+    let houseListScreen = HouseListView()
 //    var currentUser: FirebaseAuth.User?
-
+    // Get a reference to the storage service using the default Firebase App
+    let storage         = Storage.storage()
+    var houseList       =  [House]()
     
     override func loadView() {
-        view = houseListView
+        view = houseListScreen
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,9 +40,11 @@ class HouseListViewController: UIViewController {
         hideKeyboardWhenTappedAround()
         
         //MARK: set up on profilePicButton tapped.
-        houseListView.profilePic.addTarget(self, action: #selector(onProfilePicButtonTapped), for: .touchUpInside)
+        houseListScreen.profilePic.addTarget(self, action: #selector(onProfilePicButtonTapped), for: .touchUpInside)
         
-        houseListView.buttonPost.addTarget(self, action: #selector(onPostButtonTapped), for: .touchUpInside)
+        houseListScreen.buttonPost.addTarget(self, action: #selector(onPostButtonTapped), for: .touchUpInside)
+        
+        houseListScreen.buttonPost2.addTarget(self, action: #selector(onPost2ButtonTapped), for: .touchUpInside)
         
         // Listen to user profile updates
         NotificationCenter.default.addObserver(
@@ -50,12 +53,17 @@ class HouseListViewController: UIViewController {
             name: .userProfileUpdated,
             object: nil
         )
+        
+        // Table view delegate and date source
+        houseListScreen.tableViewHouses.delegate       = self
+        houseListScreen.tableViewHouses.dataSource     = self
+        houseListScreen.tableViewHouses.separatorStyle = .none
     }
     
     @objc func loadUserInfo() {
         if let user = UserManager.shared.currentUser {
             // Update the welcome label with the user's name
-            houseListView.labelWelcome.text = "Welcome \(user.name)!"
+            houseListScreen.labelWelcome.text = "Welcome \(user.name)!"
 
             // Update the profile picture
             if let profileImageURLString = user.profileImageURL,
@@ -64,7 +72,7 @@ class HouseListViewController: UIViewController {
 
                 // Check for cached image
                 if let cachedImage = UserManager.shared.getCachedImage(forKey: key) {
-                    houseListView.profilePic.setImage(cachedImage, for: .normal)
+                    houseListScreen.profilePic.setImage(cachedImage, for: .normal)
                 } else {
                     // If no cached image, download and cache
                     URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
@@ -75,19 +83,19 @@ class HouseListViewController: UIViewController {
                         if let image = UIImage(data: data) {
                             DispatchQueue.main.async {
                                 UserManager.shared.cacheImage(image, forKey: key)
-                                self?.houseListView.profilePic.setImage(image, for: .normal)
+                                self?.houseListScreen.profilePic.setImage(image, for: .normal)
                             }
                         }
                     }.resume()
                 }
             } else {
                 // Set default image if no profile URL
-                houseListView.profilePic.setImage(UIImage(named: "AppDefaultProfiePic"), for: .normal)
+                houseListScreen.profilePic.setImage(UIImage(named: "AppDefaultProfiePic"), for: .normal)
             }
         } else {
             // Reset to default values if no user is logged in
-            houseListView.labelWelcome.text = "Welcome User!"
-            houseListView.profilePic.setImage(UIImage(named: "AppDefaultProfiePic"), for: .normal)
+            houseListScreen.labelWelcome.text = "Welcome User!"
+            houseListScreen.profilePic.setImage(UIImage(named: "AppDefaultProfiePic"), for: .normal)
         }
     }
     
@@ -109,7 +117,34 @@ class HouseListViewController: UIViewController {
         navigationController?.pushViewController(postViewController, animated: true)
     }
     
+    @objc func onPost2ButtonTapped(){
+        let house = House(houseImg: Data(), ownerName: "None", ownerEmail: "None", post: "None", address: "None", dateFrom: Date(), dateTo: Date())
+        houseList.append(house)
+        houseListScreen.tableViewHouses.reloadData()
+    }
+    
     @objc func hideKeyboardOnTap(){
         view.endEditing(true)
     }
 }
+
+
+// works as expected
+
+//let imgURLString = "https://firebasestorage.googleapis.com:443/v0/b/swapstay-ios.appspot.com/o/temp_user_icons%2F123@email.com.jpg?alt=media&token=b954371b-2ea7-4449-ac29-cdb2b240f656"
+//let imageRef = storage.reference(forURL: imgURLString)
+//imageRef.getData(maxSize: 10 * 1024 * 1024) { data, error in
+//  if let error = error {
+//    // Uh-oh, an error occurred!
+//      print("ERROR---->")
+//      print(error)
+//  } else {
+//    let image = UIImage(data: data!)
+//      if let unwrappedImage = image{
+//          self.imageList.append(unwrappedImage)
+//      }
+//
+//    print("Set sccussefully!")
+//  }
+//}
+//houseDetailsViewController.houseDetailScreen.imageHouse.image = imageList[0]

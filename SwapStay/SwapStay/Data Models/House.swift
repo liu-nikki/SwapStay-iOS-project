@@ -6,22 +6,32 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
+import UIKit
+
 // adopt the Codable protocol to enable encoding and decoding.
 struct House: Codable{
+    @DocumentID var id: String?
+
+    var houseImg:   Data
+    var ownerName:  String
+    var ownerEmail: String
+    var post:       String
+    var address:    String
+//    var city: String
+//    var state: String
+//    var zipcode: Int
     
-    var address: String
-    var city: String
-    var state: String
-    var zipcode: Int
-    var time: TimeInterval
-    var email: String
+    var dateFrom:   Date?
+    var dateTo:     Date?
     
-    init(address: String, city: String, state: String, zipcode: Int, time: TimeInterval, email: String) {
-        self.address  = address
-        self.city = city
-        self.state = state
-        self.zipcode = zipcode
-        self.time = time
-        self.email = email
+    init(houseImg: Data, ownerName: String, ownerEmail: String, post: String, address: String, dateFrom: Date?, dateTo: Date?) {
+        self.houseImg   = houseImg
+        self.ownerName  = ownerName
+        self.ownerEmail = ownerEmail
+        self.post       = post
+        self.address    = address
+        self.dateFrom   = dateFrom
+        self.dateTo     = dateTo
     }
 }
