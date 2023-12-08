@@ -13,7 +13,6 @@ class LoginScreenView: UIView {
     var contentView: UIView!
     var profilePic: UIButton!
     var labelText: UILabel!
-    var tableViewHouseInfo: UITableView!
     
     var appTitle: UILabel!
     var appImageView: UIImageView!
@@ -161,13 +160,6 @@ class LoginScreenView: UIView {
         labelText.font = .boldSystemFont(ofSize: 14)
         labelText.translatesAutoresizingMaskIntoConstraints = false
         contentWrapper.addSubview(labelText)
-    }
-    
-    func setupTableViewHouseInfo(){
-        tableViewHouseInfo = UITableView()
-        tableViewHouseInfo.register(HouseTableViewCell.self, forCellReuseIdentifier: Configs.tableViewHouseID)
-        tableViewHouseInfo.translatesAutoresizingMaskIntoConstraints = false
-        contentWrapper.addSubview(tableViewHouseInfo)
     }
     
     //MARK: setting up constraints...
