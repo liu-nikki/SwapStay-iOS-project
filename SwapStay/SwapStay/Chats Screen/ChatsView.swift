@@ -9,39 +9,31 @@
 import UIKit
 
 class ChatsView: UIView {
-    var boxView: UIView!
-    var buttonSend: UIButton!
-    var labelReceived: UILabel!
+
+    var tableViewChats: UITableView!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        boxView = UIView()
-        boxView.backgroundColor = .red
-        boxView.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(boxView)
-        
-        buttonSend = UIButton(type: .system)
-        buttonSend.setTitle("Send Hello", for: .normal)
-        buttonSend.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(buttonSend)
-        
-        labelReceived = UILabel()
-        labelReceived.text = "Waiting for Notification!"
-        labelReceived.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(labelReceived)
-        
-        
+        self.backgroundColor = .white
+
+        setupTableViewChats()
+        initConstraints()
+    }
+    
+    func setupTableViewChats(){
+        tableViewChats = UITableView()
+        tableViewChats.register(ChatsTableViewCell.self, forCellReuseIdentifier: Configs.tableViewChatsID)
+        tableViewChats.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(tableViewChats)
+    }
+    
+    //MARK: setting up constraints...
+    func initConstraints(){
         NSLayoutConstraint.activate([
-            boxView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 32),
-            boxView.widthAnchor.constraint(equalToConstant: 200),
-            boxView.heightAnchor.constraint(equalToConstant: 200),
-            boxView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            
-            buttonSend.topAnchor.constraint(equalTo: self.boxView.bottomAnchor, constant: 8),
-            buttonSend.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            
-            labelReceived.topAnchor.constraint(equalTo: self.buttonSend.bottomAnchor, constant: 8),
-            labelReceived.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            tableViewChats.topAnchor.constraint(equalTo:self.safeAreaLayoutGuide.topAnchor, constant: 0),
+            tableViewChats.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
+            tableViewChats.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            tableViewChats.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
         ])
     }
     

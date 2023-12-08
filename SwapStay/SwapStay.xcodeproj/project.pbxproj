@@ -82,6 +82,9 @@
 		B9DE241E2B1D4B6800BCC28A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DE241D2B1D4B6800BCC28A /* LoginViewController.swift */; };
 		B9DE24222B1D62A900BCC28A /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DE24212B1D62A900BCC28A /* StartView.swift */; };
 		B9DE24242B1D62B800BCC28A /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DE24232B1D62B800BCC28A /* StartViewController.swift */; };
+		B9E0348A2B2333CC00F49F42 /* ChatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E034892B2333CC00F49F42 /* ChatsTableViewCell.swift */; };
+		B9E0348C2B233DE300F49F42 /* ChatsTableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E0348B2B233DE300F49F42 /* ChatsTableViewManager.swift */; };
+		B9E0348E2B233E2000F49F42 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E0348D2B233E2000F49F42 /* Chat.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -125,6 +128,9 @@
 		B9DE241D2B1D4B6800BCC28A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B9DE24212B1D62A900BCC28A /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		B9DE24232B1D62B800BCC28A /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		B9E034892B2333CC00F49F42 /* ChatsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsTableViewCell.swift; sourceTree = "<group>"; };
+		B9E0348B2B233DE300F49F42 /* ChatsTableViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsTableViewManager.swift; sourceTree = "<group>"; };
+		B9E0348D2B233E2000F49F42 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				1518E6C72B097215004A75D5 /* User.swift */,
+				B9E0348D2B233E2000F49F42 /* Chat.swift */,
 				1518E6CB2B09753E004A75D5 /* House.swift */,
 			);
 			path = "Data Models";
@@ -319,6 +326,8 @@
 			children = (
 				B9DE24182B1D463C00BCC28A /* ChatsView.swift */,
 				B9DE241A2B1D468600BCC28A /* ChatsViewController.swift */,
+				B9E034892B2333CC00F49F42 /* ChatsTableViewCell.swift */,
+				B9E0348B2B233DE300F49F42 /* ChatsTableViewManager.swift */,
 			);
 			path = "Chats Screen";
 			sourceTree = "<group>";
@@ -461,6 +470,7 @@
 				1518E69C2B094653004A75D5 /* ViewController.swift in Sources */,
 				1518E6D32B097E30004A75D5 /* RegisterViewController.swift in Sources */,
 				7594F4AD2B21297A00C26BF6 /* UserManager.swift in Sources */,
+				B9E0348A2B2333CC00F49F42 /* ChatsTableViewCell.swift in Sources */,
 				1518E6982B094653004A75D5 /* AppDelegate.swift in Sources */,
 				1518E6CC2B09753E004A75D5 /* House.swift in Sources */,
 				B85063E72B0EC4AA0030343C /* EditProfileViewController.swift in Sources */,
@@ -470,6 +480,7 @@
 				B95575FE2B22B06F00C9038B /* HouseListTableViewCell.swift in Sources */,
 				B85063EC2B0ED8650030343C /* HouseListView.swift in Sources */,
 				B85063E92B0EC4C10030343C /* EditProfileView.swift in Sources */,
+				B9E0348E2B233E2000F49F42 /* Chat.swift in Sources */,
 				1518E6DA2B097EFB004A75D5 /* ProgressSpinnerViewController.swift in Sources */,
 				B9DE24172B1D44FA00BCC28A /* NotificationNames.swift in Sources */,
 				7594F4A32B1FFC7000C26BF6 /* PostView.swift in Sources */,
@@ -489,6 +500,7 @@
 				1518E6D72B097EB3004A75D5 /* RegisterProgressIndicatiorManager.swift in Sources */,
 				1518E6C52B097087004A75D5 /* Configs.swift in Sources */,
 				1518E6C82B097215004A75D5 /* User.swift in Sources */,
+				B9E0348C2B233DE300F49F42 /* ChatsTableViewManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
