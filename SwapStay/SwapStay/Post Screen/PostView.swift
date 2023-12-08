@@ -132,7 +132,6 @@ class PostView: UIView {
     }
 
 
-    
     func setupArrowLabel() {
         arrowLabel.text = "→" // Arrow symbol
         arrowLabel.textAlignment = .center

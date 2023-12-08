@@ -9,6 +9,7 @@ import UIKit
 
 class HouseListView: UIView {
     
+    
     var appTitle: UILabel!
     var profilePic: UIButton!
     var labelWelcome: UILabel!
@@ -32,6 +33,7 @@ class HouseListView: UIView {
         
     }
     
+
     //MARK: initializing the UI element
     func setupAppTitle(){
         appTitle = UILabel()

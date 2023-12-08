@@ -44,7 +44,6 @@ class HouseListViewController: UIViewController {
         
         houseListScreen.buttonPost.addTarget(self, action: #selector(onPostButtonTapped), for: .touchUpInside)
         
-        houseListScreen.buttonPost2.addTarget(self, action: #selector(onPost2ButtonTapped), for: .touchUpInside)
         
         // Listen to user profile updates
         NotificationCenter.default.addObserver(
@@ -58,6 +57,11 @@ class HouseListViewController: UIViewController {
         houseListScreen.tableViewHouses.delegate       = self
         houseListScreen.tableViewHouses.dataSource     = self
         houseListScreen.tableViewHouses.separatorStyle = .none
+
+        // when the house post is clicked 
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showPostDetails))
+//        yourUIElement.addGestureRecognizer(tapGesture)
+
     }
     
     @objc func loadUserInfo() {
@@ -105,22 +109,24 @@ class HouseListViewController: UIViewController {
         navigationController?.pushViewController(showProfileViewController, animated: true)
     }
     
-    //MARK: hide keyboard logic.
-    func hideKeyboardWhenTappedAround() {
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
-        view.addGestureRecognizer(tapRecognizer)
+    // MARK: click on a tablecell post to show post detail and to talk with post owner
+    @objc func showPostDetails() {
+        let houseDetailsController = HouseDetailsViewController()
+        navigationController?.pushViewController(houseDetailsController, animated: true)
     }
     
+    // MARK: the button to create a new post
     @objc func onPostButtonTapped(){
         //MARK: presenting the RegisterViewController...
         let postViewController = PostViewController()
         navigationController?.pushViewController(postViewController, animated: true)
     }
     
-    @objc func onPost2ButtonTapped(){
-        let house = House(houseImg: Data(), ownerName: "None", ownerEmail: "None", post: "None", address: "None", dateFrom: Date(), dateTo: Date())
-        houseList.append(house)
-        houseListScreen.tableViewHouses.reloadData()
+
+    //MARK: hide keyboard logic.
+    func hideKeyboardWhenTappedAround() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+        view.addGestureRecognizer(tapRecognizer)
     }
     
     @objc func hideKeyboardOnTap(){
