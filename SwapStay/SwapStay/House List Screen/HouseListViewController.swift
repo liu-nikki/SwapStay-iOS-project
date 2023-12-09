@@ -62,13 +62,9 @@ class HouseListViewController: UIViewController {
         houseListScreen.tableViewHouses.dataSource     = self
         houseListScreen.tableViewHouses.separatorStyle = .none
         
-  
-
-        // when the house post is clicked 
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showPostDetails))
-        houseListScreen.addGestureRecognizer(tapGesture)
-
     }
+    
+    
     
     @objc func loadUserInfo() {
         if let user = UserManager.shared.currentUser {
@@ -113,12 +109,6 @@ class HouseListViewController: UIViewController {
         //MARK: presenting the RegisterViewController...
         let showProfileViewController = ShowProfileViewController()
         navigationController?.pushViewController(showProfileViewController, animated: true)
-    }
-    
-    // MARK: click on a tablecell post to show post detail and to talk with post owner
-    @objc func showPostDetails() {
-        let houseDetailsController = HouseDetailsViewController()
-        navigationController?.pushViewController(houseDetailsController, animated: true)
     }
     
     // MARK: the button to create a new post
