@@ -13,11 +13,13 @@ import UIKit
 struct Chat: Codable{
     @DocumentID var id: String?
     var name:    String
+    var email:   String
     var address: String
     var date:    String
     
-    init(name: String, address: String, date: String) {
+    init(name: String, email: String, address: String, date: String) {
         self.name    = name
+        self.email   = email
         self.address = address
         self.date    = date
     }

@@ -30,8 +30,8 @@ class ChatsViewController: UIViewController {
         cahtsScreen.tableViewChats.separatorStyle = .none
         
         
-        let chat  = Chat(name: "Kenny", address: "San Jose, CA", date: "12/11/2023 - 12/30/2023")
-        let chat1 = Chat(name: "Patrick", address: "Tucson, AZ", date: "12/11/2023 - 12/30/2023")
+        let chat  = Chat(name: "Kenny", email: "abc@eamil.com", address: "San Jose, CA", date: "12/11/2023 - 12/30/2023")
+        let chat1 = Chat(name: "Patrick", email: "abc@eamil.com", address: "Tucson, AZ", date: "12/11/2023 - 12/30/2023")
         chats.append(chat)
         chats.append(chat1)
     }
