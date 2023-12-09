@@ -41,7 +41,8 @@ class HouseListViewController: UIViewController {
         view.backgroundColor = .white
         
         //MARK: hide Keyboard on tapping the screen.
-        hideKeyboardWhenTappedAround()
+        //MARK: This function will make func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) failed.
+        //  hideKeyboardWhenTappedAround()
         
         //MARK: set up on profilePicButton tapped.
         houseListScreen.profilePic.addTarget(self, action: #selector(onProfilePicButtonTapped), for: .touchUpInside)
