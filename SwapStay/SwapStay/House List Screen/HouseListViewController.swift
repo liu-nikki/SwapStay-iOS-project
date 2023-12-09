@@ -65,8 +65,8 @@ class HouseListViewController: UIViewController {
   
 
         // when the house post is clicked 
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showPostDetails))
-//        yourUIElement.addGestureRecognizer(tapGesture)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showPostDetails))
+        houseListScreen.addGestureRecognizer(tapGesture)
 
     }
     
@@ -169,24 +169,3 @@ class HouseListViewController: UIViewController {
         view.endEditing(true)
     }
 }
-
-
-// works as expected
-
-//let imgURLString = "https://firebasestorage.googleapis.com:443/v0/b/swapstay-ios.appspot.com/o/temp_user_icons%2F123@email.com.jpg?alt=media&token=b954371b-2ea7-4449-ac29-cdb2b240f656"
-//let imageRef = storage.reference(forURL: imgURLString)
-//imageRef.getData(maxSize: 10 * 1024 * 1024) { data, error in
-//  if let error = error {
-//    // Uh-oh, an error occurred!
-//      print("ERROR---->")
-//      print(error)
-//  } else {
-//    let image = UIImage(data: data!)
-//      if let unwrappedImage = image{
-//          self.imageList.append(unwrappedImage)
-//      }
-//
-//    print("Set sccussefully!")
-//  }
-//}
-//houseDetailsViewController.houseDetailScreen.imageHouse.image = imageList[0]
