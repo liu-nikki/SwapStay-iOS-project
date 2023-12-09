@@ -17,9 +17,27 @@ extension HouseListViewController: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: Configs.tableViewHouseID, for: indexPath) as! HouseListTableViewCell
         let post = houseList[indexPath.row]
 
-        cell.labelLocation.text = "\(post.city), \(post.state)"
+        cell.labelLocation.text = "\(post.address), \(post.city), \(post.state)"
         cell.labelDateRange.text = "Date: \(post.startDate) - \(post.endDate)"
-      
+        
+        // Fetch and set the image
+        if let imageUrl = URL(string: post.housePhoto) {
+            URLSession.shared.dataTask(with: imageUrl) { data, response, error in
+                if let data = data {
+                    DispatchQueue.main.async {
+                        cell.imageHouse.image = UIImage(data: data)
+                    }
+                } else {
+                    // Handle error or set a default image
+                    DispatchQueue.main.async {
+                        cell.imageHouse.image = UIImage(systemName: "house")
+                    }
+                }
+            }.resume()
+        } else {
+            cell.imageHouse.image = UIImage(systemName: "house") // default image if URL is invalid
+        }
+            
         
         return cell
     }

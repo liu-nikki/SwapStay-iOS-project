@@ -10,6 +10,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import PhotosUI
+import FirebaseStorage
 
 class PostViewController: UIViewController {
     
@@ -71,11 +72,30 @@ class PostViewController: UIViewController {
     
     // MARK: create a post
     @objc func createPost() {
-        guard let user = UserManager.shared.currentUser else { return }
-        
+        guard let user = UserManager.shared.currentUser, let pickedImage = self.pickedImage else { return }
+
+        let uniqueImageFileName = "images/\(UUID().uuidString).jpg"
+        let storageRef = Storage.storage().reference().child(uniqueImageFileName)
+        if let imageData = pickedImage.jpegData(compressionQuality: 0.75) {
+            storageRef.putData(imageData, metadata: nil) { (metadata, error) in
+                guard error == nil else {
+                    print("Failed to upload image: \(error!.localizedDescription)")
+                    return
+                }
+                storageRef.downloadURL { (url, error) in
+                    guard let downloadURL = url else {
+                        print("Download URL not found")
+                        return
+                    }
+                    self.savePostToFirestore(user: user, imageUrl: downloadURL.absoluteString)
+                }
+            }
+        }
+    }
+
+    func savePostToFirestore(user: User, imageUrl: String) {
         let postId = db.collection("posts").document().documentID
         let ownerName = user.name
-        let profilePhotoURL = user.profileImageURL ?? ""
         let ownerEmail = user.email
         let startDate = addPostScreen.dateFromButton.text ?? ""
         let endDate = addPostScreen.dateToButton.text ?? ""
@@ -85,11 +105,10 @@ class PostViewController: UIViewController {
         let state = addPostScreen.stateTextField.text ?? ""
         let zip = addPostScreen.zipTextField.text ?? ""
 
-        // Create post dictionary
         let postDict: [String: Any] = [
             "postId": postId,
             "ownerName": ownerName,
-            "profilePhotoURL": profilePhotoURL,
+            "housePhoto": imageUrl,
             "ownerEmail": ownerEmail,
             "startDate": startDate,
             "endDate": endDate,
@@ -99,8 +118,6 @@ class PostViewController: UIViewController {
             "state": state,
             "zip": zip
         ]
-
-        // Save post in user's personal post collection
         db.collection("users").document(ownerEmail).collection("posts").document(postId).setData(postDict) { error in
             if let error = error {
                 print("Error saving post to user's collection: \(error)")
@@ -108,8 +125,6 @@ class PostViewController: UIViewController {
                 print("Post saved to user's collection successfully.")
             }
         }
-
-        // Save post in global post collection
         db.collection("posts").document(postId).setData(postDict) { error in
             if let error = error {
                 print("Error saving post to global collection: \(error)")
@@ -117,13 +132,8 @@ class PostViewController: UIViewController {
                 print("Post saved to global collection successfully.")
             }
         }
-        
-        // Go back to HouseListScreen
         self.navigationController?.popViewController(animated: true)
-        
     }
-    
-    
     
     
     func deletePost(postId: String) {

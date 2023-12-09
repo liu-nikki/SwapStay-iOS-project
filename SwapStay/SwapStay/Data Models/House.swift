@@ -13,7 +13,7 @@ import UIKit
 struct House: Codable{
     @DocumentID var id: String?
 
-    var profilePhotoURL:   String
+    var housePhoto:   String
     var ownerName:  String
     var ownerEmail: String
     var address:    String
@@ -24,8 +24,8 @@ struct House: Codable{
     var endDate:     String
     var description: String
     
-    init(profilePhotoURL: String, ownerName: String, ownerEmail: String, address: String, city: String, state: String, zip: String, startDate: String, endDate: String, description: String) {
-        self.profilePhotoURL   = profilePhotoURL
+    init(housePhoto: String, ownerName: String, ownerEmail: String, address: String, city: String, state: String, zip: String, startDate: String, endDate: String, description: String) {
+        self.housePhoto   = housePhoto
         self.ownerName  = ownerName
         self.ownerEmail = ownerEmail
         self.address    = address

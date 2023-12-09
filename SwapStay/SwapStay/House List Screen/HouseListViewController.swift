@@ -13,7 +13,6 @@ import FirebaseFirestore
 class HouseListViewController: UIViewController {
     
     let houseListScreen = HouseListView()
-//    var currentUser: FirebaseAuth.User?
     // Get a reference to the storage service using the default Firebase App
     let db              = Firestore.firestore()
     let storage         = Storage.storage()
