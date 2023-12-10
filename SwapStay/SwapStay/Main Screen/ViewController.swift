@@ -43,8 +43,9 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
                 self.viewControllers = self.generateNavControllers()
             } else {
                 let loginViewController = LoginViewController()
-                loginViewController.modalPresentationStyle = .fullScreen
-                self.present(loginViewController, animated: false, completion: nil)
+                let navigationController = UINavigationController(rootViewController: loginViewController)
+                navigationController.modalPresentationStyle = .fullScreen
+                self.present(navigationController, animated: false, completion: nil)
             }
         }
     }

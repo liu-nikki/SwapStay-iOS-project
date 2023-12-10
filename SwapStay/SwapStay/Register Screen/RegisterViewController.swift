@@ -39,6 +39,9 @@ class RegisterViewController: UIViewController {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
         tapRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapRecognizer)
+        
+        let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backButtonTapped))
+        self.navigationItem.leftBarButtonItem = backButton
     }
     
     //MARK: Hide Keyboard...
@@ -96,6 +99,10 @@ class RegisterViewController: UIViewController {
             // Passwords do not match, show an alert
             showAlert()
         }
+    }
+    
+    @objc func backButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
     }
     
     // Show an alert when passwords are inconsistent

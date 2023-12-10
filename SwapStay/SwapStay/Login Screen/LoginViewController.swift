@@ -84,9 +84,9 @@ class LoginViewController: UIViewController {
     @objc func onRegisterButtonTapped(){
         print("onRegisterButtonTapped")
         let registerViewController = RegisterViewController()
-       // navigationController?.pushViewController(registerViewController, animated: true)
-        registerViewController.modalPresentationStyle = .fullScreen
-        self.present(registerViewController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(registerViewController, animated: true)
+//        registerViewController.modalPresentationStyle = .fullScreen
+//        self.present(registerViewController, animated: true, completion: nil)
     }
     
     @objc func dismissRegisterScreen(notification: Notification){
