@@ -128,6 +128,7 @@ extension RegisterViewController{
                             // If there is no erro, assign the url to profilePhotoURL
                             if error == nil{
                                 profilePhotoURL = url
+                                UserManager.shared.currentUser?.profileImageURL = profilePhotoURL?.absoluteString
                                 self.setNameOfTheUserInFirebaseAuth(user: user, photoURL: profilePhotoURL)
                             }
                         })
