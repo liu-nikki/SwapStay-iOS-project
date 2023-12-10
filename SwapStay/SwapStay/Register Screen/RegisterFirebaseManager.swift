@@ -119,7 +119,7 @@ extension RegisterViewController{
                 let storageRef = storage.reference()
                 // Create a child reference imagesRef now points to "images"
                 // Instead of using UUID, use email address as the id of user icon
-                let imageRef = storageRef.child("temp_user_icons/\(user.email).jpg") // TODO: rename it
+                let imageRef = storageRef.child("user_icons/\(user.email).jpg") // TODO: rename it
                 // Upload the file to the path "user_icons/\(email).jpg"
                 let uploadTask = imageRef.putData(jpegData, completion: {(metadata, error) in
                     if error == nil{

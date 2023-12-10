@@ -11,12 +11,11 @@ import FirebaseStorage
 import FirebaseFirestore
 
 class HouseListViewController: UIViewController {
-    
-    let houseListScreen = HouseListView()
-    // Get a reference to the storage service using the default Firebase App
-    let db              = Firestore.firestore()
-    let storage         = Storage.storage()
-    var houseList       =  [House]()
+    let notificationCenter = NotificationCenter.default // Used to redirect to profile screen
+    let houseListScreen    = HouseListView()            // House List Screen View
+    let db                 = Firestore.firestore()      // Get database reference
+    let storage            = Storage.storage()          // Get storage reference
+    var houseList          = [House]()                  // A List to store posts
     
     override func loadView() {
         view = houseListScreen
@@ -27,8 +26,6 @@ class HouseListViewController: UIViewController {
         // Load user infomation, including name and profile photo
         loadUserInfo()
         
-        //fetch all posts from the datastore
-        fetchPosts()
     }
 
     override func viewDidLoad() {
@@ -40,9 +37,8 @@ class HouseListViewController: UIViewController {
         // Set background color to white
         view.backgroundColor = .white
         
-        //MARK: hide Keyboard on tapping the screen.
-        //MARK: This function will make func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) failed.
-        //  hideKeyboardWhenTappedAround()
+
+
         
         //MARK: set up on profilePicButton tapped.
         houseListScreen.profilePic.addTarget(self, action: #selector(onProfilePicButtonTapped), for: .touchUpInside)
@@ -63,6 +59,8 @@ class HouseListViewController: UIViewController {
         houseListScreen.tableViewHouses.dataSource     = self
         houseListScreen.tableViewHouses.separatorStyle = .none
         
+        //fetch all posts from the datastore
+        fetchPosts()
     }
     
     
@@ -107,9 +105,8 @@ class HouseListViewController: UIViewController {
     }
     
     @objc func onProfilePicButtonTapped(){
-        //MARK: presenting the RegisterViewController...
-        let showProfileViewController = ShowProfileViewController()
-        navigationController?.pushViewController(showProfileViewController, animated: true)
+        // Redirect to user profile view
+        notificationCenter.post(name: .userProfilePicTapped, object: "")
     }
     
     // MARK: the button to create a new post
@@ -149,14 +146,4 @@ class HouseListViewController: UIViewController {
             print("Total posts fetched: \(houseList.count)")
         }
     
-
-    //MARK: hide keyboard logic.
-    func hideKeyboardWhenTappedAround() {
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
-        view.addGestureRecognizer(tapRecognizer)
-    }
-    
-    @objc func hideKeyboardOnTap(){
-        view.endEditing(true)
-    }
 }

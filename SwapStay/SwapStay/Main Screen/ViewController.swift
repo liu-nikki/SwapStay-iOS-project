@@ -25,12 +25,11 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
         let startViewCtroller = StartViewController()
         self.viewControllers  = [startViewCtroller]
         
-        // add an observer to get rid of login screen once the user login successfully
-        notificationCenter.addObserver(
-            self,
-            selector: #selector(dismissLogin(notification:)),
-            name: .loginSuccessfully,
-            object: nil)
+        // Add an observer to get rid of login screen once the user login successfully
+        addDissMissLoginScreenObserver()
+        
+        // Add an observer to redirect to profile screen once the user tap profile picture
+        addProfilePicTappedObserver()
         
         // handler for authentication
         handleAuth = Auth.auth().addStateDidChangeListener{ auth, user in
@@ -50,10 +49,33 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
         }
     }
     
-    // when user login successfully, get rid of login screen
+    // Add a observer to observer login screen
+    func addDissMissLoginScreenObserver(){
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(dismissLogin(notification:)),
+            name: .loginSuccessfully,
+            object: nil)
+    }
+    
+    // When user login successfully, get rid of login screen
     @objc func dismissLogin(notification: Notification) {
         // dismiss the presented login screen
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    // Add observer to observe profile pic
+    func addProfilePicTappedObserver(){
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(testSelectIndex(notification:)),
+            name: .userProfilePicTapped,
+            object: nil)
+    }
+    
+    // Redirect to profile screen
+    @objc func testSelectIndex(notification: Notification){
+        self.selectedIndex = 2
     }
     
     func generateNavControllers() -> [UINavigationController]{
