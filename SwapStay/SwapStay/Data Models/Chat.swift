@@ -15,9 +15,9 @@ struct Chat: Codable{
     var name:    String
     var email:   String
     var address: String
-    var date:    String
+    var date:    Date
     
-    init(name: String, email: String, address: String, date: String) {
+    init(name: String, email: String, address: String, date: Date) {
         self.name    = name
         self.email   = email
         self.address = address

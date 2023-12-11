@@ -116,7 +116,8 @@ class PostViewController: UIViewController {
             "address": address,
             "city": city,
             "state": state,
-            "zip": zip
+            "zip": zip,
+            "timestamp": FieldValue.serverTimestamp()
         ]
         db.collection("users").document(ownerEmail).collection("posts").document(postId).setData(postDict) { error in
             if let error = error {
@@ -136,52 +137,20 @@ class PostViewController: UIViewController {
     }
     
     
-    func deletePost(postId: String) {
-        guard let user = UserManager.shared.currentUser else {
-            print("No current user available")
-            return
-        }
-
-        let email = user.email // Directly use email as it's not optional
-
-        // Fetch the post to check the owner
-        let postRef = db.collection("posts").document(postId)
-        postRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                if let ownerEmail = document.data()?["ownerEmail"] as? String, ownerEmail == email {
-                    // Current user is the owner, proceed with deletion
-                    postRef.delete() { error in
-                        if let error = error {
-                            print("Error removing document: \(error)")
-                        } else {
-                            print("Document successfully removed!")
-                        }
-                    }
-                } else {
-                    print("Current user is not the owner of the post.")
-                }
-            } else {
-                print("Document does not exist or error: \(error?.localizedDescription ?? "Unknown error")")
-            }
-        }
-    }
-
-
-    
     // MARK: for testing delete later
     func printCurrentUserDetails() {
-            if let user = UserManager.shared.currentUser {
-                print("Current User Details:")
-                print("User ID: \(user.id ?? "No ID")")
-                print("Name: \(user.name)")
-                print("Email: \(user.email)")
-                print("Profile Image URL: \(user.profileImageURL ?? "No URL")")
-                print("Phone: \(user.phone ?? "No Phone")")
-                print("Address: \(user.address?.formattedAddress() ?? "No Address")")
-            } else {
-                print("No current user data available")
-            }
+        if let user = UserManager.shared.currentUser {
+            print("Current User Details:")
+            print("User ID: \(user.id ?? "No ID")")
+            print("Name: \(user.name)")
+            print("Email: \(user.email)")
+            print("Profile Image URL: \(user.profileImageURL ?? "No URL")")
+            print("Phone: \(user.phone ?? "No Phone")")
+            print("Address: \(user.address?.formattedAddress() ?? "No Address")")
+        } else {
+            print("No current user data available")
         }
+    }
 
 }
 

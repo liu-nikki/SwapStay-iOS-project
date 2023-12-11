@@ -17,6 +17,8 @@ class HouseListViewController: UIViewController {
     let storage            = Storage.storage()          // Get storage reference
     var houseList          = [House]()                  // A List to store posts
     
+    var postsListener: ListenerRegistration?
+    
     override func loadView() {
         view = houseListScreen
     }
@@ -60,7 +62,7 @@ class HouseListViewController: UIViewController {
         houseListScreen.tableViewHouses.separatorStyle = .none
         
         //fetch all posts from the datastore
-        fetchPosts()
+        addPostUpdateListner()
     }
     
     
@@ -116,34 +118,39 @@ class HouseListViewController: UIViewController {
         navigationController?.pushViewController(postViewController, animated: true)
     }
     
-    func fetchPosts() {
-        db.collection("posts").getDocuments { [weak self] (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                self?.houseList.removeAll()
-                for document in querySnapshot!.documents {
-                    do {
-                        let post = try document.data(as: House.self)
-                        self?.houseList.append(post)
-                    } catch {
-                        print("Error decoding post: \(error)")
+
+    func addPostUpdateListner(){
+        self.db.collection("posts").order(by: "timestamp", descending: true)
+            .addSnapshotListener(includeMetadataChanges: false, listener: {querySnapshot, error in
+                if let documents = querySnapshot?.documents{
+                    self.houseList.removeAll()
+                    for document in documents{
+                        do{
+                            let phtotoURL = try document.get("housePhoto") as? String ?? ""
+                            print(phtotoURL)
+                            
+                            let post = try document.data(as: House.self)
+                            
+                            self.houseList.append(post)
+                        }catch{
+                            print(error)
+                        }
                     }
+                    self.houseListScreen.tableViewHouses.reloadData()
                 }
-                DispatchQueue.main.async {
-                    self?.printFetchedPosts()
-                    self?.houseListScreen.tableViewHouses.reloadData()
-                }
-            }
-        }
+            })
     }
 
     // MARK: - Testing function to print fetched posts
-        func printFetchedPosts() {
-            for post in houseList {
-                print("Fetched post: \(post)")
-            }
-            print("Total posts fetched: \(houseList.count)")
+    func printFetchedPosts() {
+        for post in houseList {
+            print("Fetched post: \(post)")
         }
+        print("Total posts fetched: \(houseList.count)")
+    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        postsListener?.remove()
+    }
 }

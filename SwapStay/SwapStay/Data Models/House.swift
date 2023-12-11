@@ -11,7 +11,7 @@ import UIKit
 
 // adopt the Codable protocol to enable encoding and decoding.
 struct House: Codable{
-    @DocumentID var id: String?
+    @DocumentID var postId: String?
 
     var housePhoto:   String
     var ownerName:  String
@@ -23,8 +23,10 @@ struct House: Codable{
     var startDate:   String
     var endDate:     String
     var description: String
+    var timestamp: Date
     
-    init(housePhoto: String, ownerName: String, ownerEmail: String, address: String, city: String, state: String, zip: String, startDate: String, endDate: String, description: String) {
+    init(postId: String, housePhoto: String, ownerName: String, ownerEmail: String, address: String, city: String, state: String, zip: String, startDate: String, endDate: String, description: String, timestamp: Date) {
+        self.postId       = postId
         self.housePhoto   = housePhoto
         self.ownerName  = ownerName
         self.ownerEmail = ownerEmail
@@ -35,6 +37,7 @@ struct House: Codable{
         self.startDate   = startDate
         self.endDate     = endDate
         self.description = description
+        self.timestamp   = timestamp
     }
 }
 

@@ -15,9 +15,9 @@ extension ChatsViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Configs.tableViewChatsID, for: indexPath) as! ChatsTableViewCell
-        cell.labelName.text    = chats[indexPath.row].name
-        cell.labelAddress.text = chats[indexPath.row].address
-        cell.labelDate.text    = chats[indexPath.row].date
+//        cell.labelName.text    = chats[indexPath.row].name
+//        cell.labelAddress.text = chats[indexPath.row].address
+//        cell.labelDate.text    = chats[indexPath.row].date
         return cell
     }
     
