@@ -78,6 +78,18 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
         self.selectedIndex = 2
     }
     
+    // Redirect to chat screen
+    @objc func switchToChatsTab(notification: Notification) {
+        self.selectedIndex = 1
+        // Retrieve the MessagesViewController from the notification
+        if let messagesVC = notification.object as? MessagesViewController {
+            if let navController = self.viewControllers?[1] as? UINavigationController {
+                // Push MessagesViewController onto the navigation stack
+                navController.pushViewController(messagesVC, animated: true)
+            }
+        }
+    }
+    
     func generateNavControllers() -> [UINavigationController]{
         // set up house list tab bar
         let tabHouses        = UINavigationController(rootViewController: HouseListViewController())
@@ -130,11 +142,17 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
             name: UIApplication.didBecomeActiveNotification,
             object: nil
         )
+        NotificationCenter.default.addObserver(
+            self, 
+            selector: #selector(switchToChatsTab),
+            name: .switchToChatsTab,
+            object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         Auth.auth().removeStateDidChangeListener(handleAuth!)
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func appDidBecomeActive() {

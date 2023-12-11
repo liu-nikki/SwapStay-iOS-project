@@ -102,11 +102,12 @@ class HouseDetailsViewController: UIViewController {
         guard let post = self.post else { return }
 
         // Assuming 'post' is an instance of 'House' with all required data
-        let chat = Chat(name: post.ownerName, email: post.ownerEmail, address: "Some address", date: Date())
+        let chat = Chat(name: post.ownerName, email: post.ownerEmail, address: post.address, date: Date())
         let messagesVC = MessagesViewController()
         messagesVC.receiver = chat
-
-        self.navigationController?.pushViewController(messagesVC, animated: true)
+        
+        //sent notification to uitabcontroller so it can change view to center tab
+        NotificationCenter.default.post(name: .switchToChatsTab, object: messagesVC)
     }
 
 

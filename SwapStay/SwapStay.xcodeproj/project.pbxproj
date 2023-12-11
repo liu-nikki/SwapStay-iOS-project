@@ -217,10 +217,10 @@
 		1518E6962B094653004A75D5 /* SwapStay */ = {
 			isa = PBXGroup;
 			children = (
-				B9DE24162B1D44FA00BCC28A /* NotificationNames.swift */,
 				1518E6C42B097087004A75D5 /* Configs.swift */,
 				B85063EF2B116DFB0030343C /* FirestoreUtility.swift */,
 				7594F4AC2B21297A00C26BF6 /* UserManager.swift */,
+				B9DE24162B1D44FA00BCC28A /* NotificationNames.swift */,
 				1518E6C62B09718D004A75D5 /* Data Models */,
 				1518E6D82B097ECE004A75D5 /* Process Indicator */,
 				B9E0349B2B23C1EE00F49F42 /* Messages Screen */,
@@ -304,8 +304,8 @@
 		B85063E02B0D9CE30030343C /* Show Profile Screen */ = {
 			isa = PBXGroup;
 			children = (
-				B95E64AF2B26EDB9002FB3D6 /* ShowProfileFireBaseManager.swift */,
 				B85063E22B0E93DB0030343C /* ShowProfileView.swift */,
+				B95E64AF2B26EDB9002FB3D6 /* ShowProfileFireBaseManager.swift */,
 				B85063E42B0E93F30030343C /* ShowProfileViewController.swift */,
 			);
 			path = "Show Profile Screen";
@@ -374,10 +374,10 @@
 			isa = PBXGroup;
 			children = (
 				B9E034942B23C1E600F49F42 /* MessagesView.swift */,
-				B9E034952B23C1E600F49F42 /* MessagesTableViewManager.swift */,
 				B9E034932B23C1E600F49F42 /* MessagesViewController.swift */,
 				B9E034922B23C1E600F49F42 /* AnotherMessagesTableViewCell.swift */,
 				B9E034912B23C1E600F49F42 /* SelfMessagesTableViewCell.swift */,
+				B9E034952B23C1E600F49F42 /* MessagesTableViewManager.swift */,
 			);
 			path = "Messages Screen";
 			sourceTree = "<group>";

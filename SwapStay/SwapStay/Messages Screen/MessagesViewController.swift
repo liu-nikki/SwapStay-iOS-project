@@ -12,17 +12,13 @@ import FirebaseFirestore
 class MessagesViewController: UIViewController {
 
     let messagesScreen = MessagesView()
-    var receiver: Chat!
-    
-    var currentChatID: String?
-    
-    // use this listener to track whether any user is signed in.
-    var handleAuth: AuthStateDidChangeListenerHandle?
-    // a variable to keep an instance of the current signed-in Firebase user.
-    let currentUser = Auth.auth().currentUser
-    
+    let currentUser = Auth.auth().currentUser           // a variable to keep an instance of the current signed-in Firebase user.
+    var handleAuth: AuthStateDidChangeListenerHandle?   // use this listener to track whether any user is signed in.
     let database = Firestore.firestore()
     
+    var receiver: Chat!                                 //has info about the post, such as post ownername, email, address and date
+    var currentChatID: String?
+     
     var messagesList = [Message]()
     
     override func loadView() {
@@ -103,10 +99,18 @@ class MessagesViewController: UIViewController {
     private func createChat(with receiver: Chat, currentUserEmail: String) {
         let newChatID = database.collection("users").document(currentUserEmail).collection("chats").document().documentID
 
+        // set the receiver to the post owner email
         let currentUserChatData: [String: Any] = ["receiverEmail": receiver.email]
-        
+        // set the poster's chat receiver to the current user email
         let receiverChatData: [String: Any] = ["receiverEmail": currentUserEmail]
 
+        // Data for the actual chat document in the 'chats' root collection
+        let chatData: [String: Any] = [
+            "participants": [currentUserEmail, receiver.email],
+            "namePoster": receiver.name,
+            "address": receiver.address,
+            "date": receiver.date
+        ]
         
         // Create chat document for the current user
         database.collection("users").document(currentUserEmail).collection("chats").document(newChatID).setData(currentUserChatData) { error in
@@ -126,9 +130,15 @@ class MessagesViewController: UIViewController {
             }
         }
         
-        // Create the actual chat document in the 'chats' collection
-        database.collection("chats").document(newChatID).setData(["participants": [currentUserEmail, receiver.email]])
-        
+        // Create the actual chat document in the 'chats' root collection
+        database.collection("chats").document(newChatID).setData(chatData) { error in
+            if let error = error {
+                print("Error creating chat in root collection: \(error)")
+            } else {
+                print("Chat created in root collection successfully with ID: \(newChatID)")
+            }
+        }
+    
         self.currentChatID = newChatID
     }
     

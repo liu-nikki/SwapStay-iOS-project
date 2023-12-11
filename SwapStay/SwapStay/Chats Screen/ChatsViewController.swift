@@ -7,14 +7,20 @@
 
 // MARK: Temp view controller for chats
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
 
+/// <#Description#>
 class ChatsViewController: UIViewController {
-    let cahtsScreen          = ChatsView()
+    let chatsScreen          = ChatsView()
     let notificationCenter   = NotificationCenter.default
+    let database             = Firestore.firestore()
+    
     var chats                = [Chat]()
+    var currentUser:       User?
     
     override func loadView() {
-        view = cahtsScreen
+        view = chatsScreen
     }
     
     override func viewDidLoad() {
@@ -22,17 +28,112 @@ class ChatsViewController: UIViewController {
         
         view.backgroundColor = .white
         
+        self.navigationController?.navigationBar.tintColor = .black
+        
         //MARK: patching table view delegate and date source.
-        cahtsScreen.tableViewChats.delegate   = self
-        cahtsScreen.tableViewChats.dataSource = self
+        chatsScreen.tableViewChats.delegate   = self
+        chatsScreen.tableViewChats.dataSource = self
         
         //MARK: removing the separator line.
-        cahtsScreen.tableViewChats.separatorStyle = .none
+        chatsScreen.tableViewChats.separatorStyle = .none
         
-        
-//        let chat  = Chat(name: "Kenny", email: "abc@eamil.com", address: "San Jose, CA", date: "12/11/2023 - 12/30/2023")
-//        let chat1 = Chat(name: "Patrick", email: "abc@eamil.com", address: "Tucson, AZ", date: "12/11/2023 - 12/30/2023")
-//        chats.append(chat)
-//        chats.append(chat1)
+        // Fetch chats for the current user
+        fetchAllChatsForCurrentUser()
+   
     }
+    
+    // MARK: fetch the all the conversations the current user has
+    private func fetchAllChatsForCurrentUser() {
+        guard let currentUserEmail = Auth.auth().currentUser?.email else {
+            print("No logged-in user")
+            return
+        }
+
+        // Query the 'chats' collection for chats where the current user is a participant
+        database.collection("chats")
+            .whereField("participants", arrayContains: currentUserEmail)
+            .getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error fetching chats: \(error)")
+                    return
+                }
+
+                guard let documents = snapshot?.documents else {
+                    print("No chats found")
+                    return
+                }
+
+                for document in documents {
+                    let chatData = document.data()
+                    let namePoster = chatData["namePoster"] as? String ?? ""
+                    let address = chatData["address"] as? String ?? ""
+                    let date = (chatData["date"] as? Timestamp)?.dateValue() ?? Date()
+                    let participants = chatData["participants"] as? [String] ?? []
+                    
+                    
+                    
+                    let chat = Chat(name: namePoster, email: "participants", address: address, date: date)
+                    self.chats.append(chat)
+                    
+                    //test delete later
+                    print("Chat ID: \(document.documentID)")
+                    print("Name Poster: \(namePoster)")
+                    print("Address: \(address)")
+                    print("Date: \(date)")
+                    print("Participants: \(participants)")
+                    
+                    // Fetch messages for this chat
+//                    self.fetchMessagesForChat(chatID: document.documentID)
+                  
+                }
+                
+                DispatchQueue.main.async {
+                    self.chatsScreen.tableViewChats.reloadData()
+                }
+
+            }
+    }
+    
+//    // MARK: fetch all messages within this chat
+//    private func fetchMessagesForChat(chatID: String) {
+//        database.collection("chats").document(chatID).collection("messages")
+//            .order(by: "timestamp", descending: false)
+//            .getDocuments { [weak self] (snapshot, error) in
+//                if let error = error {
+//                    print("Error fetching messages for chat \(chatID): \(error)")
+//                    return
+//                }
+//
+//                guard let documents = snapshot?.documents else {
+//                    print("No messages found in chat \(chatID)")
+//                    return
+//                }
+//
+//                var fetchedMessages = [Message]()
+//                for document in documents {
+//                    do {
+//                        let message = try document.data(as: Message.self)
+//                        fetchedMessages.append(message)
+//                        print("Message ID: \(document.documentID)")
+//                        print("Text: \(message.text)")
+//                        print("Sender Email: \(message.senderEmail)")
+//                        print("Sender Name: \(message.senderName)")
+//                        print("Timestamp: \(message.timestamp)")
+//                    } catch {
+//                        print("Error decoding message: \(error)")
+//                    }
+//                }
+//
+//                // Handle fetched messages (e.g., updating UI, storing in a variable, etc.)
+//                // Example: self?.messages = fetchedMessages
+//                // If updating UI, make sure to dispatch to main thread
+//                DispatchQueue.main.async {
+//                    // Update your UI with fetchedMessages
+//                    // Example: self?.tableView.reloadData()
+//                }
+//            }
+//    }
+
+
+    
 }
