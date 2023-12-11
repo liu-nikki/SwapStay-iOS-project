@@ -39,8 +39,6 @@ class HouseListViewController: UIViewController {
         // Set background color to white
         view.backgroundColor = .white
         
-
-
         
         //MARK: set up on profilePicButton tapped.
         houseListScreen.profilePic.addTarget(self, action: #selector(onProfilePicButtonTapped), for: .touchUpInside)
@@ -49,12 +47,12 @@ class HouseListViewController: UIViewController {
         
         
         // Listen to user profile updates
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(loadUserInfo),
-            name: .userProfileUpdated,
-            object: nil
-        )
+//        NotificationCenter.default.addObserver(
+//            self,
+//            selector: #selector(loadUserInfo),
+//            name: .userProfileUpdated,
+//            object: nil
+//        )
         
         // Table view delegate and date source
         houseListScreen.tableViewHouses.delegate       = self
@@ -63,47 +61,6 @@ class HouseListViewController: UIViewController {
         
         //fetch all posts from the datastore
         addPostUpdateListner()
-    }
-    
-    
-    
-    @objc func loadUserInfo() {
-        if let user = UserManager.shared.currentUser {
-            // Update the welcome label with the user's name
-            houseListScreen.labelWelcome.text = "Welcome \(user.name)!"
-
-            // Update the profile picture
-            if let profileImageURLString = user.profileImageURL,
-               let url = URL(string: profileImageURLString) {
-                let key = url.absoluteString
-
-                // Check for cached image
-                if let cachedImage = UserManager.shared.getCachedImage(forKey: key) {
-                    houseListScreen.profilePic.setImage(cachedImage, for: .normal)
-                } else {
-                    // If no cached image, download and cache
-                    URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-                        guard let data = data, error == nil else {
-                            print("Error downloading image: \(error?.localizedDescription ?? "unknown error")")
-                            return
-                        }
-                        if let image = UIImage(data: data) {
-                            DispatchQueue.main.async {
-                                UserManager.shared.cacheImage(image, forKey: key)
-                                self?.houseListScreen.profilePic.setImage(image, for: .normal)
-                            }
-                        }
-                    }.resume()
-                }
-            } else {
-                // Set default image if no profile URL
-                houseListScreen.profilePic.setImage(UIImage(named: "AppDefaultProfiePic"), for: .normal)
-            }
-        } else {
-            // Reset to default values if no user is logged in
-            houseListScreen.labelWelcome.text = "Welcome User!"
-            houseListScreen.profilePic.setImage(UIImage(named: "AppDefaultProfiePic"), for: .normal)
-        }
     }
     
     @objc func onProfilePicButtonTapped(){
@@ -116,29 +73,6 @@ class HouseListViewController: UIViewController {
         //MARK: presenting the RegisterViewController...
         let postViewController = PostViewController()
         navigationController?.pushViewController(postViewController, animated: true)
-    }
-    
-
-    func addPostUpdateListner(){
-        self.db.collection("posts").order(by: "timestamp", descending: true)
-            .addSnapshotListener(includeMetadataChanges: false, listener: {querySnapshot, error in
-                if let documents = querySnapshot?.documents{
-                    self.houseList.removeAll()
-                    for document in documents{
-                        do{
-                            let phtotoURL = try document.get("housePhoto") as? String ?? ""
-                            print(phtotoURL)
-                            
-                            let post = try document.data(as: House.self)
-                            
-                            self.houseList.append(post)
-                        }catch{
-                            print(error)
-                        }
-                    }
-                    self.houseListScreen.tableViewHouses.reloadData()
-                }
-            })
     }
 
     // MARK: - Testing function to print fetched posts

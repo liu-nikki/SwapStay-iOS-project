@@ -12,7 +12,6 @@ class RegisterView: UIView {
     var labelAppTitle: UILabel!
     var buttonAddProfilePhoto: UIButton!
     var labelPhoto:    UILabel!
-    var textUserName: UITextField!
     var textPhoneNumber: UITextField!
     var textFieldName: UITextField!
     var textFieldEmail: UITextField!
@@ -27,9 +26,8 @@ class RegisterView: UIView {
         setuplabelAppTitle()
         setupbuttonAddProfilePhoto()
         setupLablePhoto()
-        setupTextUserName()
+
         setupTextPhoneNumber()
-        
         setuptextFieldName()
         setuptextFieldEmail()
         setuptextFieldPassword()
@@ -74,17 +72,6 @@ class RegisterView: UIView {
         labelPhoto.textColor = .gray
         labelPhoto.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(labelPhoto)
-    }
-     
-    func setupTextUserName(){
-        textUserName = UITextField()
-        textUserName.placeholder = "Username"
-        //set placeholder text color to black
-        textUserName.attributedPlaceholder = NSAttributedString(string: "Username", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
-        textUserName.keyboardType = .default
-        textUserName.borderStyle = .roundedRect
-        textUserName.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(textUserName)
     }
     
     func setupTextPhoneNumber() {
@@ -173,11 +160,8 @@ class RegisterView: UIView {
             labelPhoto.topAnchor.constraint(equalTo: buttonAddProfilePhoto.bottomAnchor, constant: 0),
             labelPhoto.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
                
-            textUserName.topAnchor.constraint(equalTo: labelPhoto.bottomAnchor, constant: 64),
-            textUserName.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            textUserName.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
             
-            textFieldName.topAnchor.constraint(equalTo: textUserName.bottomAnchor, constant: 16),
+            textFieldName.topAnchor.constraint(equalTo: labelPhoto.bottomAnchor, constant: 16),
             textFieldName.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
             textFieldName.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
             

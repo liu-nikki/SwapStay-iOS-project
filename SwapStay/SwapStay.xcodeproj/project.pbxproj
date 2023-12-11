@@ -13,7 +13,6 @@
 		1518E69F2B094653004A75D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1518E69D2B094653004A75D5 /* Main.storyboard */; };
 		1518E6A12B094654004A75D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1518E6A02B094654004A75D5 /* Assets.xcassets */; };
 		1518E6A42B094654004A75D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1518E6A22B094654004A75D5 /* LaunchScreen.storyboard */; };
-		1518E6AC2B09670C004A75D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1518E6AB2B09670C004A75D5 /* GoogleService-Info.plist */; };
 		1518E6AF2B0968DC004A75D5 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1518E6AE2B0968DC004A75D5 /* FirebaseAnalytics */; };
 		1518E6B12B0968DC004A75D5 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 1518E6B02B0968DC004A75D5 /* FirebaseAnalyticsOnDeviceConversion */; };
 		1518E6B32B0968DC004A75D5 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1518E6B22B0968DC004A75D5 /* FirebaseAnalyticsSwift */; };
@@ -24,7 +23,6 @@
 		1518E6BD2B0968DC004A75D5 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 1518E6BC2B0968DC004A75D5 /* FirebaseAuthCombine-Community */; };
 		1518E6C12B096A4B004A75D5 /* LoginScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1518E6C02B096A4B004A75D5 /* LoginScreenView.swift */; };
 		1518E6C52B097087004A75D5 /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1518E6C42B097087004A75D5 /* Configs.swift */; };
-		1518E6C82B097215004A75D5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1518E6C72B097215004A75D5 /* User.swift */; };
 		1518E6CC2B09753E004A75D5 /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1518E6CB2B09753E004A75D5 /* House.swift */; };
 		1518E6CE2B097C62004A75D5 /* RightBarButtonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1518E6CD2B097C62004A75D5 /* RightBarButtonManager.swift */; };
 		1518E6D12B097E12004A75D5 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1518E6D02B097E12004A75D5 /* RegisterView.swift */; };
@@ -77,6 +75,10 @@
 		B95575FE2B22B06F00C9038B /* HouseListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95575FD2B22B06F00C9038B /* HouseListTableViewCell.swift */; };
 		B95576002B22B08400C9038B /* HouseListTableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95575FF2B22B08300C9038B /* HouseListTableViewManager.swift */; };
 		B95E647B2B2412A5002FB3D6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95E647A2B2412A5002FB3D6 /* Message.swift */; };
+		B95E64A82B26EC22002FB3D6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B95E64A72B26EC21002FB3D6 /* GoogleService-Info.plist */; };
+		B95E64AC2B26ED07002FB3D6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95E64AB2B26ED07002FB3D6 /* User.swift */; };
+		B95E64AE2B26ED54002FB3D6 /* HouseListFireBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95E64AD2B26ED54002FB3D6 /* HouseListFireBaseManager.swift */; };
+		B95E64B02B26EDB9002FB3D6 /* ShowProfileFireBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95E64AF2B26EDB9002FB3D6 /* ShowProfileFireBaseManager.swift */; };
 		B9DE24172B1D44FA00BCC28A /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DE24162B1D44FA00BCC28A /* NotificationNames.swift */; };
 		B9DE24192B1D463C00BCC28A /* ChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DE24182B1D463C00BCC28A /* ChatsView.swift */; };
 		B9DE241B2B1D468600BCC28A /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DE241A2B1D468600BCC28A /* ChatsViewController.swift */; };
@@ -102,10 +104,8 @@
 		1518E6A02B094654004A75D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1518E6A32B094654004A75D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1518E6A52B094654004A75D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1518E6AB2B09670C004A75D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1518E6C02B096A4B004A75D5 /* LoginScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenView.swift; sourceTree = "<group>"; };
 		1518E6C42B097087004A75D5 /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
-		1518E6C72B097215004A75D5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1518E6CB2B09753E004A75D5 /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
 		1518E6CD2B097C62004A75D5 /* RightBarButtonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightBarButtonManager.swift; sourceTree = "<group>"; };
 		1518E6D02B097E12004A75D5 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
@@ -129,6 +129,10 @@
 		B95575FD2B22B06F00C9038B /* HouseListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseListTableViewCell.swift; sourceTree = "<group>"; };
 		B95575FF2B22B08300C9038B /* HouseListTableViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseListTableViewManager.swift; sourceTree = "<group>"; };
 		B95E647A2B2412A5002FB3D6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		B95E64A72B26EC21002FB3D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B95E64AB2B26ED07002FB3D6 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B95E64AD2B26ED54002FB3D6 /* HouseListFireBaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseListFireBaseManager.swift; sourceTree = "<group>"; };
+		B95E64AF2B26EDB9002FB3D6 /* ShowProfileFireBaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowProfileFireBaseManager.swift; sourceTree = "<group>"; };
 		B9DE24162B1D44FA00BCC28A /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		B9DE24182B1D463C00BCC28A /* ChatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsView.swift; sourceTree = "<group>"; };
 		B9DE241A2B1D468600BCC28A /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
@@ -235,8 +239,8 @@
 				1518E69D2B094653004A75D5 /* Main.storyboard */,
 				1518E6A02B094654004A75D5 /* Assets.xcassets */,
 				1518E6A22B094654004A75D5 /* LaunchScreen.storyboard */,
+				B95E64A72B26EC21002FB3D6 /* GoogleService-Info.plist */,
 				1518E6A52B094654004A75D5 /* Info.plist */,
-				1518E6AB2B09670C004A75D5 /* GoogleService-Info.plist */,
 			);
 			path = SwapStay;
 			sourceTree = "<group>";
@@ -253,7 +257,7 @@
 		1518E6C62B09718D004A75D5 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
-				1518E6C72B097215004A75D5 /* User.swift */,
+				B95E64AB2B26ED07002FB3D6 /* User.swift */,
 				B9E0348D2B233E2000F49F42 /* Chat.swift */,
 				1518E6CB2B09753E004A75D5 /* House.swift */,
 				B95E647A2B2412A5002FB3D6 /* Message.swift */,
@@ -300,6 +304,7 @@
 		B85063E02B0D9CE30030343C /* Show Profile Screen */ = {
 			isa = PBXGroup;
 			children = (
+				B95E64AF2B26EDB9002FB3D6 /* ShowProfileFireBaseManager.swift */,
 				B85063E22B0E93DB0030343C /* ShowProfileView.swift */,
 				B85063E42B0E93F30030343C /* ShowProfileViewController.swift */,
 			);
@@ -320,6 +325,7 @@
 			children = (
 				B85063EB2B0ED8650030343C /* HouseListView.swift */,
 				B85063ED2B0ED87A0030343C /* HouseListViewController.swift */,
+				B95E64AD2B26ED54002FB3D6 /* HouseListFireBaseManager.swift */,
 				B95575FD2B22B06F00C9038B /* HouseListTableViewCell.swift */,
 				B95575FF2B22B08300C9038B /* HouseListTableViewManager.swift */,
 			);
@@ -477,7 +483,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1518E6A42B094654004A75D5 /* LaunchScreen.storyboard in Resources */,
-				1518E6AC2B09670C004A75D5 /* GoogleService-Info.plist in Resources */,
+				B95E64A82B26EC22002FB3D6 /* GoogleService-Info.plist in Resources */,
 				1518E6A12B094654004A75D5 /* Assets.xcassets in Resources */,
 				1518E69F2B094653004A75D5 /* Main.storyboard in Resources */,
 			);
@@ -515,6 +521,7 @@
 				7594F4A32B1FFC7000C26BF6 /* PostView.swift in Sources */,
 				B85063F02B116DFB0030343C /* FirestoreUtility.swift in Sources */,
 				B9E0349A2B23C1E700F49F42 /* MessagesTableViewManager.swift in Sources */,
+				B95E64AE2B26ED54002FB3D6 /* HouseListFireBaseManager.swift in Sources */,
 				B85063EE2B0ED87A0030343C /* HouseListViewController.swift in Sources */,
 				1518E6D52B097E6D004A75D5 /* RegisterFirebaseManager.swift in Sources */,
 				B9DE24192B1D463C00BCC28A /* ChatsView.swift in Sources */,
@@ -524,6 +531,7 @@
 				B85063E52B0E93F30030343C /* ShowProfileViewController.swift in Sources */,
 				B9E034982B23C1E700F49F42 /* MessagesViewController.swift in Sources */,
 				B85063E32B0E93DB0030343C /* ShowProfileView.swift in Sources */,
+				B95E64B02B26EDB9002FB3D6 /* ShowProfileFireBaseManager.swift in Sources */,
 				7594F4A12B1FFC6300C26BF6 /* PostViewController.swift in Sources */,
 				B9E034992B23C1E700F49F42 /* MessagesView.swift in Sources */,
 				B9DE241B2B1D468600BCC28A /* ChatsViewController.swift in Sources */,
@@ -531,8 +539,8 @@
 				B95575F92B22AA7E00C9038B /* HouseDetailsView.swift in Sources */,
 				1518E6D72B097EB3004A75D5 /* RegisterProgressIndicatiorManager.swift in Sources */,
 				1518E6C52B097087004A75D5 /* Configs.swift in Sources */,
-				1518E6C82B097215004A75D5 /* User.swift in Sources */,
 				B9E0348C2B233DE300F49F42 /* ChatsTableViewManager.swift in Sources */,
+				B95E64AC2B26ED07002FB3D6 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -713,7 +721,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z29RHYSQ5A;
+				DEVELOPMENT_TEAM = DDV87RB7D8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SwapStay/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

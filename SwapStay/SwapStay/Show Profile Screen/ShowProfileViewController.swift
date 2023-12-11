@@ -7,23 +7,26 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 class ShowProfileViewController: UIViewController {
     
-    let showProfileView = ShowProfileView()
+    let showProfileScreen = ShowProfileView()
+    let db                = Firestore.firestore()
     
     override func loadView() {
-        view = showProfileView
+        view = showProfileScreen
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // Fetch the current user data from UserManager and update UI
-        if let user = UserManager.shared.currentUser {
-            updateUIWithUserDetails(user)
-            loadProfileImage(user: user)
-        }
+//        if let user = UserManager.shared.currentUser {
+//            updateUIWithUserDetails(user)
+//            loadProfileImage(user: user)
+//        }
+        loadProfileImage2()
     }
 
     override func viewDidLoad() {
@@ -34,9 +37,9 @@ class ShowProfileViewController: UIViewController {
         view.addGestureRecognizer(tap)
         
         //MARK: set up on saveButton tapped.
-        showProfileView.buttonEdit.addTarget(self, action: #selector(onEditButtonTapped), for: .touchUpInside)
-        showProfileView.buttonEditPassword.addTarget(self, action: #selector(onEditPasswordButtonTapped), for: .touchUpInside)
-        showProfileView.buttonLogOut.addTarget(self, action: #selector(onLogOutButtonTapped), for: .touchUpInside)
+        showProfileScreen.buttonEdit.addTarget(self, action: #selector(onEditButtonTapped), for: .touchUpInside)
+        showProfileScreen.buttonEditPassword.addTarget(self, action: #selector(onEditPasswordButtonTapped), for: .touchUpInside)
+        showProfileScreen.buttonLogOut.addTarget(self, action: #selector(onLogOutButtonTapped), for: .touchUpInside)
         
         //MARK: hide Keyboard on tapping the screen.
         hideKeyboardWhenTappedAround()
@@ -60,10 +63,10 @@ class ShowProfileViewController: UIViewController {
     
     // Function to update the UI with user details
     func updateUIWithUserDetails(_ user: User) {
-        showProfileView.labelUsername.text = "Email: \(user.email)"
-        showProfileView.labelName.text = "Name: \(user.name)"
-        showProfileView.labelPhone.text = "Phone: \(user.phone ?? "Not available")"
-        showProfileView.labelAddress.text = "Address: \n\(user.address?.formattedAddress() ?? "Not available")"
+        showProfileScreen.labelEmail.text    = "Email: \(user.email)"
+        showProfileScreen.labelName.text     = "Name: \(user.name)"
+        showProfileScreen.labelPhone.text    = "Phone: \(user.phone)"
+        showProfileScreen.labelAddress.text  = "Address: \n\(user.address?.formattedAddress() ?? "Not available")"
     }
     
     // Function to load image from URL
@@ -72,7 +75,7 @@ class ShowProfileViewController: UIViewController {
             let key = url.absoluteString
 
             if let cachedImage = UserManager.shared.getCachedImage(forKey: key) {
-                self.showProfileView.imageProfile.image = cachedImage
+                self.showProfileScreen.imageProfile.image = cachedImage
             } else {
                 URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
                     guard let data = data, error == nil else {
@@ -82,7 +85,7 @@ class ShowProfileViewController: UIViewController {
                     if let image = UIImage(data: data) {
                         DispatchQueue.main.async {
                             UserManager.shared.cacheImage(image, forKey: key)
-                            self?.showProfileView.imageProfile.image = image
+                            self?.showProfileScreen.imageProfile.image = image
                         }
                     }
                 }.resume()
@@ -226,11 +229,18 @@ class ShowProfileViewController: UIViewController {
                 } else {
                     print("Profile Image URL: Not available")
                 }
-                if let phone = user.phone {
+                
+                let phone = user.phone
+                if !phone.isEmpty{
                     print("Phone: \(phone)")
-                } else {
+                }else{
                     print("Phone: Not available")
                 }
+//                if let phone = user.phone {
+//                    print("Phone: \(phone)")
+//                } else {
+//                    print("Phone: Not available")
+//                }
                 if let address = user.address {
                     print("Address: \(address.formattedAddress())")
                 } else {

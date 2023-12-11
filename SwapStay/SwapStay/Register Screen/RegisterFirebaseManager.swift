@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import FirebaseAuth
 
+
 extension RegisterViewController{
     
     func registerNewAccount(){
@@ -18,7 +19,8 @@ extension RegisterViewController{
         if let name            = registerView.textFieldName.text,
            let email           = registerView.textFieldEmail.text,
            let password        = registerView.textFieldPassword.text,
-           let confirmPassword = registerView.textFieldPasswordConfirm.text{
+           let confirmPassword = registerView.textFieldPasswordConfirm.text,
+           let phone           = registerView.textPhoneNumber.text{
             if password != confirmPassword{
                 self.hideActivityIndicator()
                 self.showAlert()
@@ -37,11 +39,12 @@ extension RegisterViewController{
                     } else {
                         // Other types of errors
                         print("Error: \(error.localizedDescription)")
+                        print(error)
                     }
                     return
                 }
                 // Once there is no error, which means User creation is successful...
-                let user = User(name: name, email: emailLC)
+                let user = User(name: name, email: emailLC, phone: phone)
                 self.uploadProfilePhotoToStorage(user: user)
             }
         }
@@ -75,11 +78,11 @@ extension RegisterViewController{
         
         // Get a reference to the email document
         let emailDocument = db.collection("users").document(user.email)
-        let userData: [String: String] = ["name": user.name]
-
+     //   let userData: [String: String] = ["name": user.name, "email": user.email, "phone": user.phone]
+     //   let userData: [String: String] = ["name": user.name]
         do {
             // Add user name as a field to the user email, which is the docuemnt ID
-            try emailDocument.setData(from: userData, completion: { (error) in
+            try emailDocument.setData(from: user, completion: { (error) in
                 if let error = error {
                     print("Error setting user data: \(error.localizedDescription)")
                 } else {

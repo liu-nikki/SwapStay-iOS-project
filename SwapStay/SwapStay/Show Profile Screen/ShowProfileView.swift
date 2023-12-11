@@ -12,7 +12,7 @@ class ShowProfileView: UIView {
     var imageProfile: UIImageView!
     var labelProfile: UILabel!
     var labelName: UILabel!
-    var labelUsername: UILabel!
+    var labelEmail: UILabel!
     var labelPhone: UILabel!
     var labelAddress: UILabel!
     var buttonEdit: UIButton!
@@ -28,8 +28,8 @@ class ShowProfileView: UIView {
         
         setupImageProfile()
         setupLabelProfile()
+        setupLabelEmail()
         setupLabelName()
-        setupLabelUsername()
         setupLabelPhone()
         setupLabelAddress()
         setupButtonEdit()
@@ -67,13 +67,13 @@ class ShowProfileView: UIView {
         
     }
     
-    func setupLabelUsername()
+    func setupLabelEmail()
     {
-        labelUsername = UILabel()
-        labelUsername.translatesAutoresizingMaskIntoConstraints = false
-        labelUsername.text = "Username: "
-        labelUsername.font = UIFont.systemFont(ofSize: 20)
-        self.addSubview(labelUsername)
+        labelEmail = UILabel()
+        labelEmail.translatesAutoresizingMaskIntoConstraints = false
+        labelEmail.text = "Email: "
+        labelEmail.font = UIFont.systemFont(ofSize: 20)
+        self.addSubview(labelEmail)
 
     }
     
@@ -147,10 +147,10 @@ class ShowProfileView: UIView {
             labelName.topAnchor.constraint(equalTo: labelProfile.bottomAnchor, constant: 20),
             labelName.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             
-            labelUsername.topAnchor.constraint(equalTo: labelName.bottomAnchor, constant: 20),
-            labelUsername.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            labelEmail.topAnchor.constraint(equalTo: labelName.bottomAnchor, constant: 20),
+            labelEmail.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
                    
-            labelPhone.topAnchor.constraint(equalTo: labelUsername.bottomAnchor, constant: 20),
+            labelPhone.topAnchor.constraint(equalTo: labelEmail.bottomAnchor, constant: 20),
             labelPhone.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             
             labelAddress.topAnchor.constraint(equalTo: labelPhone.bottomAnchor, constant: 20),
