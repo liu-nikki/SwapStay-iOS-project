@@ -323,11 +323,11 @@
 		B85063EA2B0ED8430030343C /* House List Screen */ = {
 			isa = PBXGroup;
 			children = (
+				B95575FD2B22B06F00C9038B /* HouseListTableViewCell.swift */,
 				B85063EB2B0ED8650030343C /* HouseListView.swift */,
 				B85063ED2B0ED87A0030343C /* HouseListViewController.swift */,
-				B95E64AD2B26ED54002FB3D6 /* HouseListFireBaseManager.swift */,
-				B95575FD2B22B06F00C9038B /* HouseListTableViewCell.swift */,
 				B95575FF2B22B08300C9038B /* HouseListTableViewManager.swift */,
+				B95E64AD2B26ED54002FB3D6 /* HouseListFireBaseManager.swift */,
 			);
 			path = "House List Screen";
 			sourceTree = "<group>";
