@@ -13,7 +13,7 @@ class HouseDetailsViewController: UIViewController {
     
     let houseDetailScreen = HouseDetailsView()
 
-    var post: House?
+    var post: House!
     let db                 = Firestore.firestore()      // Get database reference
     
     
@@ -31,28 +31,15 @@ class HouseDetailsViewController: UIViewController {
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.tintColor = .black
-        
-        if let post = post {
-            updateView(with: post)
-            configureButton(for: post)
-        }
-
     }
     
-    func updateView(with post: House) {
+    func updatePostInfo(post: House){
         houseDetailScreen.labelOwner.text = "\(post.ownerName)'s Place"
-
-        if let imageUrl = URL(string: post.housePhoto), let imageData = try? Data(contentsOf: imageUrl) {
-            houseDetailScreen.imageHouse.image = UIImage(data: imageData)
-        } else {
-            // Handle error or set a default image
-            houseDetailScreen.imageHouse.image = UIImage(systemName: "house")
-        }
-
-        houseDetailScreen.labelPost.text = post.description
+        houseDetailScreen.labelPost.text  = post.description
+        
     }
     
-    func configureButton(for post: House) {
+    func configureButton(post: House) {
         // Check if the current user is the post owner
         if let currentUserEmail = Auth.auth().currentUser?.email, currentUserEmail == post.ownerEmail {
             // Current user is the post owner, configure as Delete Post button

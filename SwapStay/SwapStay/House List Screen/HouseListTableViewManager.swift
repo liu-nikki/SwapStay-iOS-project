@@ -43,12 +43,47 @@ extension HouseListViewController: UITableViewDelegate, UITableViewDataSource {
 
     // Handling row selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedPost = houseList[indexPath.row]
-        print("Row \(indexPath.row) tapped")
         
         let houseDetailsVC = HouseDetailsViewController()
-        houseDetailsVC.post = selectedPost // Passing the selected post to the details view controller
+        
+        // Get the selected cell
+        if let cell = tableView.cellForRow(at: indexPath) as? HouseListTableViewCell {
+            // Get the image at the row
+            if let selectedImage = cell.imageHouse.image{
+                // Update the image instead re-download it
+                houseDetailsVC.houseDetailScreen.imageHouse.image = selectedImage
+            }else{
+                houseDetailsVC.houseDetailScreen.imageHouse.image = UIImage(systemName: "house")
+            }
+        }
+        
+        let selectedPost = houseList[indexPath.row]
+        
+        print("Row \(indexPath.row) tapped")
+        // Passing the selected post to the details view controller
+        houseDetailsVC.post = selectedPost
+        // Update post information before we push the controller
+        houseDetailsVC.updatePostInfo(post: selectedPost)
+        houseDetailsVC.configureButton(post: selectedPost)
         navigationController?.pushViewController(houseDetailsVC, animated: true)
     }
 }
 
+
+//if let houseURL = URL(string: selectedPost.housePhoto) {
+//    // Use a completion handler to wait for the image download to be finished
+//    FirestoreUtility.loadImageToImage(from: houseURL, into: houseDetailsVC.houseDetailScreen.imageHouse) { success in
+//        if success {
+//            // Image download completed
+//            houseDetailsVC.updatePostInfo(post: selectedPost)
+//            self.navigationController?.pushViewController(houseDetailsVC, animated: true)
+//        } else {
+//            // Image download failed
+//            print("Error downloading image.")
+//        }
+//    }
+//} else {
+//    houseDetailsVC.houseDetailScreen.imageHouse.image = UIImage(systemName: "house")
+//    houseDetailsVC.updatePostInfo(post: selectedPost)
+//    navigationController?.pushViewController(houseDetailsVC, animated: true)
+//}
