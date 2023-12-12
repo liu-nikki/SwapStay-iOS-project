@@ -30,7 +30,7 @@ extension ChatsViewController: UITableViewDelegate, UITableViewDataSource {
         let chat = chats[indexPath.row]
         let messagesVC = MessagesViewController()
         
-        let conversation = Chat(name: chat.name, email: "participants", address: chat.address, date: chat.date)
+        let conversation = Chat(ChatId: chat.ChatId, name: chat.name, email: "participants", address: chat.address, date: chat.date)
         messagesVC.receiver = conversation
         
         self.navigationController?.pushViewController(messagesVC, animated: true)

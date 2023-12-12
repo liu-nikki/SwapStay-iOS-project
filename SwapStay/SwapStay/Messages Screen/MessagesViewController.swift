@@ -18,7 +18,7 @@ class MessagesViewController: UIViewController {
     
     var receiver: Chat!                                 //has info about the post, such as post ownername, email, address and date
     var currentChatID: String?
-     
+
     var messagesList = [Message]()
     
     override func loadView() {
@@ -28,23 +28,14 @@ class MessagesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Check if the receiver is set
-        guard let receiver = receiver, let currentUserEmail = Auth.auth().currentUser?.email else {
-            print("Receiver or current user is not set")
-            return
-        }
+        // Check if the receiver and chat ID are set
+        let currentChatID = receiver.ChatId
         
-        // Check if a chat already exists
-        checkForExistingChat(with: receiver, currentUserEmail: currentUserEmail) {
-            // Code here will run after checkForExistingChat completes
-            // For example, you can call another function here
-            guard let chatID = self.currentChatID else {
-                print("Chat ID is not available")
-                return
-            }
-            // Fetch messages for the current chat
-            self.fetchAllMessages(chatID: chatID)
-        }
+        print("current chat id", currentChatID)
+        // Fetch messages for the existing chat
+        fetchAllMessages(chatID: currentChatID)
+        
+
     }
   
     override func viewDidLoad() {
@@ -71,29 +62,32 @@ class MessagesViewController: UIViewController {
     }
 
     
-    private func checkForExistingChat(with receiver: Chat, currentUserEmail: String, completion: @escaping () -> Void) {
+    private func checkForExistingChat(with receiver: Chat, completion: @escaping (String?) -> Void) {
+        guard let currentUserEmail = Auth.auth().currentUser?.email else {
+            completion(nil) // Return early if currentUserEmail is not available
+            return
+        }
+        
         database.collection("users").document(currentUserEmail).collection("chats")
             .whereField("receiverEmail", isEqualTo: receiver.email)
-            .getDocuments { [weak self] (snapshot, error) in
+            .getDocuments { snapshot, error in
                 if let error = error {
                     print("Error checking for existing chat: \(error)")
+                    completion(nil)
                     return
-                    completion()
                 }
 
                 if let documents = snapshot?.documents, !documents.isEmpty {
-                    // Existing chat found, set the currentChatID
-                    if let chatDocument = documents.first {
-                        self?.currentChatID = chatDocument.documentID
-                        print("Existing chat ID set: \(String(describing: self?.currentChatID))")
-                    }
+                    // Existing chat found, return the chat ID
+                    let chatDocument = documents.first
+                    completion(chatDocument?.documentID)
                 } else {
-                    // No existing chat, create a new one
-                    self?.createChat(with: receiver, currentUserEmail: currentUserEmail)
+                    // No existing chat found
+                    completion(nil)
                 }
-                completion()
             }
     }
+
 
 
     private func createChat(with receiver: Chat, currentUserEmail: String) {
@@ -142,7 +136,7 @@ class MessagesViewController: UIViewController {
         self.currentChatID = newChatID
     }
     
-    
+    //MARK: post message function
     @objc private func postMessage() {
         
         print("Post Message function")
@@ -199,31 +193,31 @@ class MessagesViewController: UIViewController {
     
     private func fetchAllMessages(chatID: String){
         self.database.collection("chats").document(chatID).collection("messages")
-                    .order(by: "timestamp", descending: false)  // Assuming you want to order by timestamp
-                    .addSnapshotListener(includeMetadataChanges: false, listener: {querySnapshot, error in
-                        if let error = error {
-                            print("Error fetching messages: \(error)")
-                            return
-                        }
-                        
-                        guard let documents = querySnapshot?.documents else {
-                            print("No messages found for chat ID: \(chatID)")
-                            return
-                        }
-                        self.messagesList.removeAll()
-                        
-                        for document in documents {
-                            do {
-                                let message = try document.data(as: Message.self)
-                                self.messagesList.append(message)
+            .order(by: "timestamp", descending: false)  // Assuming you want to order by timestamp
+            .addSnapshotListener(includeMetadataChanges: false, listener: {querySnapshot, error in
+                if let error = error {
+                    print("Error fetching messages: \(error)")
+                    return
+                }
+                
+                guard let documents = querySnapshot?.documents else {
+                    print("No messages found for chat ID: \(chatID)")
+                    return
+                }
+                self.messagesList.removeAll()
+                
+                for document in documents {
+                    do {
+                        let message = try document.data(as: Message.self)
+                        self.messagesList.append(message)
 //                                print("Message retrieved: \(message)")
-                            } catch {
-                                print("Error decoding message: \(error)")
-                            }
-                        }
-                        
-                        self.messagesScreen.tableViewMessages.reloadData()
-                        self.scrollToBottom()
+                    } catch {
+                        print("Error decoding message: \(error)")
+                    }
+                }
+                
+                self.messagesScreen.tableViewMessages.reloadData()
+                self.scrollToBottom()
         })
     }
 

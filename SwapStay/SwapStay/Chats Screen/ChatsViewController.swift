@@ -70,9 +70,9 @@ class ChatsViewController: UIViewController {
                     let date = (chatData["date"] as? Timestamp)?.dateValue() ?? Date()
                     let participants = chatData["participants"] as? [String] ?? []
                     
+                    //get the id of the current chat
                     
-                    
-                    let chat = Chat(name: namePoster, email: "participants", address: address, date: date)
+                    let chat = Chat(ChatId: document.documentID, name: namePoster, email: "participants", address: address, date: date)
                     self.chats.append(chat)
                     
                     //test delete later
@@ -82,9 +82,6 @@ class ChatsViewController: UIViewController {
                     print("Date: \(date)")
                     print("Participants: \(participants)")
                     
-                    // Fetch messages for this chat
-//                    self.fetchMessagesForChat(chatID: document.documentID)
-                  
                 }
                 
                 DispatchQueue.main.async {
@@ -93,46 +90,6 @@ class ChatsViewController: UIViewController {
 
             }
     }
-    
-//    // MARK: fetch all messages within this chat
-//    private func fetchMessagesForChat(chatID: String) {
-//        database.collection("chats").document(chatID).collection("messages")
-//            .order(by: "timestamp", descending: false)
-//            .getDocuments { [weak self] (snapshot, error) in
-//                if let error = error {
-//                    print("Error fetching messages for chat \(chatID): \(error)")
-//                    return
-//                }
-//
-//                guard let documents = snapshot?.documents else {
-//                    print("No messages found in chat \(chatID)")
-//                    return
-//                }
-//
-//                var fetchedMessages = [Message]()
-//                for document in documents {
-//                    do {
-//                        let message = try document.data(as: Message.self)
-//                        fetchedMessages.append(message)
-//                        print("Message ID: \(document.documentID)")
-//                        print("Text: \(message.text)")
-//                        print("Sender Email: \(message.senderEmail)")
-//                        print("Sender Name: \(message.senderName)")
-//                        print("Timestamp: \(message.timestamp)")
-//                    } catch {
-//                        print("Error decoding message: \(error)")
-//                    }
-//                }
-//
-//                // Handle fetched messages (e.g., updating UI, storing in a variable, etc.)
-//                // Example: self?.messages = fetchedMessages
-//                // If updating UI, make sure to dispatch to main thread
-//                DispatchQueue.main.async {
-//                    // Update your UI with fetchedMessages
-//                    // Example: self?.tableView.reloadData()
-//                }
-//            }
-//    }
 
 
     
