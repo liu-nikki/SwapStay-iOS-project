@@ -31,23 +31,7 @@ class MessagesViewController: UIViewController {
         // Print user and receiver data
         printCurrentUserData()
         printReceiverData()
-        // Check for an existing chat with the receiver
-            checkForExistingChat(with: receiver) { [weak self] chatID in
-                guard let self = self else { return }
-
-                if let chatID = chatID {
-                    // An existing chat was found
-                    self.currentChatID = chatID
-                    self.fetchAllMessages(chatID: chatID)
-                    print("Existing chat found with ID: \(chatID)")
-                } else {
-                    // No existing chat found
-                    // Here, you can choose to do nothing and wait until the user sends a message
-                    // to create a new chat. Alternatively, you can initialize some UI elements or
-                    // display a message indicating that this is a new chat.
-                    print("No existing chat found with the receiver. A new chat will be created upon sending a message.")
-                }
-            }
+        
 
     }
   
@@ -68,6 +52,24 @@ class MessagesViewController: UIViewController {
         view.addGestureRecognizer(tapRecognizer)
         
         let currentUserEmail = UserManager.shared.currentUser?.email
+        
+        // Check for an existing chat with the receiver
+            checkForExistingChat(with: receiver) { [weak self] chatID in
+                guard let self = self else { return }
+
+                if let chatID = chatID {
+                    // An existing chat was found
+                    self.currentChatID = chatID
+                    self.fetchAllMessages(chatID: chatID)
+                    print("Existing chat found with ID: \(chatID)")
+                } else {
+                    // No existing chat found
+                    // Here, you can choose to do nothing and wait until the user sends a message
+                    // to create a new chat. Alternatively, you can initialize some UI elements or
+                    // display a message indicating that this is a new chat.
+                    print("No existing chat found with the receiver. A new chat will be created upon sending a message.")
+                }
+            }
     }
     
     //MARK: Hide Keyboard...
@@ -101,7 +103,7 @@ class MessagesViewController: UIViewController {
                     completion(chatDocument.documentID)
                 } else {
                     // No existing chat found or only placeholder is present, create a new one
-                    self.createChat(with: receiver, currentUserEmail: currentUserEmail) 
+                    self.createChat(with: receiver, currentUserEmail: currentUserEmail)
                 }
             }
     }
