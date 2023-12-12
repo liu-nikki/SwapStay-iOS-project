@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyBudPJhTrIGn64AacsuvYPX8gXMWeWIHww</string>
+	<string>AIzaSyDHPodkfBLNCqyfLQUeLJs38TFBo8dk1bs</string>
 	<key>GCM_SENDER_ID</key>
-	<string>747007777567</string>
+	<string>1078269494398</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.nuios.SwapStay</string>
 	<key>PROJECT_ID</key>
-	<string>swapstay-test02</string>
+	<string>swapstay-ios-real</string>
 	<key>STORAGE_BUCKET</key>
-	<string>swapstay-test02.appspot.com</string>
+	<string>swapstay-ios-real.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:747007777567:ios:cf80a2244a315705116e2a</string>
+	<string>1:1078269494398:ios:60fb151daf3e3d6018442f</string>
 </dict>
 </plist>
