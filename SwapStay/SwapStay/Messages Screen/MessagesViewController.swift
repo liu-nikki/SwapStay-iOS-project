@@ -39,6 +39,14 @@ class MessagesViewController: UIViewController {
         super.viewDidLoad()
         title = receiver.name
         
+        let titleFontAttributes: [NSAttributedString.Key: Any] = [
+                .font: UIFont.boldSystemFont(ofSize: 30),  // Change the font size
+                .foregroundColor: UIColor.black  // Change the color
+            ]
+
+        // Set the title attributes for the navigation bar
+        self.navigationController?.navigationBar.titleTextAttributes = titleFontAttributes
+        
         // Set up button action
         messagesScreen.buttonPost.addTarget(self, action: #selector(postMessage), for: .touchUpInside)
         //MARK: patching table view delegate and date source.

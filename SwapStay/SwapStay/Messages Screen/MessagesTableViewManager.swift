@@ -28,6 +28,8 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource{
                 cell.labelDateTime.text  = dateFormatter.string(from: message.timestamp)
         
                 cell.labelMessage.text = message.text
+                cell.wrapperCellView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.17)
+                
                 return cell
             }
         } else {
@@ -40,6 +42,7 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource{
                 cell.labelDateTime.text  = dateFormatter.string(from: message.timestamp)
         
                 cell.labelMessage.text = message.text
+                cell.wrapperCellView.backgroundColor = UIColor(red: 1, green: 1, blue: 224 / 255, alpha: 1.0)
                 return cell
             }
         }

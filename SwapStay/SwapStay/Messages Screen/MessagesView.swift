@@ -10,7 +10,7 @@ import UIKit
 class MessagesView: UIView {
     
     var tableViewMessages: UITableView!
-    
+    var lineView = UIView()
     var buttonPostView:UIView!
     var textViewNote:  UITextView!
     var buttonPost:    UIButton!
@@ -23,6 +23,7 @@ class MessagesView: UIView {
         setupButtonPostView()
         setupTextViewNote()
         setupButtonPost()
+        setupLineLabel()
         
         initConstraints()
     }
@@ -81,8 +82,21 @@ class MessagesView: UIView {
         buttonPost.layer.masksToBounds = true
     }
     
+    func setupLineLabel(){
+        lineView.backgroundColor = .black
+
+        lineView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(lineView)
+    }
+    
     func initConstraints(){
         NSLayoutConstraint.activate([
+          
+            lineView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 5),
+            lineView.heightAnchor.constraint(equalToConstant: 1),  // Height of the line
+            lineView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 30),
+            lineView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -30),
+
             
             tableViewMessages.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
             tableViewMessages.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 8),
