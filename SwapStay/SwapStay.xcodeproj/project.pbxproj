@@ -79,6 +79,7 @@
 		B95E64AE2B26ED54002FB3D6 /* HouseListFireBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95E64AD2B26ED54002FB3D6 /* HouseListFireBaseManager.swift */; };
 		B95E64B02B26EDB9002FB3D6 /* ShowProfileFireBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95E64AF2B26EDB9002FB3D6 /* ShowProfileFireBaseManager.swift */; };
 		B95E64B62B27FC0D002FB3D6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B95E64B52B27FC0C002FB3D6 /* GoogleService-Info.plist */; };
+		B95E64B82B2804E3002FB3D6 /* ViewControllerNotificationCenterFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95E64B72B2804E3002FB3D6 /* ViewControllerNotificationCenterFunctions.swift */; };
 		B9DE24172B1D44FA00BCC28A /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DE24162B1D44FA00BCC28A /* NotificationNames.swift */; };
 		B9DE24192B1D463C00BCC28A /* ChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DE24182B1D463C00BCC28A /* ChatsView.swift */; };
 		B9DE241B2B1D468600BCC28A /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DE241A2B1D468600BCC28A /* ChatsViewController.swift */; };
@@ -133,6 +134,7 @@
 		B95E64AD2B26ED54002FB3D6 /* HouseListFireBaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseListFireBaseManager.swift; sourceTree = "<group>"; };
 		B95E64AF2B26EDB9002FB3D6 /* ShowProfileFireBaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowProfileFireBaseManager.swift; sourceTree = "<group>"; };
 		B95E64B52B27FC0C002FB3D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B95E64B72B2804E3002FB3D6 /* ViewControllerNotificationCenterFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerNotificationCenterFunctions.swift; sourceTree = "<group>"; };
 		B9DE24162B1D44FA00BCC28A /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		B9DE24182B1D463C00BCC28A /* ChatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsView.swift; sourceTree = "<group>"; };
 		B9DE241A2B1D468600BCC28A /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				1518E69B2B094653004A75D5 /* ViewController.swift */,
+				B95E64B72B2804E3002FB3D6 /* ViewControllerNotificationCenterFunctions.swift */,
 				1518E6CD2B097C62004A75D5 /* RightBarButtonManager.swift */,
 			);
 			path = "Main Screen";
@@ -540,6 +543,7 @@
 				1518E6D72B097EB3004A75D5 /* RegisterProgressIndicatiorManager.swift in Sources */,
 				1518E6C52B097087004A75D5 /* Configs.swift in Sources */,
 				B9E0348C2B233DE300F49F42 /* ChatsTableViewManager.swift in Sources */,
+				B95E64B82B2804E3002FB3D6 /* ViewControllerNotificationCenterFunctions.swift in Sources */,
 				B95E64AC2B26ED07002FB3D6 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

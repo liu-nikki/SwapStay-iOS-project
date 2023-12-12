@@ -31,6 +31,9 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
         // Add an observer to redirect to profile screen once the user tap profile picture
         addProfilePicTappedObserver()
         
+        // Add an observer to redirect to chats screen once the user tap book chat button on house details screen
+        addSwitchToChatObserver()
+        
         // handler for authentication
         handleAuth = Auth.auth().addStateDidChangeListener{ auth, user in
             // if user is signed in
@@ -49,46 +52,6 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
         }
     }
     
-    // Add a observer to observer login screen
-    func addDissMissLoginScreenObserver(){
-        notificationCenter.addObserver(
-            self,
-            selector: #selector(dismissLogin(notification:)),
-            name: .loginSuccessfully,
-            object: nil)
-    }
-    
-    // When user login successfully, get rid of login screen
-    @objc func dismissLogin(notification: Notification) {
-        // dismiss the presented login screen
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    // Add observer to observe profile pic
-    func addProfilePicTappedObserver(){
-        notificationCenter.addObserver(
-            self,
-            selector: #selector(testSelectIndex(notification:)),
-            name: .userProfilePicTapped,
-            object: nil)
-    }
-    
-    // Redirect to profile screen
-    @objc func testSelectIndex(notification: Notification){
-        self.selectedIndex = 2
-    }
-    
-    // Redirect to chat screen
-    @objc func switchToChatsTab(notification: Notification) {
-        self.selectedIndex = 1
-        // Retrieve the MessagesViewController from the notification
-        if let messagesVC = notification.object as? MessagesViewController {
-            if let navController = self.viewControllers?[1] as? UINavigationController {
-                // Push MessagesViewController onto the navigation stack
-                navController.pushViewController(messagesVC, animated: true)
-            }
-        }
-    }
     
     func generateNavControllers() -> [UINavigationController]{
         // set up house list tab bar
@@ -142,11 +105,7 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
             name: UIApplication.didBecomeActiveNotification,
             object: nil
         )
-        NotificationCenter.default.addObserver(
-            self, 
-            selector: #selector(switchToChatsTab),
-            name: .switchToChatsTab,
-            object: nil)
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
