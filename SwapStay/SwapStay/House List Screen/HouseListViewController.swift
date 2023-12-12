@@ -46,14 +46,6 @@ class HouseListViewController: UIViewController {
         houseListScreen.buttonPost.addTarget(self, action: #selector(onPostButtonTapped), for: .touchUpInside)
         
         
-        // Listen to user profile updates
-//        NotificationCenter.default.addObserver(
-//            self,
-//            selector: #selector(loadUserInfo),
-//            name: .userProfileUpdated,
-//            object: nil
-//        )
-        
         // Table view delegate and date source
         houseListScreen.tableViewHouses.delegate       = self
         houseListScreen.tableViewHouses.dataSource     = self

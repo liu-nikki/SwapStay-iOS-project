@@ -13,11 +13,7 @@ class EditProfileView: UIView {
     var labelEditProfilePhoto: UILabel!
     var textFieldName: UITextField!
     var textPhoneNumber: UITextField!
-    var textFieldLine1: UITextField!
-    var textFieldLine2: UITextField!
-    var textFieldCity: UITextField!
-    var textFieldState: UITextField!
-    var textFieldZip: UITextField!
+
     var buttonSave: UIButton!
     
     override init(frame: CGRect){
@@ -28,11 +24,6 @@ class EditProfileView: UIView {
         setupLabelEditProfilePhoto()
         setupTextFieldName()
         setupTextFieldPhoneNumber()
-        setupTextFieldLine1()
-        setupTextFieldLine2()
-        setupTextFieldCity()
-        setupTextFieldState()
-        setupTextFieldZip()
 
         setupButtonSave()
         
@@ -76,46 +67,6 @@ class EditProfileView: UIView {
         self.addSubview(textFieldName)
     }
     
-    func setupTextFieldLine1() {
-        textFieldLine1 = UITextField()
-        textFieldLine1.translatesAutoresizingMaskIntoConstraints = false
-        textFieldLine1.placeholder = "Address Line 1"
-        textFieldLine1.borderStyle = .roundedRect
-        self.addSubview(textFieldLine1)
-    }
-
-    func setupTextFieldLine2() {
-        textFieldLine2 = UITextField()
-        textFieldLine2.translatesAutoresizingMaskIntoConstraints = false
-        textFieldLine2.placeholder = "Address Line 2"
-        textFieldLine2.borderStyle = .roundedRect
-        self.addSubview(textFieldLine2)
-    }
-
-    func setupTextFieldCity() {
-        textFieldCity = UITextField()
-        textFieldCity.translatesAutoresizingMaskIntoConstraints = false
-        textFieldCity.placeholder = "City"
-        textFieldCity.borderStyle = .roundedRect
-        self.addSubview(textFieldCity)
-    }
-
-    func setupTextFieldState() {
-        textFieldState = UITextField()
-        textFieldState.translatesAutoresizingMaskIntoConstraints = false
-        textFieldState.placeholder = "State"
-        textFieldState.borderStyle = .roundedRect
-        self.addSubview(textFieldState)
-    }
-
-    func setupTextFieldZip() {
-        textFieldZip = UITextField()
-        textFieldZip.translatesAutoresizingMaskIntoConstraints = false
-        textFieldZip.placeholder = "Zip"
-        textFieldZip.borderStyle = .roundedRect
-        self.addSubview(textFieldZip)
-    }
-    
     func setupTextFieldPhoneNumber()
     {
         textPhoneNumber = UITextField()
@@ -156,35 +107,10 @@ class EditProfileView: UIView {
             textPhoneNumber.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
             textPhoneNumber.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
             
-            textFieldLine1.topAnchor.constraint(equalTo: textPhoneNumber.bottomAnchor, constant: 16),
-            textFieldLine1.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            textFieldLine1.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
-
-            textFieldLine2.topAnchor.constraint(equalTo: textFieldLine1.bottomAnchor, constant: 16),
-            textFieldLine2.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            textFieldLine2.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
-
-            // City TextField Constraints
-            textFieldCity.topAnchor.constraint(equalTo: textFieldLine2.bottomAnchor, constant: 16),
-            textFieldCity.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            textFieldCity.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.5, constant: -16),
-
-            // State TextField Constraints
-            textFieldState.topAnchor.constraint(equalTo: textFieldLine2.bottomAnchor, constant: 16),
-            textFieldState.leadingAnchor.constraint(equalTo: textFieldCity.trailingAnchor, constant: 8),
-            textFieldState.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.25, constant: -12),
-
-            // Zip TextField Constraints
-            textFieldZip.topAnchor.constraint(equalTo: textFieldLine2.bottomAnchor, constant: 16),
-            textFieldZip.leadingAnchor.constraint(equalTo: textFieldState.trailingAnchor, constant: 8),
-            textFieldZip.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            // Zip field's width is automatically determined by its leading and trailing constraints
-
-            buttonSave.topAnchor.constraint(equalTo: textFieldZip.bottomAnchor, constant: 64),
+            
+            buttonSave.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             buttonSave.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
             buttonSave.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.4),
-        
-        
         ])
     }
     

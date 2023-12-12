@@ -10,9 +10,11 @@ import FirebaseAuth
 import FirebaseFirestore
 
 class ShowProfileViewController: UIViewController {
-    
+    let notificationCenter = NotificationCenter.default
     let showProfileScreen = ShowProfileView()
     let db                = Firestore.firestore()
+    var userEdit : User!
+    var loadFromEditScreen = false
     
     override func loadView() {
         view = showProfileScreen
@@ -21,12 +23,11 @@ class ShowProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Fetch the current user data from UserManager and update UI
-//        if let user = UserManager.shared.currentUser {
-//            updateUIWithUserDetails(user)
-//            loadProfileImage(user: user)
-//        }
-        loadProfileImage2()
+        if !loadFromEditScreen{
+            loadProfileImage2()
+        }
+        
+        loadFromEditScreen = false
     }
 
     override func viewDidLoad() {
@@ -51,7 +52,25 @@ class ShowProfileViewController: UIViewController {
                 object: nil
             )
         
+        addProfilePicUpdateFromEditProfileObserver()
+        
         printCurrentUserDetails()
+    }
+    
+    func addProfilePicUpdateFromEditProfileObserver(){
+        NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(userProfileUpdatedFromEditScreen),
+                name: .updateUserProfilePic,
+                object: nil
+            )
+    }
+    
+    @objc func userProfileUpdatedFromEditScreen(notification: Notification){
+        if let pickedImage = notification.object as? UIImage {
+            showProfileScreen.imageProfile.image = pickedImage
+            loadFromEditScreen = true
+        }
     }
     
     @objc func userProfileUpdated() {
@@ -63,6 +82,7 @@ class ShowProfileViewController: UIViewController {
     
     // Function to update the UI with user details
     func updateUIWithUserDetails(_ user: User) {
+        userEdit = user
         showProfileScreen.labelEmail.text    = "Email: \(user.email)"
         showProfileScreen.labelName.text     = "Name: \(user.name)"
         showProfileScreen.labelPhone.text    = "Phone: \(user.phone)"
@@ -94,9 +114,23 @@ class ShowProfileViewController: UIViewController {
     
     @objc func onEditButtonTapped(){
         //MARK: presenting the RegisterViewController...
-        let editProfileViewController = EditProfileViewController()
-//        editProfileViewController.UserManager.shared.currentUser = UserManager.shared.currentUser
-        navigationController?.pushViewController(editProfileViewController, animated: true)
+        let editProfileVC = EditProfileViewController()
+        
+        let editScreen = editProfileVC.editProfileView
+        
+        if let image =  showProfileScreen.imageProfile.image{
+            editScreen.buttonEditProfilePhoto.setImage(image, for: .normal)
+        }
+        
+        
+       // editScreen.buttonEditProfilePhoto.imageView?.image = showProfileScreen.imageProfile.image
+        editScreen.textFieldName.text                      = userEdit.name
+        editScreen.textPhoneNumber.text                    = userEdit.phone
+        
+        editProfileVC.curImage = editScreen.buttonEditProfilePhoto.imageView?.image
+        loadFromEditScreen = true
+        
+        navigationController?.pushViewController(editProfileVC, animated: true)
     }
     
     @objc func onEditPasswordButtonTapped(){

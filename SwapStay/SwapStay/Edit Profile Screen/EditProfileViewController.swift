@@ -12,11 +12,15 @@ import FirebaseFirestore
 import FirebaseStorage
 
 class EditProfileViewController: UIViewController {
-    
+    let notificationCenter = NotificationCenter.default
     let editProfileView = EditProfileView()
+    let db = Firestore.firestore()
+    var pickedImage:   UIImage?
     
-    var pickedImage: UIImage?
+    var curImage: UIImage?
+
     
+    let storage            = Storage.storage()
     
     override func loadView() {
         view = editProfileView
@@ -24,44 +28,7 @@ class EditProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        // Populate the fields with current user data from UserManager
-        if let user = UserManager.shared.currentUser {
-            editProfileView.textFieldName.text = user.name
-            editProfileView.textPhoneNumber.text = user.phone
-            editProfileView.textFieldLine1.text = user.address?.line1
-            editProfileView.textFieldLine2.text = user.address?.line2
-            editProfileView.textFieldCity.text = user.address?.city
-            editProfileView.textFieldState.text = user.address?.state
-            editProfileView.textFieldZip.text = user.address?.zip
-
-            if let profileImageURLString = user.profileImageURL,
-               let url = URL(string: profileImageURLString) {
-                loadProfileImage(from: url)
-            }
-        }
         
-    }
-    
-    func loadProfileImage(from url: URL) {
-        let key = url.absoluteString
-
-        if let cachedImage = UserManager.shared.getCachedImage(forKey: key) {
-            self.editProfileView.buttonEditProfilePhoto.setImage(cachedImage, for: .normal)
-        } else {
-            URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-                guard let data = data, error == nil else {
-                    print("Error downloading image: \(error?.localizedDescription ?? "unknown error")")
-                    return
-                }
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        UserManager.shared.cacheImage(image, forKey: key)
-                        self?.editProfileView.buttonEditProfilePhoto.setImage(image, for: .normal)
-                    }
-                }
-            }.resume()
-        }
     }
     
     override func viewDidLoad() {
@@ -71,7 +38,7 @@ class EditProfileViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = .black
         
         //MARK: set up on saveButton tapped.
-        editProfileView.buttonSave.addTarget(self, action: #selector(onSaveButtonTapped), for: .touchUpInside)
+        editProfileView.buttonSave.addTarget(self, action: #selector(onSaveButtonTapped2), for: .touchUpInside)
         editProfileView.buttonEditProfilePhoto.menu = getMenuImagePicker()
         
         //MARK: hide Keyboard on tapping the screen.
@@ -114,31 +81,45 @@ class EditProfileViewController: UIViewController {
         present(photoPicker, animated: true, completion: nil)
     }
     
-    @objc func onSaveButtonTapped() {
-        guard let currentUserEmail = UserManager.shared.currentUser?.email else { return }
-
-        // Prepare user data
-        let name = editProfileView.textFieldName.text ?? ""
-        let phoneNum = editProfileView.textPhoneNumber.text ?? ""
-        let address = Address(
-            line1: editProfileView.textFieldLine1.text ?? "",
-            line2: editProfileView.textFieldLine2.text,
-            city: editProfileView.textFieldCity.text ?? "",
-            state: editProfileView.textFieldState.text ?? "",
-            zip: editProfileView.textFieldZip.text ?? ""
-        )
-
-        // Handle image upload if a new image is picked
-        if let image = pickedImage {
-            uploadImageAndUpdateUserData(image: image, email: currentUserEmail, name: name, phoneNum: phoneNum, address: address)
-        } else {
-            updateUserFirestoreData(email: currentUserEmail, name: name, phoneNum: phoneNum, profileImageURL: nil, address: address)
+    @objc func onSaveButtonTapped2() {
+        
+        if let email = Auth.auth().currentUser?.email{
+            if let name  = editProfileView.textFieldName.text,
+               let phone = editProfileView.textPhoneNumber.text{
+                let user = User(name:  name,
+                                email: email,
+                                phone: phone)
+                // If pickedImage is not changged by user, no needs to upload the img
+                if pickedImage == curImage{
+                    uploadProfilePhotoToStorage(user: user, updateImage: false)
+                }else{
+                    notificationCenter.post(name: .updateUserProfilePic, object: pickedImage)
+                    uploadProfilePhotoToStorage(user: user, updateImage: true)
+                }
+            }
         }
         
-        // Notify other parts of the app about the update
-        NotificationCenter.default.post(name: .userProfileUpdated, object: nil)
-
+        navigationController?.popViewController(animated: true)
     }
+    
+//    @objc func onSaveButtonTapped() {
+//        guard let currentUserEmail = UserManager.shared.currentUser?.email else { return }
+//
+//        // Prepare user data
+//        let name = editProfileView.textFieldName.text ?? ""
+//        let phoneNum = editProfileView.textPhoneNumber.text ?? ""
+//
+//        // Handle image upload if a new image is picked
+//        if let image = pickedImage {
+//            uploadImageAndUpdateUserData(image: image, email: currentUserEmail, name: name, phoneNum: phoneNum, address: address)
+//        } else {
+//            updateUserFirestoreData(email: currentUserEmail, name: name, phoneNum: phoneNum, profileImageURL: nil, address: address)
+//        }
+//        
+//        // Notify other parts of the app about the update
+//        // NotificationCenter.default.post(name: .userProfileUpdated, object: nil)
+//
+//    }
 
     // MARK: If profile image was updated
     func uploadImageAndUpdateUserData(image: UIImage, email: String, name: String, phoneNum: String, address: Address) {

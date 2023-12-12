@@ -14,7 +14,6 @@ class ShowProfileView: UIView {
     var labelName: UILabel!
     var labelEmail: UILabel!
     var labelPhone: UILabel!
-    var labelAddress: UILabel!
     var buttonEdit: UIButton!
     var buttonEditPassword: UIButton!
     var buttonLogOut: UIButton!
@@ -85,16 +84,6 @@ class ShowProfileView: UIView {
         self.addSubview(labelPhone)
     }
     
-    func setupLabelAddress(){
-        labelAddress = UILabel()
-        labelAddress.text = "Address"
-        labelAddress.font = UIFont.systemFont(ofSize: 20)
-        labelAddress.translatesAutoresizingMaskIntoConstraints = false
-        labelAddress.numberOfLines = 0
-        labelAddress.lineBreakMode = .byWordWrapping
-        self.addSubview(labelAddress)
-    }
-    
     func setupButtonEdit(){
         buttonEdit = UIButton()
         buttonEdit.setTitle("Edit", for: .normal)
@@ -157,12 +146,12 @@ class ShowProfileView: UIView {
             buttonEdit.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120),
             buttonEdit.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -120),
             
-            buttonEditPassword.topAnchor.constraint(equalTo: buttonEdit.bottomAnchor, constant: 16),
+            buttonEditPassword.bottomAnchor.constraint(equalTo: buttonLogOut.topAnchor, constant: -16),
             buttonEditPassword.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             buttonEditPassword.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120),
             buttonEditPassword.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -120),
             
-            buttonLogOut.topAnchor.constraint(equalTo: buttonEditPassword.bottomAnchor, constant: 16),
+            buttonLogOut.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             buttonLogOut.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             buttonLogOut.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120),
             buttonLogOut.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -120),

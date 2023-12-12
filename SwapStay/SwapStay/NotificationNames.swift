@@ -12,4 +12,5 @@ extension Notification.Name{
     static let registerSuccessfully = Notification.Name("registerSuccessfully")
     static let userProfilePicTapped = Notification.Name("userProfilePicTapped")
     static let switchToChatsTab     = Notification.Name("switchToChatsTab")
+    static let updateUserProfilePic = Notification.Name("updateUserProfilePic")
 }
