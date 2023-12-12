@@ -105,7 +105,7 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
             name: UIApplication.didBecomeActiveNotification,
             object: nil
         )
-        
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {

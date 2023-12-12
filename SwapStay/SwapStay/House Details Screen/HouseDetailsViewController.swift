@@ -87,20 +87,12 @@ class HouseDetailsViewController: UIViewController {
     // MARK: Else choose book room button to chat with poster
     @objc func bookRoomTapped() {
 
-
         // Assuming 'post' is an instance of 'House' with all required data
         let chat = Chat(ChatId: "placeholder id", name: post.ownerName, email: post.ownerEmail, address: post.address, date: Date())
         let messagesVC = MessagesViewController()
         messagesVC.receiver = chat
-        //sent notification to uitabcontroller so it can change view to center tab
         
         NotificationCenter.default.post(name: .switchToChatsTab, object: messagesVC)
-        
-    //    self.navigationController?.pushViewController(messagesVC, animated: true)
-        
-        
-        //sent notification to uitabcontroller so it can change view to center tab
-      //  NotificationCenter.default.post(name: .switchToChatsTab, object: messagesVC)
     }
 
 
