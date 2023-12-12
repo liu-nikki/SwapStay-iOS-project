@@ -46,8 +46,6 @@ class PostView: UIView {
         setupConstraints()
     }
 
-
-
     // MARK: - UI Setup Functions
     func setupTitleLabel() {
         titleLabel.text = "Showcase Your Place"
