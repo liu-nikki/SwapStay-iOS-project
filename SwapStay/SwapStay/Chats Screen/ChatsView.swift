@@ -31,7 +31,7 @@ class ChatsView: UIView {
     func initConstraints(){
         NSLayoutConstraint.activate([
             tableViewChats.topAnchor.constraint(equalTo:self.safeAreaLayoutGuide.topAnchor),
-//            tableViewChats.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
+            tableViewChats.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
             tableViewChats.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             tableViewChats.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
         ])

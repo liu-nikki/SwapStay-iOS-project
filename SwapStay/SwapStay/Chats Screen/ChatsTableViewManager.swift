@@ -17,21 +17,19 @@ extension ChatsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Configs.tableViewChatsID, for: indexPath) as! ChatsTableViewCell
         let chat = chats[indexPath.row]
 
-        // Check if chat name is the same as current user's name
-        let chatDisplayName = chat.name == currentUser?.name ? "Other Participant Name" : chat.name
-        cell.labelName.text = chatDisplayName
+        // Configure cell with chat details
+        cell.labelName.text = chat.name
         cell.labelAddress.text = chat.address
         cell.labelDate.text = formatDate(chat.date)
-
+        
+    
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let chat = chats[indexPath.row]
         let messagesVC = MessagesViewController()
-        
         messagesVC.receiver = chat
-        
         self.navigationController?.pushViewController(messagesVC, animated: true)
     }
     
