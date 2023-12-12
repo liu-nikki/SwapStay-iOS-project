@@ -10,6 +10,7 @@ import UIKit
 class HouseDetailsView: UIView {
     
     var scrollView: UIScrollView!
+    var contentView: UIView!
     var imageHouse: UIImageView!
     var labelOwner: UILabel!
     var labelPost:  UILabel!
@@ -19,6 +20,7 @@ class HouseDetailsView: UIView {
         super.init(frame: frame)
         self.backgroundColor = .white
         setupScrollView()
+        setupContentView()
         setupImageHouse()
         setupLabelOwner()
         setupLabelPost()
@@ -38,6 +40,12 @@ class HouseDetailsView: UIView {
         self.addSubview(scrollView)
     }
     
+    func setupContentView(){
+        contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(contentView)
+    }
+    
     func setupImageHouse(){
         imageHouse = UIImageView()
         // default
@@ -51,7 +59,7 @@ class HouseDetailsView: UIView {
         // imagePerson.layer.cornerRadius = 10
         
         imageHouse.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(imageHouse)
+        contentView.addSubview(imageHouse)
     }
     
     func setupLabelOwner(){
@@ -59,7 +67,7 @@ class HouseDetailsView: UIView {
         labelOwner.text = "Who's Place"
         labelOwner.font = UIFont.boldSystemFont(ofSize: 32)
         labelOwner.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(labelOwner)
+        contentView.addSubview(labelOwner)
     }
     
     func setupLabelPost(){
@@ -72,7 +80,7 @@ class HouseDetailsView: UIView {
         labelPost.lineBreakMode = .byWordWrapping
         labelPost.sizeToFit()
         labelPost.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(labelPost)
+        contentView.addSubview(labelPost)
     }
     
     func setupButtonBook(){
@@ -86,7 +94,7 @@ class HouseDetailsView: UIView {
         // set the button height to 20
         buttonBook.heightAnchor.constraint(equalToConstant: 50).isActive = true
         buttonBook.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(buttonBook)
+        contentView.addSubview(buttonBook)
     }
 
     func initConstraints(){
@@ -95,9 +103,16 @@ class HouseDetailsView: UIView {
             scrollView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -40),
+            scrollView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -30),
             
-            imageHouse.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+      
+            
+            imageHouse.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             imageHouse.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             imageHouse.heightAnchor.constraint(equalToConstant: 200),
             imageHouse.widthAnchor.constraint(equalToConstant:  200),
@@ -111,15 +126,15 @@ class HouseDetailsView: UIView {
             //labelPost.trailingAnchor.constraint(greaterThanOrEqualTo: self.trailingAnchor, constant: -30),
             
             buttonBook.topAnchor.constraint(equalTo: labelPost.bottomAnchor, constant: 20),
-            buttonBook.bottomAnchor.constraint(lessThanOrEqualTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            buttonBook.bottomAnchor.constraint(lessThanOrEqualTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             buttonBook.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             buttonBook.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120),
             buttonBook.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -120),
 
         ])
         
-        let lastSubviewBottomConstraint = buttonBook.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -16)
-        lastSubviewBottomConstraint.priority = .defaultHigh
-        lastSubviewBottomConstraint.isActive = true
+//        let lastSubviewBottomConstraint = buttonBook.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -16)
+//        lastSubviewBottomConstraint.priority = .defaultHigh
+//        lastSubviewBottomConstraint.isActive = true
     }
 }
