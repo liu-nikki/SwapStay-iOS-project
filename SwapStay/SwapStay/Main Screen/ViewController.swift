@@ -111,7 +111,6 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         Auth.auth().removeStateDidChangeListener(handleAuth!)
-        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func appDidBecomeActive() {
