@@ -31,7 +31,6 @@ class ShowProfileView: UIView {
         setupLabelEmail()
         setupLabelName()
         setupLabelPhone()
-        setupLabelAddress()
         setupButtonEdit()
         setupButtonEditPassword()
         setupButtonLogOut()
@@ -153,10 +152,7 @@ class ShowProfileView: UIView {
             labelPhone.topAnchor.constraint(equalTo: labelEmail.bottomAnchor, constant: 20),
             labelPhone.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             
-            labelAddress.topAnchor.constraint(equalTo: labelPhone.bottomAnchor, constant: 20),
-            labelAddress.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            
-            buttonEdit.topAnchor.constraint(equalTo: labelAddress.bottomAnchor, constant: 32),
+            buttonEdit.topAnchor.constraint(equalTo: labelPhone.bottomAnchor, constant: 32),
             buttonEdit.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             buttonEdit.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120),
             buttonEdit.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -120),

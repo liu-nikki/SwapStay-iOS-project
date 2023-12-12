@@ -54,20 +54,11 @@ class PostView: UIView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(titleLabel)
     }
-
-//    func setupCameraButton() {
-//        let symbolConfig = UIImage.SymbolConfiguration(pointSize: 150, weight: .regular, scale: .large) // Adjust point size as needed
-//        cameraButton.setImage(UIImage(systemName: "camera.fill", withConfiguration: symbolConfig), for: .normal)
-//
-//        cameraButton.translatesAutoresizingMaskIntoConstraints = false
-//        addSubview(cameraButton)
-//    }
     
     func setupbuttonTakePhoto(){
         buttonTakePhoto = UIButton(type: .system)
         buttonTakePhoto.setTitle("", for: .normal)
         buttonTakePhoto.setImage(UIImage(systemName: "camera.fill")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        //buttonTakePhoto.setImage(UIImage(systemName: "camera.fill")?.withRenderingMode(.alwaysOriginal), for: .normal)
         buttonTakePhoto.contentHorizontalAlignment = .fill
         buttonTakePhoto.contentVerticalAlignment = .fill
         buttonTakePhoto.imageView?.contentMode = .scaleAspectFit

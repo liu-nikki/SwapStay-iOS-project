@@ -66,7 +66,6 @@ class ShowProfileViewController: UIViewController {
         showProfileScreen.labelEmail.text    = "Email: \(user.email)"
         showProfileScreen.labelName.text     = "Name: \(user.name)"
         showProfileScreen.labelPhone.text    = "Phone: \(user.phone)"
-        showProfileScreen.labelAddress.text  = "Address: \n\(user.address?.formattedAddress() ?? "Not available")"
     }
     
     // Function to load image from URL
