@@ -47,19 +47,26 @@ extension ViewController{
             object: nil)
     }
     
-    // Redirect to chat screen
+    
     @objc func switchToChatsTab(notification: Notification) {
         self.selectedIndex = 1
-        // Retrieve the MessagesViewController from the notification
-        if let messagesVC = notification.object as? MessagesViewController {
-            if let navController = self.viewControllers?[1] as? UINavigationController {
-                // Set the back button title for the top view controller on the stack
-                let backItem   = UIBarButtonItem()
-                backItem.title = "Chats"
-                navController.topViewController?.navigationItem.backBarButtonItem = backItem
-                // Push MessagesViewController onto the navigation stack
-                navController.pushViewController(messagesVC, animated: true)
-            }
-        }
     }
+
+
 }
+
+
+
+
+//   navController.pushViewController(messagesVC, animated: true)
+//        // Retrieve the MessagesViewController from the notification
+//        if let messagesVC = notification.object as? MessagesViewController {
+//            if let navController = self.viewControllers?[1] as? UINavigationController {
+//                // Set the back button title for the top view controller on the stack
+//                let backItem   = UIBarButtonItem()
+//                backItem.title = "Chats"
+//                navController.topViewController?.navigationItem.backBarButtonItem = backItem
+//                // Push MessagesViewController onto the navigation stack
+//                navController.pushViewController(messagesVC, animated: true)
+//            }
+//        }
