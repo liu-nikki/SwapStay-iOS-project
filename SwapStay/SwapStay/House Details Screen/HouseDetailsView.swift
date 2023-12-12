@@ -94,8 +94,9 @@ class HouseDetailsView: UIView {
             labelOwner.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
             
             labelPost.topAnchor.constraint(equalTo: labelOwner.bottomAnchor, constant: 8),
-            labelPost.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            labelPost.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+//            labelPost.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+//            labelPost.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            labelPost.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
           //  labelPost.bottomAnchor.constraint(equalTo: wrapperCellView.bottomAnchor, constant: -8),
             
             buttonBook.topAnchor.constraint(equalTo: labelPost.bottomAnchor, constant: 32),

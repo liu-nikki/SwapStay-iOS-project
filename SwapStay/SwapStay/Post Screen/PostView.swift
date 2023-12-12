@@ -78,7 +78,7 @@ class PostView: UIView {
     }
 
     func setupUploadLabel() {
-        uploadLabel.text = "Upload Your Home!"
+        uploadLabel.text = "Upload Photo of Your Home!"
         uploadLabel.textAlignment = .center
         uploadLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(uploadLabel)
@@ -86,24 +86,40 @@ class PostView: UIView {
 
     func setupAddressTextField() {
         addressTextField.placeholder = "Address"
+        addressTextField.borderStyle = .roundedRect
+        addressTextField.layer.borderWidth = 1
+        addressTextField.layer.cornerRadius = 5
+        addressTextField.layer.borderColor = UIColor.gray.cgColor
         addressTextField.translatesAutoresizingMaskIntoConstraints = false
         addSubview(addressTextField)
     }
 
     func setupCityTextField() {
         cityTextField.placeholder = "City"
+        cityTextField.borderStyle = .roundedRect
+        cityTextField.layer.borderWidth = 1
+        cityTextField.layer.cornerRadius = 5
+        cityTextField.layer.borderColor = UIColor.gray.cgColor
         cityTextField.translatesAutoresizingMaskIntoConstraints = false
         addSubview(cityTextField)
     }
 
     func setupStateTextField() {
         stateTextField.placeholder = "State"
+        stateTextField.borderStyle = .roundedRect
+        stateTextField.layer.borderWidth = 1
+        stateTextField.layer.cornerRadius = 5
+        stateTextField.layer.borderColor = UIColor.gray.cgColor
         stateTextField.translatesAutoresizingMaskIntoConstraints = false
         addSubview(stateTextField)
     }
 
     func setupZipTextField() {
         zipTextField.placeholder = "Zip"
+        zipTextField.borderStyle = .roundedRect
+        zipTextField.layer.borderWidth = 1
+        zipTextField.layer.cornerRadius = 5
+        zipTextField.layer.borderColor = UIColor.gray.cgColor
         zipTextField.translatesAutoresizingMaskIntoConstraints = false
         addSubview(zipTextField)
     }
@@ -112,7 +128,10 @@ class PostView: UIView {
         configureDatePicker(datePicker: datePickerFrom)
         dateFromButton.inputView = datePickerFrom
         dateFromButton.placeholder = "Date From"
-        dateFromButton.backgroundColor = .lightGray
+        dateFromButton.layer.borderWidth = 1
+        dateFromButton.layer.cornerRadius = 5
+        dateFromButton.layer.borderColor = UIColor.gray.cgColor
+        dateFromButton.borderStyle = .roundedRect
         dateFromButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(dateFromButton)
     }
@@ -121,7 +140,10 @@ class PostView: UIView {
         configureDatePicker(datePicker: datePickerTo)
         dateToButton.inputView = datePickerTo
         dateToButton.placeholder = "Date To"
-        dateToButton.backgroundColor = .lightGray
+        dateToButton.layer.borderWidth = 1
+        dateToButton.layer.cornerRadius = 5
+        dateToButton.borderStyle = .roundedRect
+        dateToButton.layer.borderColor = UIColor.gray.cgColor
         dateToButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(dateToButton)
     }
@@ -159,6 +181,7 @@ class PostView: UIView {
         descriptionTextView.layer.cornerRadius = 5
         descriptionTextView.text = "Description"
         descriptionTextView.textColor = .lightGray
+        descriptionTextView.font = UIFont.systemFont(ofSize: 16)
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(descriptionTextView)
     }
@@ -196,7 +219,7 @@ class PostView: UIView {
             // City TextField Constraints
             cityTextField.leadingAnchor.constraint(equalTo: addressTextField.leadingAnchor),
             cityTextField.topAnchor.constraint(equalTo: addressTextField.bottomAnchor, constant: 10),
-            cityTextField.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4),
+            cityTextField.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.25),
             cityTextField.heightAnchor.constraint(equalToConstant: 40),
 
             // State TextField Constraints
@@ -214,13 +237,13 @@ class PostView: UIView {
             // Date From Button Constraints
             dateFromButton.leadingAnchor.constraint(equalTo: addressTextField.leadingAnchor),
             dateFromButton.topAnchor.constraint(equalTo: cityTextField.bottomAnchor, constant: 10),
-            dateFromButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4),
+            dateFromButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.39),
             dateFromButton.heightAnchor.constraint(equalToConstant: 40),
 
             // Date To Button Constraints
-            dateToButton.trailingAnchor.constraint(equalTo: addressTextField.trailingAnchor),
+            dateToButton.leadingAnchor.constraint(equalTo: dateFromButton.trailingAnchor, constant: 10),
             dateToButton.topAnchor.constraint(equalTo: cityTextField.bottomAnchor, constant: 10),
-            dateToButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4),
+            dateToButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.39),
             dateToButton.heightAnchor.constraint(equalToConstant: 40),
             
             // Arrow Label Constraints
@@ -233,7 +256,7 @@ class PostView: UIView {
             descriptionTextView.centerXAnchor.constraint(equalTo: centerXAnchor),
             descriptionTextView.topAnchor.constraint(equalTo: dateFromButton.bottomAnchor, constant: 10),
             descriptionTextView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
-            descriptionTextView.heightAnchor.constraint(equalToConstant: 100), // Adjust as needed
+            descriptionTextView.heightAnchor.constraint(equalToConstant: 150), // Adjust as needed
 
             // Post Button Constraints
             postButton.centerXAnchor.constraint(equalTo: centerXAnchor),
