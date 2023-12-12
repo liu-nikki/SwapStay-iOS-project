@@ -33,12 +33,21 @@ class LoginViewController: UIViewController {
         loginScreen.loginButton.addTarget(self, action: #selector(onButtonLoginTapped), for: .touchUpInside)
         loginScreen.registerButton.addTarget(self, action: #selector(onRegisterButtonTapped), for: .touchUpInside)
         
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+        tapRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapRecognizer)
+        
         // add an observer to get rid of login screen once the user login successfully
         notificationCenter.addObserver(
             self,
             selector: #selector(dismissRegisterScreen(notification:)),
             name: .registerSuccessfully,
             object: nil)
+    }
+    
+    @objc func hideKeyboardOnTap(){
+        //MARK: removing the keyboard from screen...
+        view.endEditing(true)
     }
     
     @objc func onButtonLoginTapped(){
