@@ -45,7 +45,7 @@ class ChatsTableViewCell: UITableViewCell {
     
     func setupLabelName(){
         labelName = UILabel()
-        labelName.font = .boldSystemFont(ofSize: 14)
+        labelName.font = .boldSystemFont(ofSize: 20)
         labelName.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(labelName)
     }

@@ -98,7 +98,7 @@ class HouseListView: UIView {
             appTitle.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: -64),
             appTitle.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             
-            profilePic.topAnchor.constraint(equalTo: appTitle.bottomAnchor, constant: 16),
+            profilePic.topAnchor.constraint(equalTo: appTitle.bottomAnchor, constant: 15),
             profilePic.widthAnchor.constraint(equalToConstant: 56),
             profilePic.heightAnchor.constraint(equalToConstant: 56),
             profilePic.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),

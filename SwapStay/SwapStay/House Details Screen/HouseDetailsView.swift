@@ -84,10 +84,10 @@ class HouseDetailsView: UIView {
     func initConstraints(){
         NSLayoutConstraint.activate([
             
-            imageHouse.heightAnchor.constraint(equalToConstant: 100),
-            imageHouse.widthAnchor.constraint(equalToConstant:  100),
+            imageHouse.heightAnchor.constraint(equalToConstant: 200),
+            imageHouse.widthAnchor.constraint(equalToConstant:  200),
             
-            imageHouse.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 48),
+            imageHouse.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
             imageHouse.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
             
             labelOwner.topAnchor.constraint(equalTo: imageHouse.bottomAnchor, constant: 16),
