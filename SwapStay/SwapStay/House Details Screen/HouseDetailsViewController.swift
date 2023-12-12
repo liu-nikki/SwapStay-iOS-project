@@ -91,8 +91,10 @@ class HouseDetailsViewController: UIViewController {
         let chat = Chat(ChatId: "placeholder id", name: post.ownerName, email: post.ownerEmail, address: post.address, date: Date())
         let messagesVC = MessagesViewController()
         messagesVC.receiver = chat
-        
+        // Swtich to chat screen
         NotificationCenter.default.post(name: .switchToChatsTab, object: messagesVC)
+        // Move back to house list screen
+        self.navigationController?.popViewController(animated: false)
     }
 
 
