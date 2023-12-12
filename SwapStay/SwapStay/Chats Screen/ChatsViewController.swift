@@ -18,6 +18,7 @@ class ChatsViewController: UIViewController {
     
     var chats                = [Chat]()
     var currentUser:       User?
+    var chatsListener: ListenerRegistration?
     
     override func loadView() {
         view = chatsScreen
@@ -52,7 +53,9 @@ class ChatsViewController: UIViewController {
         // Query the 'chats' collection for chats where the current user is a participant
         database.collection("chats")
             .whereField("participants", arrayContains: currentUserEmail)
-            .getDocuments { (snapshot, error) in
+            .addSnapshotListener { [weak self] (snapshot, error) in
+                guard let self = self else { return }
+
                 if let error = error {
                     print("Error fetching chats: \(error)")
                     return
@@ -63,6 +66,8 @@ class ChatsViewController: UIViewController {
                     return
                 }
 
+                self.chats.removeAll()
+
                 for document in documents {
                     let chatData = document.data()
                     let namePoster = chatData["namePoster"] as? String ?? ""
@@ -70,27 +75,26 @@ class ChatsViewController: UIViewController {
                     let date = (chatData["date"] as? Timestamp)?.dateValue() ?? Date()
                     let participants = chatData["participants"] as? [String] ?? []
                     
-                    // Identify the other participant's email
                     let otherParticipantEmail = participants.first(where: { $0 != currentUserEmail }) ?? "Unknown"
+                    let updatedName = "\(namePoster)'s house"
                     
-                    let chat = Chat(ChatId: document.documentID, name: namePoster, email: otherParticipantEmail, address: address, date: date)
+                    let chat = Chat(ChatId: document.documentID, name: updatedName, email: otherParticipantEmail, address: address, date: date)
                     self.chats.append(chat)
-                    
-                    //test delete later
-                    print("Chat ID: \(document.documentID)")
-                    print("Name Poster: \(namePoster)")
-                    print("Address: \(address)")
-                    print("Date: \(date)")
-                    print("Participants: \(participants)")
-                    
                 }
-                
+
                 DispatchQueue.main.async {
                     self.chatsScreen.tableViewChats.reloadData()
                 }
-
             }
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        // Remove the Firestore listener
+        self.chatsListener?.remove()
+    }
+
 
 
     

@@ -205,6 +205,12 @@ class MessagesViewController: UIViewController {
         }
         // add to messagesList
         self.messagesList.append(newMessage)
+        
+        // Reload the table view on the main thread
+            DispatchQueue.main.async {
+                self.messagesScreen.tableViewMessages.reloadData()
+                self.scrollToBottom()
+            }
     }
     
     private func fetchAllMessages(chatID: String){
@@ -232,8 +238,10 @@ class MessagesViewController: UIViewController {
                     }
                 }
                 
-                self.messagesScreen.tableViewMessages.reloadData()
-                self.scrollToBottom()
+                DispatchQueue.main.async {
+                     self.messagesScreen.tableViewMessages.reloadData()
+                     self.scrollToBottom()
+                 }
         })
     }
 
@@ -273,11 +281,6 @@ class MessagesViewController: UIViewController {
         }
     }
     
-    
-
-    
-    
-
 }
 
 
