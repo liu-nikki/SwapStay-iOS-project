@@ -17,12 +17,12 @@ extension ChatsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Configs.tableViewChatsID, for: indexPath) as! ChatsTableViewCell
         let chat = chats[indexPath.row]
 
-        // Configure cell with chat details
-        cell.labelName.text = chat.name
+        // Check if chat name is the same as current user's name
+        let chatDisplayName = chat.name == currentUser?.name ? "Other Participant Name" : chat.name
+        cell.labelName.text = chatDisplayName
         cell.labelAddress.text = chat.address
         cell.labelDate.text = formatDate(chat.date)
-        
-    
+
         return cell
     }
     

@@ -48,7 +48,7 @@ class HouseDetailsViewController: UIViewController {
             houseDetailScreen.buttonBook.addTarget(self, action: #selector(deletePost), for: .touchUpInside)
         } else {
             // Current user is not the post owner, configure as Book Chat button
-            houseDetailScreen.buttonBook.setTitle("Book Chat", for: .normal)
+            houseDetailScreen.buttonBook.setTitle("Book Romm", for: .normal)
             houseDetailScreen.buttonBook.removeTarget(nil, action: nil, for: .allEvents)
             houseDetailScreen.buttonBook.addTarget(self, action: #selector(bookRoomTapped), for: .touchUpInside)
         }
