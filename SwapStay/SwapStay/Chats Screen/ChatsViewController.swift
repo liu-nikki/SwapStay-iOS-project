@@ -70,9 +70,10 @@ class ChatsViewController: UIViewController {
                     let date = (chatData["date"] as? Timestamp)?.dateValue() ?? Date()
                     let participants = chatData["participants"] as? [String] ?? []
                     
-                    //get the id of the current chat
+                    // Identify the other participant's email
+                    let otherParticipantEmail = participants.first(where: { $0 != currentUserEmail }) ?? "Unknown"
                     
-                    let chat = Chat(ChatId: document.documentID, name: namePoster, email: "participants", address: address, date: date)
+                    let chat = Chat(ChatId: document.documentID, name: namePoster, email: otherParticipantEmail, address: address, date: date)
                     self.chats.append(chat)
                     
                     //test delete later

@@ -18,7 +18,7 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource{
 
         let message = messagesList[indexPath.row]
         
-        if message.senderName == currentUser?.displayName {
+        if message.senderName == UserManager.shared.currentUser?.name {
             if let cell = tableView.dequeueReusableCell(withIdentifier: Configs.tableViewSelfMessageID, for: indexPath) as? SelfMessagesTableViewCell {
                 cell.labelSender.text = message.senderName
                 

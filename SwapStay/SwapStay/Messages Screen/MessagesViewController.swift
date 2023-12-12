@@ -12,10 +12,10 @@ import FirebaseFirestore
 class MessagesViewController: UIViewController {
 
     let messagesScreen = MessagesView()
-    let currentUser = Auth.auth().currentUser           // a variable to keep an instance of the current signed-in Firebase user.
     var handleAuth: AuthStateDidChangeListenerHandle?   // use this listener to track whether any user is signed in.
-    let database = Firestore.firestore()
+    let database = Firestore.firestore()    // a variable to keep an instance of the current signed-in Firebase user.
     
+    var currentUser:       User?
     var receiver: Chat!                                 //has info about the post, such as post ownername, email, address and date
     var currentChatID: String?
 
@@ -27,14 +27,27 @@ class MessagesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Check if the receiver and chat ID are set
-        let currentChatID = receiver.ChatId
-        
-        print("current chat id", currentChatID)
-        // Fetch messages for the existing chat
-        fetchAllMessages(chatID: currentChatID)
-        
+     
+        // Print user and receiver data
+        printCurrentUserData()
+        printReceiverData()
+        // Check for an existing chat with the receiver
+            checkForExistingChat(with: receiver) { [weak self] chatID in
+                guard let self = self else { return }
+
+                if let chatID = chatID {
+                    // An existing chat was found
+                    self.currentChatID = chatID
+                    self.fetchAllMessages(chatID: chatID)
+                    print("Existing chat found with ID: \(chatID)")
+                } else {
+                    // No existing chat found
+                    // Here, you can choose to do nothing and wait until the user sends a message
+                    // to create a new chat. Alternatively, you can initialize some UI elements or
+                    // display a message indicating that this is a new chat.
+                    print("No existing chat found with the receiver. A new chat will be created upon sending a message.")
+                }
+            }
 
     }
   
@@ -53,6 +66,8 @@ class MessagesViewController: UIViewController {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
         tapRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapRecognizer)
+        
+        let currentUserEmail = UserManager.shared.currentUser?.email
     }
     
     //MARK: Hide Keyboard...
@@ -61,33 +76,35 @@ class MessagesViewController: UIViewController {
         view.endEditing(true)
     }
 
-    
+
     private func checkForExistingChat(with receiver: Chat, completion: @escaping (String?) -> Void) {
         guard let currentUserEmail = Auth.auth().currentUser?.email else {
-            completion(nil) // Return early if currentUserEmail is not available
+            print("Current user email is not available")
+            completion(nil)
             return
         }
-        
+
+        // Querying the user's 'chats' subcollection
         database.collection("users").document(currentUserEmail).collection("chats")
             .whereField("receiverEmail", isEqualTo: receiver.email)
-            .getDocuments { snapshot, error in
+            .getDocuments { (snapshot, error) in
+             
                 if let error = error {
                     print("Error checking for existing chat: \(error)")
                     completion(nil)
                     return
                 }
 
-                if let documents = snapshot?.documents, !documents.isEmpty {
-                    // Existing chat found, return the chat ID
-                    let chatDocument = documents.first
-                    completion(chatDocument?.documentID)
+                if let documents = snapshot?.documents,
+                   let chatDocument = documents.first(where: { $0.documentID != "placeholder id" }) {
+                    // Existing chat found and it's not the placeholder, return the chat ID
+                    completion(chatDocument.documentID)
                 } else {
-                    // No existing chat found
-                    completion(nil)
+                    // No existing chat found or only placeholder is present, create a new one
+                    self.createChat(with: receiver, currentUserEmail: currentUserEmail) 
                 }
             }
     }
-
 
 
     private func createChat(with receiver: Chat, currentUserEmail: String) {
@@ -229,5 +246,39 @@ class MessagesViewController: UIViewController {
             messagesScreen.tableViewMessages.scrollToRow(at: indexPath, at: .bottom, animated: false)
         }
     }
+    
+    private func printCurrentUserData() {
+        if let user = UserManager.shared.currentUser {
+            print("Current User Data:")
+            print("ID: \(user.id ?? "nil")")
+            print("Name: \(user.name)")
+            print("Email: \(user.email)")
+            print("Profile Image URL: \(user.profileImageURL ?? "nil")")
+            print("Phone: \(user.phone)")
+            print("Address: \(user.address?.formattedAddress() ?? "nil")")
+        } else {
+            print("Current user is nil")
+        }
+    }
+    
+    private func printReceiverData() {
+        if let chat = receiver {
+            print("Receiver Data:")
+            print("Chat ID: \(chat.ChatId)")
+            print("Name: \(chat.name)")
+            print("Email: \(chat.email)")
+            print("Address: \(chat.address)")
+            print("Date: \(chat.date)")
+        } else {
+            print("Receiver is nil")
+        }
+    }
+    
+    
+
+    
+    
 
 }
+
+
