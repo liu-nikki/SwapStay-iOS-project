@@ -146,12 +146,12 @@ class ShowProfileView: UIView {
             buttonEdit.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120),
             buttonEdit.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -120),
             
-            buttonEditPassword.bottomAnchor.constraint(equalTo: buttonLogOut.topAnchor, constant: -16),
+            buttonEditPassword.topAnchor.constraint(equalTo: buttonEdit.bottomAnchor, constant: 32),
             buttonEditPassword.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             buttonEditPassword.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120),
             buttonEditPassword.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -120),
             
-            buttonLogOut.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            buttonLogOut.topAnchor.constraint(equalTo: buttonEditPassword.bottomAnchor, constant: 32),
             buttonLogOut.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             buttonLogOut.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120),
             buttonLogOut.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -120),
